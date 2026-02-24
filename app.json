@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "solana-gamefi",
-    "slug": "solana-gamefi",
+    "name": "ClashGo",
+    "slug": "clashgo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.solanagamefi"
+      "bundleIdentifier": "com.clashgo.app"
     },
     "android": {
       "adaptiveIcon": {
@@ -23,7 +23,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.solanagamefi"
+      "package": "com.clashgo.app"
     },
     "web": {
       "favicon": "./assets/favicon.png",
