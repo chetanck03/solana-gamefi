@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Alert, Animated } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, GAME_MODES, HAND_SIZE } from '../constants';
 import { Match, Card, GameMode } from '../types';
 import { useWallet } from '../context/WalletContext';
+import { useToast } from '../context/ToastContext';
 import { generateStarterDeck } from '../services/cardService';
 import { GameService } from '../services/gameService';
 
@@ -77,6 +78,7 @@ const CardComponent = ({
 
 export default function BattleScreen() {
   const wallet = useWallet();
+  const { showToast } = useToast();
   const [gameMode, setGameMode] = useState<GameMode | null>(null);
   const [isSearching, setIsSearching] = useState(false);
   const [match, setMatch] = useState<Match | null>(null);
@@ -120,7 +122,7 @@ export default function BattleScreen() {
         setIsSearching(false);
       }, 2000);
     } catch (error) {
-      Alert.alert('Error', 'Failed to create match');
+      showToast('Failed to create match', 'error');
       setIsSearching(false);
     }
   };
@@ -133,12 +135,12 @@ export default function BattleScreen() {
       : match.player2;
     
     if (player.mana < card.mana) {
-      Alert.alert('Not Enough Mana', `This card costs ${card.mana} mana`);
+      showToast(`This card costs ${card.mana} mana`, 'error');
       return;
     }
     
     if (player.field.length >= 5) {
-      Alert.alert('Field Full', 'You can only have 5 cards on the field');
+      showToast('You can only have 5 cards on the field', 'error');
       return;
     }
     
@@ -178,11 +180,12 @@ export default function BattleScreen() {
     
     const winner = gameService.checkWinner(updatedMatch);
     if (winner) {
-      Alert.alert(
-        'Match Complete!',
-        winner === wallet.publicKey?.toBase58() ? 'You Won!' : 'You Lost!',
-        [{ text: 'OK', onPress: () => resetMatch() }]
+      const isWinner = winner === wallet.publicKey?.toBase58();
+      showToast(
+        isWinner ? 'You Won! 🎉' : 'You Lost!',
+        isWinner ? 'success' : 'error'
       );
+      setTimeout(() => resetMatch(), 2000);
       return;
     }
     

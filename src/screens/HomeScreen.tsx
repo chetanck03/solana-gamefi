@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import * as Clipboard from 'expo-clipboard';
 import { useWallet } from '../context/WalletContext';
+import { useToast } from '../context/ToastContext';
 import { COLORS } from '../constants';
 import { PlayerProfile } from '../types';
 import { generateStarterDeck } from '../services/cardService';
 
 export default function HomeScreen({ navigation }: any) {
   const wallet = useWallet();
+  const { showToast } = useToast();
   const [profile, setProfile] = useState<PlayerProfile | null>(null);
   const [balance, setBalance] = useState<number | null>(null);
 
   const handleConnect = async () => {
     try {
       await wallet.connect();
-      Alert.alert('Success', 'Wallet connected!');
+      showToast('Wallet connected successfully!', 'success');
     } catch (error: any) {
-      Alert.alert('Connection Failed', error.message);
+      showToast(error.message || 'Failed to connect wallet', 'error');
     }
   };
 
@@ -24,6 +27,18 @@ export default function HomeScreen({ navigation }: any) {
     wallet.disconnect();
     setProfile(null);
     setBalance(null);
+    showToast('Wallet disconnected', 'info');
+  };
+
+  const copyWalletAddress = async () => {
+    if (wallet.publicKey) {
+      await Clipboard.setStringAsync(wallet.publicKey.toBase58());
+      showToast('Wallet address copied!', 'success');
+    }
+  };
+
+  const shortenAddress = (address: string) => {
+    return `${address.slice(0, 4)}...${address.slice(-4)}`;
   };
 
   useEffect(() => {
@@ -163,125 +178,244 @@ export default function HomeScreen({ navigation }: any) {
       <ScrollView className="flex-1">
         <View className="p-5">
           
-          {/* Header */}
+          {/* Header with Wallet Info */}
           <View className="mb-5">
-            <Text className="text-white text-2xl font-bold">
-              Hey, {profile?.username.split('_')[1]}!
-            </Text>
-            <Text className="text-gray-400 text-sm mt-1">
-              Level {profile?.level} • {profile?.xp} XP
-            </Text>
+            <View className="flex-row items-center justify-between mb-4">
+              <View>
+                <Text className="text-white text-2xl font-bold">
+                  Hey, {profile?.username.split('_')[1]}!
+                </Text>
+                <Text className="text-gray-400 text-sm mt-1">
+                  Level {profile?.level} • {profile?.xp} XP
+                </Text>
+              </View>
+              <TouchableOpacity
+                onPress={handleDisconnect}
+                activeOpacity={0.7}
+                className="bg-[#1a1a2e] rounded-lg p-2.5 border-2 border-[#FF6B6B]/40"
+                style={{
+                  shadowColor: '#FF6B6B',
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.4,
+                  shadowRadius: 4,
+                  elevation: 3,
+                }}>
+                <Ionicons name="log-out" size={22} color="#FF6B6B" />
+              </TouchableOpacity>
+            </View>
+
+            {/* Wallet Address Card - Game Style */}
+            <TouchableOpacity
+              onPress={copyWalletAddress}
+              activeOpacity={0.7}
+              className="bg-[#1a1a2e] rounded-xl p-3 border-2 border-[#9945FF]/30 flex-row items-center justify-between"
+              style={{
+                shadowColor: '#9945FF',
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.3,
+                shadowRadius: 6,
+                elevation: 4,
+              }}>
+              <View className="flex-row items-center flex-1">
+                <View className="w-9 h-9 bg-[#9945FF] rounded-lg items-center justify-center mr-3">
+                  <Ionicons name="wallet" size={22} color="#fff" />
+                </View>
+                <View className="flex-1">
+                  <Text className="text-[#9945FF] text-xs font-bold uppercase tracking-wider mb-0.5">Wallet</Text>
+                  <Text className="text-white font-mono text-sm font-semibold">
+                    {wallet.publicKey ? shortenAddress(wallet.publicKey.toBase58()) : ''}
+                  </Text>
+                </View>
+              </View>
+              <View className="bg-[#9945FF] rounded-lg p-2">
+                <Ionicons name="copy" size={16} color="#fff" />
+              </View>
+            </TouchableOpacity>
           </View>
 
-        {/* Balance Card */}
-        <View className="bg-gradient-to-br from-[#9945FF] to-[#7d3acc] rounded-2xl p-5 mb-5"
+        {/* Balance Card - Game Style */}
+        <View className="relative bg-[#1a1a2e] rounded-2xl p-5 mb-5 border-2 border-[#9945FF]/40 overflow-hidden"
           style={{
             shadowColor: '#9945FF',
-            shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 0.3,
-            shadowRadius: 8,
-            elevation: 5,
+            shadowOffset: { width: 0, height: 8 },
+            shadowOpacity: 0.5,
+            shadowRadius: 12,
+            elevation: 8,
           }}>
-          <Text className="text-white/80 text-sm mb-1">Your Balance</Text>
-          <Text className="text-white text-3xl font-black mb-3">
-            {balance?.toFixed(4) || '0.0000'} SOL
-          </Text>
-          <View className="flex-row items-center justify-between">
-            <View>
-              <Text className="text-white/60 text-xs">Win Rate</Text>
-              <Text className="text-white text-lg font-bold">
-                {profile && profile.totalMatches > 0
-                  ? Math.round((profile.wins / profile.totalMatches) * 100)
-                  : 0}%
-              </Text>
+          {/* Gradient Overlay */}
+          <View className="absolute inset-0 bg-gradient-to-br from-[#9945FF]/20 to-transparent" />
+          
+          {/* Content */}
+          <View className="relative">
+            <View className="flex-row items-start justify-between mb-5">
+              <View className="flex-1">
+                <Text className="text-[#9945FF] text-xs font-bold uppercase tracking-widest mb-2">
+                  Total Balance
+                </Text>
+                <View className="flex-row items-baseline">
+                  <Text className="text-white text-5xl font-black tracking-tight">
+                    {balance?.toFixed(4) || '0.0000'}
+                  </Text>
+                </View>
+                <Text className="text-white text-base font-bold mt-1 tracking-wide">SOL</Text>
+              </View>
+              <View className="w-14 h-14 bg-[#9945FF] rounded-xl items-center justify-center"
+                style={{
+                  shadowColor: '#9945FF',
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.6,
+                  shadowRadius: 8,
+                  elevation: 6,
+                }}>
+                <Ionicons name="wallet" size={36} color="#fff" />
+              </View>
             </View>
-            <View>
-              <Text className="text-white/60 text-xs">Streak</Text>
-              <Text className="text-white text-lg font-bold">
-                {profile?.currentStreak || 0} 🔥
-              </Text>
-            </View>
-            <View>
-              <Text className="text-white/60 text-xs">Matches</Text>
-              <Text className="text-white text-lg font-bold">
-                {profile?.totalMatches || 0}
-              </Text>
+            
+            {/* Stats Row */}
+            <View className="flex-row bg-[#0f0f1e]/60 rounded-xl p-3 border border-[#2a2a3e]">
+              <View className="flex-1 items-center">
+                <Text className="text-gray-400 text-xs font-semibold mb-1">Win Rate</Text>
+                <Text className="text-[#14F195] text-xl font-black">
+                  {profile && profile.totalMatches > 0
+                    ? Math.round((profile.wins / profile.totalMatches) * 100)
+                    : 0}%
+                </Text>
+              </View>
+              <View className="w-px bg-[#2a2a3e] mx-2" />
+              <View className="flex-1 items-center">
+                <Text className="text-gray-400 text-xs font-semibold mb-1">Streak</Text>
+                <View className="flex-row items-center">
+                  <Text className="text-[#FF6B6B] text-xl font-black mr-1">
+                    {profile?.currentStreak || 0}
+                  </Text>
+                  <Ionicons name="flame" size={18} color="#FF6B6B" />
+                </View>
+              </View>
+              <View className="w-px bg-[#2a2a3e] mx-2" />
+              <View className="flex-1 items-center">
+                <Text className="text-gray-400 text-xs font-semibold mb-1">Battles</Text>
+                <Text className="text-white text-xl font-black">
+                  {profile?.totalMatches || 0}
+                </Text>
+              </View>
             </View>
           </View>
         </View>
 
-        {/* Main Action */}
+        {/* Main Action - Enhanced */}
         <TouchableOpacity
           onPress={() => navigation.navigate('Battle')}
-          className="bg-[#14F195] rounded-xl py-5 mb-5"
+          className="bg-[#14F195] rounded-2xl py-6 mb-5"
           style={{
             shadowColor: '#14F195',
-            shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 0.4,
-            shadowRadius: 8,
-            elevation: 5,
+            shadowOffset: { width: 0, height: 6 },
+            shadowOpacity: 0.5,
+            shadowRadius: 10,
+            elevation: 8,
           }}>
           <View className="flex-row items-center justify-center">
-            <Ionicons name="game-controller" size={28} color="#000" />
-            <Text className="text-black text-xl font-black ml-3">
+            <View className="w-12 h-12 bg-black/10 rounded-full items-center justify-center mr-3">
+              <Ionicons name="game-controller" size={24} color="#000" />
+            </View>
+            <Text className="text-black text-2xl font-black tracking-wide">
               START BATTLE
             </Text>
           </View>
         </TouchableOpacity>
 
-        {/* Quick Actions */}
+        {/* Quick Actions - Enhanced */}
         <View className="flex-row mb-5" style={{ gap: 12 }}>
           <TouchableOpacity
             onPress={() => navigation.navigate('Collection')}
-            className="flex-1 bg-[#1a1a2e] rounded-xl p-4 border border-[#2a2a3e]">
-            <Ionicons name="albums" size={32} color="#9945FF" />
-            <Text className="text-white font-bold mt-2">Cards</Text>
-            <Text className="text-gray-400 text-xs">{profile?.deck.length || 0} owned</Text>
+            className="flex-1 bg-[#1a1a2e] rounded-2xl p-5 border border-[#2a2a3e]"
+            style={{
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.2,
+              shadowRadius: 4,
+              elevation: 3,
+            }}>
+            <View className="w-12 h-12 bg-[#9945FF]/20 rounded-xl items-center justify-center mb-3">
+              <Ionicons name="albums-outline" size={24} color="#9945FF" />
+            </View>
+            <Text className="text-white font-bold text-base">Cards</Text>
+            <Text className="text-gray-400 text-xs mt-1">{profile?.deck.length || 0} owned</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => navigation.navigate('Shop')}
-            className="flex-1 bg-[#1a1a2e] rounded-xl p-4 border border-[#2a2a3e]">
-            <Ionicons name="cart" size={32} color="#14F195" />
-            <Text className="text-white font-bold mt-2">Shop</Text>
-            <Text className="text-gray-400 text-xs">Buy packs</Text>
+            className="flex-1 bg-[#1a1a2e] rounded-2xl p-5 border border-[#2a2a3e]"
+            style={{
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.2,
+              shadowRadius: 4,
+              elevation: 3,
+            }}>
+            <View className="w-12 h-12 bg-[#14F195]/20 rounded-xl items-center justify-center mb-3">
+              <Ionicons name="cart-outline" size={24} color="#14F195" />
+            </View>
+            <Text className="text-white font-bold text-base">Shop</Text>
+            <Text className="text-gray-400 text-xs mt-1">Buy packs</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => navigation.navigate('Leaderboard')}
-            className="flex-1 bg-[#1a1a2e] rounded-xl p-4 border border-[#2a2a3e]">
-            <Ionicons name="trophy" size={32} color="#FFD700" />
-            <Text className="text-white font-bold mt-2">Ranks</Text>
-            <Text className="text-gray-400 text-xs">Top 100</Text>
+            className="flex-1 bg-[#1a1a2e] rounded-2xl p-5 border border-[#2a2a3e]"
+            style={{
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.2,
+              shadowRadius: 4,
+              elevation: 3,
+            }}>
+            <View className="w-12 h-12 bg-[#FFD700]/20 rounded-xl items-center justify-center mb-3">
+              <Ionicons name="trophy-outline" size={24} color="#FFD700" />
+            </View>
+            <Text className="text-white font-bold text-base">Ranks</Text>
+            <Text className="text-gray-400 text-xs mt-1">Top 100</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Stats */}
-        <View className="bg-[#1a1a2e] rounded-xl p-5 border border-[#2a2a3e]">
-          <Text className="text-white font-bold text-lg mb-4">Your Stats</Text>
+        {/* Stats - Enhanced */}
+        <View className="bg-[#1a1a2e] rounded-2xl p-6 border border-[#2a2a3e] mb-5"
+          style={{
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.2,
+            shadowRadius: 4,
+            elevation: 3,
+          }}>
+          <Text className="text-white font-bold text-xl mb-5">Your Stats</Text>
           
           {profile && profile.totalMatches > 0 ? (
             <View className="flex-row justify-between">
-              <View className="items-center">
-                <Text className="text-[#14F195] text-2xl font-bold">{profile.wins}</Text>
-                <Text className="text-gray-400 text-xs mt-1">Wins</Text>
+              <View className="items-center flex-1">
+                <View className="w-16 h-16 bg-[#14F195]/20 rounded-2xl items-center justify-center mb-2">
+                  <Text className="text-[#14F195] text-2xl font-black">{profile.wins}</Text>
+                </View>
+                <Text className="text-gray-400 text-xs">Wins</Text>
               </View>
-              <View className="w-px bg-[#2a2a3e]" />
-              <View className="items-center">
-                <Text className="text-[#FF6B6B] text-2xl font-bold">{profile.losses}</Text>
-                <Text className="text-gray-400 text-xs mt-1">Losses</Text>
+              <View className="items-center flex-1">
+                <View className="w-16 h-16 bg-[#FF6B6B]/20 rounded-2xl items-center justify-center mb-2">
+                  <Text className="text-[#FF6B6B] text-2xl font-black">{profile.losses}</Text>
+                </View>
+                <Text className="text-gray-400 text-xs">Losses</Text>
               </View>
-              <View className="w-px bg-[#2a2a3e]" />
-              <View className="items-center">
-                <Text className="text-gray-400 text-2xl font-bold">{profile.draws}</Text>
-                <Text className="text-gray-400 text-xs mt-1">Draws</Text>
+              <View className="items-center flex-1">
+                <View className="w-16 h-16 bg-gray-500/20 rounded-2xl items-center justify-center mb-2">
+                  <Text className="text-gray-400 text-2xl font-black">{profile.draws}</Text>
+                </View>
+                <Text className="text-gray-400 text-xs">Draws</Text>
               </View>
             </View>
           ) : (
-            <View className="items-center py-6">
-              <Ionicons name="game-controller-outline" size={48} color="#444" />
-              <Text className="text-gray-400 text-center mt-3">No matches yet</Text>
-              <Text className="text-gray-500 text-xs mt-1">Start your first battle!</Text>
+            <View className="items-center py-8">
+              <View className="w-20 h-20 bg-[#2a2a3e] rounded-full items-center justify-center mb-4">
+                <Ionicons name="game-controller-outline" size={40} color="#555" />
+              </View>
+              <Text className="text-gray-400 text-center text-base font-semibold">No matches yet</Text>
+              <Text className="text-gray-500 text-xs mt-2">Start your first battle!</Text>
             </View>
           )}
         </View>

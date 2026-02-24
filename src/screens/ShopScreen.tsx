@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../constants';
 import { useWallet } from '../context/WalletContext';
+import { useToast } from '../context/ToastContext';
 import { generateCard } from '../services/cardService';
 import { CardType } from '../types';
 
@@ -44,11 +45,12 @@ const CARD_PACKS: CardPack[] = [
 
 export default function ShopScreen() {
   const wallet = useWallet();
+  const { showToast } = useToast();
   const [purchasing, setPurchasing] = useState(false);
 
   const handlePurchase = async (pack: CardPack) => {
     if (!wallet.connected) {
-      Alert.alert('Wallet Not Connected', 'Please connect your wallet first');
+      showToast('Please connect your wallet first', 'error');
       return;
     }
 
@@ -62,13 +64,9 @@ export default function ShopScreen() {
       // Simulate purchase
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      Alert.alert(
-        'Purchase Successful!',
-        `You received ${pack.cardCount} new cards!`,
-        [{ text: 'OK' }]
-      );
+      showToast(`You received ${pack.cardCount} new cards!`, 'success');
     } catch (error) {
-      Alert.alert('Purchase Failed', 'Please try again');
+      showToast('Purchase failed. Please try again', 'error');
     } finally {
       setPurchasing(false);
     }
