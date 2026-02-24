@@ -75,8 +75,8 @@ export default function ShopScreen() {
   return (
     <ScrollView className="flex-1 bg-[#0a0a1a]">
       <View className="p-6">
-        <Text className="text-3xl font-bold text-white mb-2">Card Shop</Text>
-        <Text className="text-[#888] mb-6">Purchase card packs to expand your collection</Text>
+        <Text style={{ fontFamily: 'Bangers' }} className="text-3xl font-bold text-white mb-2">Card Shop</Text>
+        <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] mb-6">Purchase card packs to expand your collection</Text>
 
         {/* Card Packs */}
         {CARD_PACKS.map((pack) => (
@@ -86,8 +86,8 @@ export default function ShopScreen() {
           >
             <View className="flex-row items-center justify-between mb-3">
               <View>
-                <Text className="text-white text-2xl font-bold">{pack.name}</Text>
-                <Text className="text-[#888] mt-1">{pack.description}</Text>
+                <Text style={{ fontFamily: 'Bangers' }} className="text-white text-2xl font-bold">{pack.name}</Text>
+                <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] mt-1">{pack.description}</Text>
               </View>
               <Ionicons name="cube" size={48} color={COLORS.primary} />
             </View>
@@ -95,11 +95,11 @@ export default function ShopScreen() {
             <View className="flex-row items-center justify-between mb-4">
               <View className="flex-row items-center">
                 <Ionicons name="albums" size={20} color="#888" />
-                <Text className="text-white ml-2">{pack.cardCount} cards</Text>
+                <Text style={{ fontFamily: 'Bangers' }} className="text-white ml-2">{pack.cardCount} cards</Text>
               </View>
               
               <View className="bg-[#9945FF] rounded-full px-4 py-2">
-                <Text className="text-white font-bold">{pack.price} SOL</Text>
+                <Text style={{ fontFamily: 'Bangers' }} className="text-white font-bold">{pack.price} SOL</Text>
               </View>
             </View>
 
@@ -108,7 +108,7 @@ export default function ShopScreen() {
               onPress={() => handlePurchase(pack)}
               disabled={purchasing}
             >
-              <Text className="text-black text-center font-bold text-lg">
+              <Text style={{ fontFamily: 'Bangers' }} className="text-black text-center font-bold text-lg">
                 {purchasing ? 'Processing...' : 'Purchase Pack'}
               </Text>
             </TouchableOpacity>
@@ -119,34 +119,34 @@ export default function ShopScreen() {
         <View className="bg-[#1a1a2e] rounded-xl p-6 border border-[#2a2a3e] mt-4">
           <View className="flex-row items-center mb-4">
             <Ionicons name="information-circle" size={24} color={COLORS.primary} />
-            <Text className="text-white text-xl font-bold ml-2">How It Works</Text>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl font-bold ml-2">How It Works</Text>
           </View>
 
           <View className="mb-3">
             <View className="flex-row items-start mb-2">
               <Ionicons name="checkmark-circle" size={20} color={COLORS.success} />
-              <Text className="text-[#888] ml-2 flex-1">
+              <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] ml-2 flex-1">
                 Each pack contains random cards of varying rarities
               </Text>
             </View>
             
             <View className="flex-row items-start mb-2">
               <Ionicons name="checkmark-circle" size={20} color={COLORS.success} />
-              <Text className="text-[#888] ml-2 flex-1">
+              <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] ml-2 flex-1">
                 Higher tier packs guarantee better cards
               </Text>
             </View>
             
             <View className="flex-row items-start mb-2">
               <Ionicons name="checkmark-circle" size={20} color={COLORS.success} />
-              <Text className="text-[#888] ml-2 flex-1">
+              <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] ml-2 flex-1">
                 All purchases are on-chain and verifiable
               </Text>
             </View>
             
             <View className="flex-row items-start">
               <Ionicons name="checkmark-circle" size={20} color={COLORS.success} />
-              <Text className="text-[#888] ml-2 flex-1">
+              <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] ml-2 flex-1">
                 Cards are NFTs that you truly own
               </Text>
             </View>
@@ -155,27 +155,27 @@ export default function ShopScreen() {
 
         {/* Rarity Guide */}
         <View className="bg-[#1a1a2e] rounded-xl p-6 border border-[#2a2a3e] mt-4">
-          <Text className="text-white text-xl font-bold mb-4">Rarity Guide</Text>
+          <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl font-bold mb-4">Rarity Guide</Text>
           
           <View className="space-y-3">
             <View className="flex-row items-center justify-between mb-2">
-              <Text className="text-[#888888]">Common</Text>
-              <Text className="text-[#888888]">60% drop rate</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-[#888888]">Common</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-[#888888]">60% drop rate</Text>
             </View>
             
             <View className="flex-row items-center justify-between mb-2">
-              <Text className="text-[#4ECDC4]">Rare</Text>
-              <Text className="text-[#4ECDC4]">25% drop rate</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-[#4ECDC4]">Rare</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-[#4ECDC4]">25% drop rate</Text>
             </View>
             
             <View className="flex-row items-center justify-between mb-2">
-              <Text className="text-[#9945FF]">Epic</Text>
-              <Text className="text-[#9945FF]">12% drop rate</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-[#9945FF]">Epic</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-[#9945FF]">12% drop rate</Text>
             </View>
             
             <View className="flex-row items-center justify-between">
-              <Text className="text-[#FFD700]">Legendary</Text>
-              <Text className="text-[#FFD700]">3% drop rate</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-[#FFD700]">Legendary</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-[#FFD700]">3% drop rate</Text>
             </View>
           </View>
         </View>

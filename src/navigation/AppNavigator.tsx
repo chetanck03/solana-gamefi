@@ -35,6 +35,7 @@ function TabNavigator() {
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '600',
+          fontFamily: 'Bangers',
         },
       })}
     >

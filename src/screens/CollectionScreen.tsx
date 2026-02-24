@@ -47,8 +47,8 @@ export default function CollectionScreen() {
     return (
       <View className="flex-1 bg-[#0a0a1a] items-center justify-center p-6">
         <Ionicons name="albums" size={64} color="#888" />
-        <Text className="text-white text-xl font-bold mt-4">Connect Wallet</Text>
-        <Text className="text-[#888] text-center mt-2">
+        <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl font-bold mt-4">Connect Wallet</Text>
+        <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] text-center mt-2">
           Connect your wallet to view your card collection
         </Text>
       </View>
@@ -58,8 +58,8 @@ export default function CollectionScreen() {
   return (
     <View className="flex-1 bg-[#0a0a1a]">
       <View className="p-6">
-        <Text className="text-3xl font-bold text-white mb-2">My Collection</Text>
-        <Text className="text-[#888] mb-6">{cards.length} cards total</Text>
+        <Text style={{ fontFamily: 'Bangers' }} className="text-3xl font-bold text-white mb-2">My Collection</Text>
+        <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] mb-6">{cards.length} cards total</Text>
 
         {/* Filters */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-4">
@@ -69,7 +69,7 @@ export default function CollectionScreen() {
             }`}
             onPress={() => setFilter('all')}
           >
-            <Text className="text-white font-bold">All</Text>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white font-bold">All</Text>
           </TouchableOpacity>
           
           {(['warrior', 'mage', 'archer', 'tank', 'assassin'] as CardType[]).map(type => (
@@ -80,7 +80,7 @@ export default function CollectionScreen() {
               }`}
               onPress={() => setFilter(type)}
             >
-              <Text className="text-white font-bold capitalize">{type}</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-white font-bold capitalize">{type}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -93,7 +93,7 @@ export default function CollectionScreen() {
             }`}
             onPress={() => setSortBy('rarity')}
           >
-            <Text className="text-white text-center text-sm">Rarity</Text>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white text-center text-sm">Rarity</Text>
           </TouchableOpacity>
           
           <TouchableOpacity
@@ -102,7 +102,7 @@ export default function CollectionScreen() {
             }`}
             onPress={() => setSortBy('attack')}
           >
-            <Text className="text-white text-center text-sm">Attack</Text>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white text-center text-sm">Attack</Text>
           </TouchableOpacity>
           
           <TouchableOpacity
@@ -111,7 +111,7 @@ export default function CollectionScreen() {
             }`}
             onPress={() => setSortBy('name')}
           >
-            <Text className="text-white text-center text-sm">Name</Text>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white text-center text-sm">Name</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -136,11 +136,11 @@ export default function CollectionScreen() {
                 />
               </View>
               
-              <Text className="text-white font-bold text-center mb-1" numberOfLines={1}>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-white font-bold text-center mb-1" numberOfLines={1}>
                 {card.name}
               </Text>
               
-              <Text 
+              <Text style={{ fontFamily: 'Bangers' }} 
                 className="text-xs text-center mb-3 capitalize"
                 style={{ color: CARD_RARITIES[card.rarity].color }}
               >
@@ -150,22 +150,22 @@ export default function CollectionScreen() {
               <View className="flex-row justify-between mb-1">
                 <View className="flex-row items-center">
                   <Ionicons name="flash" size={14} color="#FF6B6B" />
-                  <Text className="text-white text-xs ml-1">{card.attack}</Text>
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xs ml-1">{card.attack}</Text>
                 </View>
                 <View className="flex-row items-center">
                   <Ionicons name="shield" size={14} color="#4ECDC4" />
-                  <Text className="text-white text-xs ml-1">{card.defense}</Text>
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xs ml-1">{card.defense}</Text>
                 </View>
               </View>
               
               <View className="flex-row justify-between">
                 <View className="flex-row items-center">
                   <Ionicons name="heart" size={14} color="#FF4444" />
-                  <Text className="text-white text-xs ml-1">{card.health}</Text>
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xs ml-1">{card.health}</Text>
                 </View>
                 <View className="flex-row items-center">
                   <Ionicons name="water" size={14} color="#14F195" />
-                  <Text className="text-white text-xs ml-1">{card.mana}</Text>
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xs ml-1">{card.mana}</Text>
                 </View>
               </View>
             </View>

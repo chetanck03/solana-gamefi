@@ -104,7 +104,7 @@ export default function Toast({ visible, message, type = 'success', onHide }: To
         >
           <Ionicons name={config.icon} size={28} color={config.color} />
         </View>
-        <Text className="text-white font-semibold text-base flex-1">
+        <Text style={{ fontFamily: 'Bangers' }} className="text-white font-semibold text-base flex-1">
           {message}
         </Text>
       </View>

@@ -47,29 +47,29 @@ const CardComponent = ({
         <Ionicons name={typeIcons[card.type] as any} size={32} color={rarityColors[card.rarity]} />
       </View>
       
-      <Text className="text-white font-bold text-sm text-center mb-1" numberOfLines={1}>
+      <Text style={{ fontFamily: 'Bangers' }} className="text-white font-bold text-sm text-center mb-1" numberOfLines={1}>
         {card.name}
       </Text>
       
       <View className="flex-row justify-between mb-1">
         <View className="flex-row items-center">
           <Ionicons name="flash" size={12} color="#FF6B6B" />
-          <Text className="text-white text-xs ml-1">{card.attack}</Text>
+          <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xs ml-1">{card.attack}</Text>
         </View>
         <View className="flex-row items-center">
           <Ionicons name="shield" size={12} color="#4ECDC4" />
-          <Text className="text-white text-xs ml-1">{card.defense}</Text>
+          <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xs ml-1">{card.defense}</Text>
         </View>
       </View>
       
       <View className="flex-row justify-between">
         <View className="flex-row items-center">
           <Ionicons name="heart" size={12} color="#FF4444" />
-          <Text className="text-white text-xs ml-1">{card.health}</Text>
+          <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xs ml-1">{card.health}</Text>
         </View>
         <View className="flex-row items-center">
           <Ionicons name="water" size={12} color="#14F195" />
-          <Text className="text-white text-xs ml-1">{card.mana}</Text>
+          <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xs ml-1">{card.mana}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -211,8 +211,8 @@ export default function BattleScreen() {
     return (
       <View className="flex-1 bg-[#0a0a1a] items-center justify-center p-6">
         <Ionicons name="wallet" size={64} color={COLORS.primary} />
-        <Text className="text-white text-xl font-bold mt-4">Connect Wallet</Text>
-        <Text className="text-[#888] text-center mt-2">
+        <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl font-bold mt-4">Connect Wallet</Text>
+        <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] text-center mt-2">
           Connect your wallet to start battling
         </Text>
       </View>
@@ -223,8 +223,8 @@ export default function BattleScreen() {
     return (
       <ScrollView className="flex-1 bg-[#0a0a1a] p-6">
         <View className="mb-6">
-          <Text className="text-3xl font-bold text-white mb-2">Choose Game Mode</Text>
-          <Text className="text-[#888]">Select your battle type</Text>
+          <Text style={{ fontFamily: 'Bangers' }} className="text-3xl font-bold text-white mb-2">Choose Game Mode</Text>
+          <Text style={{ fontFamily: 'Bangers' }} className="text-[#888]">Select your battle type</Text>
         </View>
 
         {Object.entries(GAME_MODES).map(([key, mode]) => (
@@ -234,17 +234,17 @@ export default function BattleScreen() {
             onPress={() => startMatchmaking(key as GameMode)}
           >
             <View className="flex-row items-center justify-between mb-2">
-              <Text className="text-white text-xl font-bold">{mode.name}</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl font-bold">{mode.name}</Text>
               {mode.entryFee > 0 && (
                 <View className="bg-[#9945FF] rounded-full px-3 py-1">
-                  <Text className="text-white font-bold">{mode.entryFee} SOL</Text>
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-white font-bold">{mode.entryFee} SOL</Text>
                 </View>
               )}
             </View>
-            <Text className="text-[#888] mb-2">{mode.description}</Text>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] mb-2">{mode.description}</Text>
             <View className="flex-row items-center">
               <Ionicons name="time" size={16} color="#888" />
-              <Text className="text-[#888] ml-2">{mode.duration / 60} minutes</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] ml-2">{mode.duration / 60} minutes</Text>
             </View>
           </TouchableOpacity>
         ))}
@@ -256,8 +256,8 @@ export default function BattleScreen() {
     return (
       <View className="flex-1 bg-[#0a0a1a] items-center justify-center p-6">
         <Ionicons name="search" size={64} color={COLORS.primary} />
-        <Text className="text-2xl font-bold text-white mt-4 mb-2">Finding Opponent...</Text>
-        <Text className="text-[#888] text-center">This may take a few seconds</Text>
+        <Text style={{ fontFamily: 'Bangers' }} className="text-2xl font-bold text-white mt-4 mb-2">Finding Opponent...</Text>
+        <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] text-center">This may take a few seconds</Text>
       </View>
     );
   }
@@ -273,12 +273,12 @@ export default function BattleScreen() {
         {/* Opponent Area */}
         <View className="bg-[#1a1a2e] p-4 border-b border-[#2a2a3e]">
           <View className="flex-row justify-between items-center mb-2">
-            <Text className="text-white font-bold">{opponent.username}</Text>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white font-bold">{opponent.username}</Text>
             <View className="flex-row items-center">
               <Ionicons name="heart" size={16} color="#FF4444" />
-              <Text className="text-white ml-1">{opponent.health}</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-white ml-1">{opponent.health}</Text>
               <Ionicons name="water" size={16} color="#14F195" className="ml-3" />
-              <Text className="text-white ml-1">{opponent.mana}</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-white ml-1">{opponent.mana}</Text>
             </View>
           </View>
           
@@ -296,8 +296,8 @@ export default function BattleScreen() {
 
         {/* Battle Info */}
         <View className="bg-[#0a0a1a] p-4 items-center">
-          <Text className="text-[#888] text-sm">Turn {match.turnNumber}</Text>
-          <Text className={`text-xl font-bold ${isMyTurn ? 'text-[#14F195]' : 'text-[#888]'}`}>
+          <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] text-sm">Turn {match.turnNumber}</Text>
+          <Text style={{ fontFamily: 'Bangers' }} className={`text-xl font-bold ${isMyTurn ? 'text-[#14F195]' : 'text-[#888]'}`}>
             {isMyTurn ? 'Your Turn' : "Opponent's Turn"}
           </Text>
         </View>
@@ -317,12 +317,12 @@ export default function BattleScreen() {
           </ScrollView>
 
           <View className="flex-row justify-between items-center mb-2">
-            <Text className="text-white font-bold">{player.username}</Text>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white font-bold">{player.username}</Text>
             <View className="flex-row items-center">
               <Ionicons name="heart" size={16} color="#FF4444" />
-              <Text className="text-white ml-1">{player.health}</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-white ml-1">{player.health}</Text>
               <Ionicons name="water" size={16} color="#14F195" className="ml-3" />
-              <Text className="text-white ml-1">{player.mana}</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-white ml-1">{player.mana}</Text>
             </View>
           </View>
 
@@ -346,7 +346,7 @@ export default function BattleScreen() {
                 className="flex-1 bg-[#FF4444] rounded-xl p-4"
                 onPress={() => handleAttack()}
               >
-                <Text className="text-white text-center font-bold">Attack Player</Text>
+                <Text style={{ fontFamily: 'Bangers' }} className="text-white text-center font-bold">Attack Player</Text>
               </TouchableOpacity>
             )}
             
@@ -355,7 +355,7 @@ export default function BattleScreen() {
               onPress={handleEndTurn}
               disabled={!isMyTurn}
             >
-              <Text className="text-white text-center font-bold">End Turn</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-white text-center font-bold">End Turn</Text>
             </TouchableOpacity>
           </View>
         </View>

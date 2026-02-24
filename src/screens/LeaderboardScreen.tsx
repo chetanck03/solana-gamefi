@@ -51,12 +51,12 @@ export default function LeaderboardScreen() {
     <View className="flex-1 bg-[#0a0a1a]">
       <View className="p-6">
         <View className="flex-row items-center justify-between mb-2">
-          <Text className="text-3xl font-bold text-white">Leaderboard</Text>
+          <Text style={{ fontFamily: 'Bangers' }} className="text-3xl font-bold text-white">Leaderboard</Text>
           <TouchableOpacity onPress={onRefresh}>
             <Ionicons name="refresh" size={24} color={COLORS.primary} />
           </TouchableOpacity>
         </View>
-        <Text className="text-[#888] mb-6">Top players this {timeframe.replace('-', ' ')}</Text>
+        <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] mb-6">Top players this {timeframe.replace('-', ' ')}</Text>
 
         {/* Timeframe Selector */}
         <View className="flex-row gap-2 mb-6">
@@ -66,7 +66,7 @@ export default function LeaderboardScreen() {
             }`}
             onPress={() => setTimeframe('daily')}
           >
-            <Text className="text-white text-center font-bold">Daily</Text>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white text-center font-bold">Daily</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -75,7 +75,7 @@ export default function LeaderboardScreen() {
             }`}
             onPress={() => setTimeframe('weekly')}
           >
-            <Text className="text-white text-center font-bold">Weekly</Text>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white text-center font-bold">Weekly</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -84,7 +84,7 @@ export default function LeaderboardScreen() {
             }`}
             onPress={() => setTimeframe('all-time')}
           >
-            <Text className="text-white text-center font-bold">All Time</Text>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white text-center font-bold">All Time</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -98,13 +98,13 @@ export default function LeaderboardScreen() {
         {loading ? (
           <View className="items-center py-12">
             <Ionicons name="hourglass" size={48} color="#888" />
-            <Text className="text-[#888] mt-4">Loading leaderboard...</Text>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] mt-4">Loading leaderboard...</Text>
           </View>
         ) : leaderboard.length === 0 ? (
           <View className="items-center py-12">
             <Ionicons name="people" size={64} color="#888" />
-            <Text className="text-white text-xl font-bold mt-4">No Players Yet</Text>
-            <Text className="text-[#888] text-center mt-2">
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl font-bold mt-4">No Players Yet</Text>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] text-center mt-2">
               Be the first to compete and claim the top spot!
             </Text>
           </View>
@@ -129,12 +129,12 @@ export default function LeaderboardScreen() {
                         size={32} 
                         color={rankIcon.color} 
                       />
-                      <Text className="text-white font-bold text-xs mt-1">#{entry.rank}</Text>
+                      <Text style={{ fontFamily: 'Bangers' }} className="text-white font-bold text-xs mt-1">#{entry.rank}</Text>
                     </View>
                     
                     <View className="flex-1">
-                      <Text className="text-white font-bold text-lg">{entry.username}</Text>
-                      <Text className="text-[#888] text-xs">
+                      <Text style={{ fontFamily: 'Bangers' }} className="text-white font-bold text-lg">{entry.username}</Text>
+                      <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] text-xs">
                         {entry.publicKey.slice(0, 4)}...{entry.publicKey.slice(-4)}
                       </Text>
                     </View>
@@ -143,36 +143,36 @@ export default function LeaderboardScreen() {
                   <View className="items-end">
                     <View className="flex-row items-center">
                       <Ionicons name="star" size={16} color="#14F195" />
-                      <Text className="text-[#14F195] font-bold text-xl ml-1">
+                      <Text style={{ fontFamily: 'Bangers' }} className="text-[#14F195] font-bold text-xl ml-1">
                         {entry.xp.toLocaleString()}
                       </Text>
                     </View>
-                    <Text className="text-[#888] text-xs">XP</Text>
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] text-xs">XP</Text>
                   </View>
                 </View>
 
                 <View className="flex-row justify-between mt-3 pt-3 border-t border-[#2a2a3e]">
                   <View className="flex-row items-center">
                     <Ionicons name="trophy" size={14} color="#888" />
-                    <Text className="text-[#888] text-xs ml-1">Wins:</Text>
-                    <Text className="text-white font-bold ml-1">{entry.wins}</Text>
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] text-xs ml-1">Wins:</Text>
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-white font-bold ml-1">{entry.wins}</Text>
                   </View>
                   
                   <View className="flex-row items-center">
                     <Ionicons name="close-circle" size={14} color="#888" />
-                    <Text className="text-[#888] text-xs ml-1">Losses:</Text>
-                    <Text className="text-white font-bold ml-1">{entry.losses}</Text>
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] text-xs ml-1">Losses:</Text>
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-white font-bold ml-1">{entry.losses}</Text>
                   </View>
                   
                   <View className="flex-row items-center">
                     <Ionicons name="stats-chart" size={14} color="#888" />
-                    <Text className="text-[#888] text-xs ml-1">Rate:</Text>
-                    <Text className="text-[#14F195] font-bold ml-1">{entry.winRate}%</Text>
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] text-xs ml-1">Rate:</Text>
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-[#14F195] font-bold ml-1">{entry.winRate}%</Text>
                   </View>
                   
                   <View className="flex-row items-center">
                     <Ionicons name="flame" size={14} color="#FF6B6B" />
-                    <Text className="text-white font-bold ml-1">{entry.streak}</Text>
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-white font-bold ml-1">{entry.streak}</Text>
                   </View>
                 </View>
               </View>
