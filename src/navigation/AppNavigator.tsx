@@ -12,6 +12,7 @@ import FighterCollectionScreen from '../screens/FighterCollectionScreen';
 import ShopScreen from '../screens/ShopScreen';
 import LeaderboardScreen from '../screens/LeaderboardScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import QuizScreen from '../screens/QuizScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,16 +27,17 @@ function TabNavigator() {
           backgroundColor: COLORS.card,
           borderTopColor: COLORS.border,
           borderTopWidth: 1,
-          paddingBottom: 8,
-          paddingTop: 8,
-          height: 60,
+          paddingBottom: 10,
+          paddingTop: 10,
+          height: 70,
         } : { display: 'none' },
         tabBarActiveTintColor: COLORS.primary,
         tabBarInactiveTintColor: COLORS.textSecondary,
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 11,
           fontWeight: '600',
           fontFamily: 'Bangers',
+          marginTop: 2,
         },
       })}
     >
@@ -72,6 +74,15 @@ function TabNavigator() {
           options={{
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="cart" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen 
+          name="Quiz" 
+          component={QuizScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="school" size={size} color={color} />
             ),
           }}
         />

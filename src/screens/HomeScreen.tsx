@@ -439,6 +439,27 @@ export default function HomeScreen({ navigation }: any) {
           </View>
         </TouchableOpacity>
 
+        {/* Quiz Action */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Quiz')}
+          className="bg-[#9945FF] rounded-2xl py-6 mb-5"
+          style={{
+            shadowColor: '#9945FF',
+            shadowOffset: { width: 0, height: 6 },
+            shadowOpacity: 0.5,
+            shadowRadius: 10,
+            elevation: 8,
+          }}>
+          <View className="flex-row items-center justify-center">
+            <View className="w-12 h-12 bg-black/10 rounded-full items-center justify-center mr-3">
+              <Ionicons name="school" size={24} color="#fff" />
+            </View>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white text-2xl ">
+            EARN-QUIZ !!
+            </Text>
+          </View>
+        </TouchableOpacity>
+
         {/* Quick Actions - Enhanced */}
         <View className="flex-row mb-5" style={{ gap: 12 }}>
           <TouchableOpacity
