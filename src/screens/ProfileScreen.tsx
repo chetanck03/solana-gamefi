@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useWallet } from '../context/WalletContext';
 import { COLORS } from '../constants';
 import { PlayerProfile, Badge } from '../types';
-import { generateStarterDeck } from '../services/cardService';
+import { generateStarterFighters } from '../services/fighterService';
 
 export default function ProfileScreen() {
   const wallet = useWallet();
@@ -24,7 +24,7 @@ export default function ProfileScreen() {
         losses: 0,
         draws: 0,
         badges: [],
-        deck: generateStarterDeck(),
+        deck: generateStarterFighters(),
         createdAt: Date.now(),
       };
       setProfile(newProfile);

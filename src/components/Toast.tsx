@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, Animated, Dimensions } from 'react-native';
+import { View, Text, Animated, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 interface ToastProps {
@@ -12,6 +12,27 @@ interface ToastProps {
 export default function Toast({ visible, message, type = 'success', onHide }: ToastProps) {
   const translateY = useRef(new Animated.Value(-100)).current;
   const opacity = useRef(new Animated.Value(0)).current;
+  const timerRef = useRef<number | null>(null);
+
+  const hideToast = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    
+    Animated.parallel([
+      Animated.timing(translateY, {
+        toValue: -100,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+    ]).start(() => onHide());
+  };
 
   useEffect(() => {
     if (visible) {
@@ -29,22 +50,16 @@ export default function Toast({ visible, message, type = 'success', onHide }: To
         }),
       ]).start();
 
-      const timer = setTimeout(() => {
-        Animated.parallel([
-          Animated.timing(translateY, {
-            toValue: -100,
-            duration: 300,
-            useNativeDriver: true,
-          }),
-          Animated.timing(opacity, {
-            toValue: 0,
-            duration: 300,
-            useNativeDriver: true,
-          }),
-        ]).start(() => onHide());
+      timerRef.current = setTimeout(() => {
+        hideToast();
       }, 3000);
 
-      return () => clearTimeout(timer);
+      return () => {
+        if (timerRef.current) {
+          clearTimeout(timerRef.current);
+          timerRef.current = null;
+        }
+      };
     }
   }, [visible]);
 
@@ -107,6 +122,13 @@ export default function Toast({ visible, message, type = 'success', onHide }: To
         <Text style={{ fontFamily: 'Bangers' }} className="text-white font-semibold text-base flex-1">
           {message}
         </Text>
+        <TouchableOpacity
+          onPress={hideToast}
+          className="ml-2 w-8 h-8 items-center justify-center"
+          activeOpacity={0.7}
+        >
+          <Ionicons name="close" size={24} color="#FF6B6B" />
+        </TouchableOpacity>
       </View>
     </Animated.View>
   );

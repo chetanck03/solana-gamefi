@@ -7,8 +7,8 @@ import { useWallet } from '../context/WalletContext';
 
 // Screens
 import HomeScreen from '../screens/HomeScreen';
-import BattleScreen from '../screens/BattleScreen';
-import CollectionScreen from '../screens/CollectionScreen';
+import FightScreen from '../screens/FightScreen';
+import FighterCollectionScreen from '../screens/FighterCollectionScreen';
 import ShopScreen from '../screens/ShopScreen';
 import LeaderboardScreen from '../screens/LeaderboardScreen';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -49,8 +49,8 @@ function TabNavigator() {
           }}
         />
         <Tab.Screen 
-          name="Battle" 
-          component={BattleScreen}
+          name="Fight" 
+          component={FightScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="game-controller" size={size} color={color} />
@@ -58,11 +58,11 @@ function TabNavigator() {
           }}
         />
         <Tab.Screen 
-          name="Collection" 
-          component={CollectionScreen}
+          name="Fighters" 
+          component={FighterCollectionScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="albums" size={size} color={color} />
+              <Ionicons name="people" size={size} color={color} />
             ),
           }}
         />

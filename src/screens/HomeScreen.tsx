@@ -6,7 +6,7 @@ import { useWallet } from '../context/WalletContext';
 import { useToast } from '../context/ToastContext';
 import { COLORS } from '../constants';
 import { PlayerProfile } from '../types';
-import { generateStarterDeck } from '../services/cardService';
+import { generateStarterFighters } from '../services/fighterService';
 
 export default function HomeScreen({ navigation }: any) {
   const wallet = useWallet();
@@ -62,7 +62,7 @@ export default function HomeScreen({ navigation }: any) {
         losses: 0,
         draws: 0,
         badges: [],
-        deck: generateStarterDeck(),
+        deck: generateStarterFighters(),
         createdAt: Date.now(),
       };
       setProfile(newProfile);
@@ -155,13 +155,13 @@ export default function HomeScreen({ navigation }: any) {
                 {expandedFeature === 'battles' && (
                   <View className="mt-4 pt-4 border-t border-[#2a2a3e]">
                     <Text style={{ fontFamily: 'Bangers' }} className="text-gray-300 text-base mb-2">
-                      • Challenge players in real-time PvP matches
+                      • Challenge players in real-time fighting matches
                     </Text>
                     <Text style={{ fontFamily: 'Bangers' }} className="text-gray-300 text-base mb-2">
-                      • Use strategy and skill to defeat opponents
+                      • Use combos and special moves to defeat opponents
                     </Text>
                     <Text style={{ fontFamily: 'Bangers' }} className="text-gray-300 text-base">
-                      • Climb the ranks and earn rewards
+                      • Master different fighter types and strategies
                     </Text>
                   </View>
                 )}
@@ -191,13 +191,13 @@ export default function HomeScreen({ navigation }: any) {
                 {expandedFeature === 'collect' && (
                   <View className="mt-4 pt-4 border-t border-[#2a2a3e]">
                     <Text style={{ fontFamily: 'Bangers' }} className="text-gray-300 text-base mb-2">
-                      • Collect unique NFT cards with special abilities
+                      • Collect unique fighter NFTs with special abilities
                     </Text>
                     <Text style={{ fontFamily: 'Bangers' }} className="text-gray-300 text-base mb-2">
-                      • Upgrade cards to increase their power
+                      • Upgrade fighters to increase their power
                     </Text>
                     <Text style={{ fontFamily: 'Bangers' }} className="text-gray-300 text-base">
-                      • Build the perfect deck for your playstyle
+                      • Build the perfect roster for your playstyle
                     </Text>
                   </View>
                 )}
@@ -420,7 +420,7 @@ export default function HomeScreen({ navigation }: any) {
 
         {/* Main Action - Enhanced */}
         <TouchableOpacity
-          onPress={() => navigation.navigate('Battle')}
+          onPress={() => navigation.navigate('Fight')}
           className="bg-[#14F195] rounded-2xl py-6 mb-5"
           style={{
             shadowColor: '#14F195',
@@ -434,7 +434,7 @@ export default function HomeScreen({ navigation }: any) {
               <Ionicons name="game-controller" size={24} color="#000" />
             </View>
             <Text style={{ fontFamily: 'Bangers' }} className="text-black text-2xl ">
-            START-BATTLE !!
+            START-FIGHT !!
             </Text>
           </View>
         </TouchableOpacity>
@@ -442,7 +442,7 @@ export default function HomeScreen({ navigation }: any) {
         {/* Quick Actions - Enhanced */}
         <View className="flex-row mb-5" style={{ gap: 12 }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Collection')}
+            onPress={() => navigation.navigate('Fighters')}
             className="flex-1 bg-[#1a1a2e] rounded-2xl p-5 border border-[#2a2a3e]"
             style={{
               shadowColor: '#000',
@@ -452,9 +452,9 @@ export default function HomeScreen({ navigation }: any) {
               elevation: 3,
             }}>
             <View className="w-12 h-12 bg-[#9945FF]/20 rounded-xl items-center justify-center mb-3">
-              <Ionicons name="albums-outline" size={24} color="#9945FF" />
+              <Ionicons name="people-outline" size={24} color="#9945FF" />
             </View>
-            <Text style={{ fontFamily: 'Bangers' }} className="text-white  text-lg">Cards</Text>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white  text-lg">Fighters</Text>
             <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-base mt-1">{profile?.deck.length || 0} owned</Text>
           </TouchableOpacity>
 

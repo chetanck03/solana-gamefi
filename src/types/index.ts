@@ -26,25 +26,34 @@ export interface Badge {
   earnedAt: number;
 }
 
-export interface Card {
+export interface Fighter {
   id: string;
   name: string;
-  type: CardType;
+  type: FighterType;
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
+  maxHealth: number;
   attack: number;
   defense: number;
-  health: number;
-  mana: number;
-  ability?: CardAbility;
+  speed: number;
+  specialMove: SpecialMove;
   imageUrl: string;
   mintAddress?: string;
 }
 
-export type CardType = 'warrior' | 'mage' | 'archer' | 'tank' | 'assassin';
+export type FighterType = 'warrior' | 'mage' | 'archer' | 'tank' | 'assassin';
 
-export interface CardAbility {
+export interface SpecialMove {
   name: string;
   description: string;
+  damage: number;
+  cooldown: number;
+  energyCost: number;
+}
+
+// Keep Card for backward compatibility
+export interface Card extends Fighter {}
+export type CardType = FighterType;
+export interface CardAbility extends SpecialMove {
   effect: 'damage' | 'heal' | 'shield' | 'buff' | 'debuff';
   value: number;
 }
@@ -67,11 +76,19 @@ export interface PlayerInMatch {
   publicKey: string;
   username: string;
   health: number;
-  mana: number;
-  deck: Card[];
-  hand: Card[];
-  field: Card[];
-  graveyard: Card[];
+  maxHealth: number;
+  energy: number;
+  maxEnergy: number;
+  fighter: Fighter;
+  specialCooldown: number;
+  combo: number;
+  isBlocking: boolean;
+  // Legacy card fields for backward compatibility
+  mana?: number;
+  deck?: Card[];
+  hand?: Card[];
+  field?: Card[];
+  graveyard?: Card[];
 }
 
 export type GameMode = 'quick' | 'ranked' | 'tournament';
