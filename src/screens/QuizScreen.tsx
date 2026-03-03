@@ -1,55 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, ScrollView, ActivityIndicator, Image } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, ActivityIndicator, Image, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useWallet } from '../context/WalletContext';
 import { useToast } from '../context/ToastContext';
-import { COLORS } from '../constants';
+import OptimizedImage from '../components/OptimizedImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import quizData from '../data/quizQuestions.json';
 
-const QUIZ_QUESTIONS = [
-  {
-    id: 1,
-    question: "What is Solana's consensus mechanism?",
-    options: ["Proof of Work", "Proof of Stake", "Proof of History", "Proof of Authority"],
-    correctAnswer: 2,
-    explanation: "Solana uses Proof of History (PoH) combined with Proof of Stake"
-  },
-  {
-    id: 2,
-    question: "What is the native token of Solana blockchain?",
-    options: ["ETH", "BTC", "SOL", "USDC"],
-    correctAnswer: 2,
-    explanation: "SOL is the native cryptocurrency of the Solana blockchain"
-  },
-  {
-    id: 3,
-    question: "What is the average block time on Solana?",
-    options: ["10 minutes", "15 seconds", "400 milliseconds", "1 second"],
-    correctAnswer: 2,
-    explanation: "Solana has an average block time of approximately 400 milliseconds"
-  },
-  {
-    id: 4,
-    question: "What programming language is primarily used for Solana smart contracts?",
-    options: ["Solidity", "Rust", "JavaScript", "Python"],
-    correctAnswer: 1,
-    explanation: "Rust is the primary language for developing Solana smart contracts"
-  },
-  {
-    id: 5,
-    question: "What is a Seeker token?",
-    options: ["A Bitcoin fork", "A game token on Solana", "An Ethereum token", "A stablecoin"],
-    correctAnswer: 1,
-    explanation: "Seeker is a gaming token built on the Solana blockchain"
-  },
-  {
-    id: 6,
-    question: "What is the maximum theoretical TPS (Transactions Per Second) of Solana?",
-    options: ["15 TPS", "1,000 TPS", "50,000 TPS", "65,000+ TPS"],
-    correctAnswer: 3,
-    explanation: "Solana can theoretically handle 65,000+ transactions per second"
-  }
-];
+const ALL_QUESTIONS = quizData.questions;
+const QUESTIONS_PER_QUIZ = 6;
 
 const QUIZ_COOLDOWN = 24 * 60 * 60 * 1000; // 24 hours
 const QUIZ_REWARD = 0.001; // SOL reward for completing quiz
@@ -79,10 +38,12 @@ export default function QuizScreen({ navigation }: any) {
   const [isLoading, setIsLoading] = useState(true);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState(QUIZ_IMAGES.bg);
+  const [quizQuestions, setQuizQuestions] = useState<any[]>([]);
 
   useEffect(() => {
     preloadImages();
     checkQuizAvailability();
+    loadUsedQuestions();
   }, []);
 
   const preloadImages = () => {
@@ -96,6 +57,47 @@ export default function QuizScreen({ navigation }: any) {
     } catch (error) {
       console.error('Error preloading images:', error);
       setImagesLoaded(true); // Continue anyway
+    }
+  };
+
+  const loadUsedQuestions = async () => {
+    try {
+      const usedQuestionsStr = await AsyncStorage.getItem('used_quiz_questions');
+      const usedQuestions = usedQuestionsStr ? JSON.parse(usedQuestionsStr) : [];
+      
+      // Get available questions (not used yet)
+      let availableQuestions = ALL_QUESTIONS.filter(
+        q => !usedQuestions.includes(q.id)
+      );
+      
+      // If less than 6 questions available, reset the used questions
+      if (availableQuestions.length < QUESTIONS_PER_QUIZ) {
+        availableQuestions = ALL_QUESTIONS;
+        await AsyncStorage.setItem('used_quiz_questions', JSON.stringify([]));
+      }
+      
+      // Shuffle and select random 6 questions
+      const shuffled = [...availableQuestions].sort(() => Math.random() - 0.5);
+      const selectedQuestions = shuffled.slice(0, QUESTIONS_PER_QUIZ);
+      
+      setQuizQuestions(selectedQuestions);
+    } catch (error) {
+      console.error('Error loading questions:', error);
+      // Fallback to random 6 questions
+      const shuffled = [...ALL_QUESTIONS].sort(() => Math.random() - 0.5);
+      setQuizQuestions(shuffled.slice(0, QUESTIONS_PER_QUIZ));
+    }
+  };
+
+  const saveUsedQuestions = async (questions: any[]) => {
+    try {
+      const usedQuestionsStr = await AsyncStorage.getItem('used_quiz_questions');
+      const usedQuestions = usedQuestionsStr ? JSON.parse(usedQuestionsStr) : [];
+      
+      const newUsedQuestions = [...usedQuestions, ...questions.map(q => q.id)];
+      await AsyncStorage.setItem('used_quiz_questions', JSON.stringify(newUsedQuestions));
+    } catch (error) {
+      console.error('Error saving used questions:', error);
     }
   };
 
@@ -144,7 +146,10 @@ export default function QuizScreen({ navigation }: any) {
     }
   };
 
-  const startQuiz = () => {
+  const startQuiz = async () => {
+    // Load fresh random questions
+    await loadUsedQuestions();
+    
     setQuizState('playing');
     setCurrentQuestion(0);
     setScore(0);
@@ -157,7 +162,7 @@ export default function QuizScreen({ navigation }: any) {
   const handleTimeout = () => {
     setShowExplanation(true);
     setTimeout(() => {
-      if (currentQuestion < QUIZ_QUESTIONS.length - 1) {
+      if (currentQuestion < quizQuestions.length - 1) {
         nextQuestion();
       } else {
         finishQuiz(score);
@@ -169,7 +174,7 @@ export default function QuizScreen({ navigation }: any) {
     if (selectedAnswer !== null || showExplanation) return;
     
     setSelectedAnswer(index);
-    const isCorrect = index === QUIZ_QUESTIONS[currentQuestion].correctAnswer;
+    const isCorrect = index === quizQuestions[currentQuestion].correctAnswer;
     
     const newScore = isCorrect ? score + 1 : score;
     
@@ -183,7 +188,7 @@ export default function QuizScreen({ navigation }: any) {
     setShowExplanation(true);
     
     setTimeout(() => {
-      if (currentQuestion < QUIZ_QUESTIONS.length - 1) {
+      if (currentQuestion < quizQuestions.length - 1) {
         nextQuestion();
       } else {
         finishQuiz(newScore);
@@ -202,7 +207,10 @@ export default function QuizScreen({ navigation }: any) {
   const finishQuiz = async (finalScore: number) => {
     setQuizState('result');
     
-    if (finalScore === QUIZ_QUESTIONS.length) {
+    // Save used questions to avoid repeats
+    await saveUsedQuestions(quizQuestions);
+    
+    if (finalScore === quizQuestions.length) {
       setBackgroundImage(QUIZ_IMAGES.victory);
       try {
         // Commented out for testing - uncomment later for production
@@ -223,35 +231,36 @@ export default function QuizScreen({ navigation }: any) {
       return selectedAnswer === index ? 'border-[#9945FF] bg-[#9945FF]/20' : 'border-[#2a2a3e]';
     }
     
-    if (index === QUIZ_QUESTIONS[currentQuestion].correctAnswer) {
+    if (index === quizQuestions[currentQuestion]?.correctAnswer) {
       return 'border-[#14F195] bg-[#14F195]/20';
     }
     
-    if (selectedAnswer === index && index !== QUIZ_QUESTIONS[currentQuestion].correctAnswer) {
+    if (selectedAnswer === index && index !== quizQuestions[currentQuestion]?.correctAnswer) {
       return 'border-[#FF6B6B] bg-[#FF6B6B]/20';
     }
     
     return 'border-[#2a2a3e]';
   };
 
-  if (isLoading || !imagesLoaded) {
+  if (isLoading || !imagesLoaded || quizQuestions.length === 0) {
     return (
       <View className="flex-1 bg-[#0f0f1e] items-center justify-center">
         <ActivityIndicator size="large" color="#9945FF" />
         <Text style={{ fontFamily: 'Bangers' }} className="text-white text-lg mt-4">
-          {!imagesLoaded ? 'Loading Quiz...' : 'Preparing...'}
+          {!imagesLoaded ? 'Loading Quiz...' : 'Preparing Questions...'}
         </Text>
       </View>
     );
   }
 
   return (
-    <ImageBackground
-      source={backgroundImage}
-      className="flex-1"
-      resizeMode="cover"
-      fadeDuration={300}
-    >
+    <View style={styles.container}>
+      <OptimizedImage
+        source={backgroundImage}
+        style={styles.backgroundImage}
+        resizeMode="cover"
+        showLoader={false}
+      />
       <View className="flex-1 bg-black/60">
         <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1 }}>
           <View className="p-5 flex-1">
@@ -273,12 +282,18 @@ export default function QuizScreen({ navigation }: any) {
             {/* Ready State */}
             {quizState === 'ready' && (
               <View className="flex-1 justify-center items-center px-5">
-                <View className="w-24 h-24 bg-[#9945FF] rounded-full items-center justify-center mb-6">
-                  <Ionicons name="school" size={48} color="#fff" />
+                <View className="w-24 h-24 bg-[#14F195] rounded-full items-center justify-center mb-6" style={{
+                  shadowColor: '#14F195',
+                  shadowOffset: { width: 0, height: 6 },
+                  shadowOpacity: 0.6,
+                  shadowRadius: 12,
+                  elevation: 8,
+                }}>
+                  <Ionicons name="flash" size={48} color="#0f0f1e" />
                 </View>
                 
                 <Text style={{ fontFamily: 'Bangers' }} className="text-white text-3xl text-center mb-3">
-                Answer {QUIZ_QUESTIONS.length} questions about Solana & Seeker tokens
+                Answer {QUESTIONS_PER_QUIZ} questions about Solana & Seeker tokens
                 </Text>
                 
                
@@ -287,7 +302,7 @@ export default function QuizScreen({ navigation }: any) {
                   <View className="flex-row items-center mb-4">
                     <Ionicons name="trophy" size={24} color="#FFD700" />
                     <Text style={{ fontFamily: 'Bangers' }} className="text-white text-lg ml-3">
-                      Rewards
+                      Rewards:
                     </Text>
                   </View>
                   <Text style={{ fontFamily: 'Bangers' }} className="text-gray-300 text-base mb-2">
@@ -321,24 +336,30 @@ export default function QuizScreen({ navigation }: any) {
 
             {/* Playing State */}
             {quizState === 'playing' && (
-              <View className="flex-1">
+              <View className="flex-1" key={currentQuestion}>
                 {/* Progress */}
                 <View className="mb-6">
-                  <View className="flex-row justify-between mb-2">
-                    <Text style={{ fontFamily: 'Bangers' }} className="text-white text-base">
-                      Question {currentQuestion + 1}/{QUIZ_QUESTIONS.length}
-                    </Text>
-                    <View className="flex-row items-center">
-                      <Ionicons name="time" size={18} color={timeRemaining <= 10 ? '#FF6B6B' : '#14F195'} />
-                      <Text style={{ fontFamily: 'Bangers' }} className={`text-lg ml-1 ${timeRemaining <= 10 ? 'text-[#FF6B6B]' : 'text-[#14F195]'}`}>
+                  <View className="flex-row justify-between items-center mb-3">
+                    <View className="bg-[#14F195]/20 border-2 border-[#14F195] rounded-xl px-3 py-1.5">
+                      <Text 
+                        style={{ fontFamily: 'Bangers' }} 
+                        className="text-[#14F195] text-base"
+                        numberOfLines={1}
+                      >
+                        {`${currentQuestion + 1}/${quizQuestions.length}`}
+                      </Text>
+                    </View>
+                    <View className="flex-row items-center bg-[#1a1a2e]/80 rounded-xl px-4 py-2 border border-[#2a2a3e]">
+                      <Ionicons name="time" size={20} color={timeRemaining <= 10 ? '#FF6B6B' : '#14F195'} />
+                      <Text style={{ fontFamily: 'Bangers' }} className={`text-xl ml-2 ${timeRemaining <= 10 ? 'text-[#FF6B6B]' : 'text-[#14F195]'}`}>
                         {timeRemaining}s
                       </Text>
                     </View>
                   </View>
                   <View className="h-2 bg-[#1a1a2e] rounded-full overflow-hidden">
                     <View 
-                      className="h-full bg-[#9945FF]"
-                      style={{ width: `${((currentQuestion + 1) / QUIZ_QUESTIONS.length) * 100}%` }}
+                      className="h-full bg-[#14F195]"
+                      style={{ width: `${((currentQuestion + 1) / quizQuestions.length) * 100}%` }}
                     />
                   </View>
                 </View>
@@ -346,13 +367,13 @@ export default function QuizScreen({ navigation }: any) {
                 {/* Question */}
                 <View className="bg-[#1a1a2e]/90 rounded-2xl p-6 mb-6 border border-[#2a2a3e]">
                   <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl leading-7">
-                    {QUIZ_QUESTIONS[currentQuestion].question}
+                    {quizQuestions[currentQuestion]?.question}
                   </Text>
                 </View>
 
                 {/* Options */}
                 <View className="gap-4 mb-6">
-                  {QUIZ_QUESTIONS[currentQuestion].options.map((option, index) => (
+                  {quizQuestions[currentQuestion]?.options.map((option: string, index: number) => (
                     <TouchableOpacity
                       key={index}
                       onPress={() => selectAnswer(index)}
@@ -369,24 +390,24 @@ export default function QuizScreen({ navigation }: any) {
                 {/* Explanation */}
                 {showExplanation && (
                   <View className={`rounded-2xl p-5 border-2 ${
-                    selectedAnswer === QUIZ_QUESTIONS[currentQuestion].correctAnswer
+                    selectedAnswer === quizQuestions[currentQuestion]?.correctAnswer
                       ? 'bg-[#14F195]/20 border-[#14F195]'
                       : 'bg-[#FF6B6B]/20 border-[#FF6B6B]'
                   }`}>
                     <View className="flex-row items-center mb-2">
                       <Ionicons 
-                        name={selectedAnswer === QUIZ_QUESTIONS[currentQuestion].correctAnswer ? 'checkmark-circle' : 'close-circle'} 
+                        name={selectedAnswer === quizQuestions[currentQuestion]?.correctAnswer ? 'checkmark-circle' : 'close-circle'} 
                         size={24} 
-                        color={selectedAnswer === QUIZ_QUESTIONS[currentQuestion].correctAnswer ? '#14F195' : '#FF6B6B'} 
+                        color={selectedAnswer === quizQuestions[currentQuestion]?.correctAnswer ? '#14F195' : '#FF6B6B'} 
                       />
                       <Text style={{ fontFamily: 'Bangers' }} className={`text-lg ml-2 ${
-                        selectedAnswer === QUIZ_QUESTIONS[currentQuestion].correctAnswer ? 'text-[#14F195]' : 'text-[#FF6B6B]'
+                        selectedAnswer === quizQuestions[currentQuestion]?.correctAnswer ? 'text-[#14F195]' : 'text-[#FF6B6B]'
                       }`}>
-                        {selectedAnswer === QUIZ_QUESTIONS[currentQuestion].correctAnswer ? 'Correct!' : 'Wrong!'}
+                        {selectedAnswer === quizQuestions[currentQuestion]?.correctAnswer ? 'Correct!' : 'Wrong!'}
                       </Text>
                     </View>
                     <Text style={{ fontFamily: 'Bangers' }} className="text-white text-base">
-                      {QUIZ_QUESTIONS[currentQuestion].explanation}
+                      {quizQuestions[currentQuestion]?.explanation}
                     </Text>
                   </View>
                 )}
@@ -397,14 +418,14 @@ export default function QuizScreen({ navigation }: any) {
             {quizState === 'result' && (
               <View className="flex-1 justify-center items-center px-5">
                 <Text style={{ fontFamily: 'Bangers' }} className="text-white text-4xl text-center mb-3">
-                  {score === QUIZ_QUESTIONS.length ? 'Perfect Score!' : 'Quiz Complete!'}
+                  {score === quizQuestions.length ? 'Perfect Score!' : 'Quiz Complete!'}
                 </Text>
                 
                 <Text style={{ fontFamily: 'Bangers' }} className="text-gray-300 text-2xl text-center mb-8">
-                  You got {score}/{QUIZ_QUESTIONS.length} correct
+                  You got {score}/{quizQuestions.length} correct
                 </Text>
 
-                {score === QUIZ_QUESTIONS.length ? (
+                {score === quizQuestions.length ? (
                   <View className="bg-[#14F195]/20 border-2 border-[#14F195] rounded-2xl p-6 mb-8 w-full">
                     <View className="flex-row items-center justify-center mb-2">
                       <Ionicons name="trophy" size={32} color="#FFD700" />
@@ -473,6 +494,22 @@ export default function QuizScreen({ navigation }: any) {
           </View>
         </ScrollView>
       </View>
-    </ImageBackground>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#0f0f1e',
+  },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+  },
+});

@@ -1,0 +1,3539 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is Solana's consensus mechanism?",
+      "options": ["Proof of Work", "Proof of Stake", "Proof of History", "Proof of Authority"],
+      "correctAnswer": 2,
+      "explanation": "Solana uses Proof of History (PoH) combined with Proof of Stake"
+    },
+    {
+      "id": 2,
+      "question": "What is the native token of Solana blockchain?",
+      "options": ["ETH", "BTC", "SOL", "USDC"],
+      "correctAnswer": 2,
+      "explanation": "SOL is the native cryptocurrency of the Solana blockchain"
+    },
+    {
+      "id": 3,
+      "question": "What is the average block time on Solana?",
+      "options": ["10 minutes", "15 seconds", "400 milliseconds", "1 second"],
+      "correctAnswer": 2,
+      "explanation": "Solana has an average block time of approximately 400 milliseconds"
+    },
+    {
+      "id": 4,
+      "question": "What programming language is primarily used for Solana smart contracts?",
+      "options": ["Solidity", "Rust", "JavaScript", "Python"],
+      "correctAnswer": 1,
+      "explanation": "Rust is the primary language for developing Solana smart contracts"
+    },
+    {
+      "id": 5,
+      "question": "What is the maximum theoretical TPS of Solana?",
+      "options": ["15 TPS", "1,000 TPS", "50,000 TPS", "65,000+ TPS"],
+      "correctAnswer": 3,
+      "explanation": "Solana can theoretically handle 65,000+ transactions per second"
+    },
+    {
+      "id": 6,
+      "question": "Who founded Solana?",
+      "options": ["Vitalik Buterin", "Anatoly Yakovenko", "Satoshi Nakamoto", "Charles Hoskinson"],
+      "correctAnswer": 1,
+      "explanation": "Anatoly Yakovenko founded Solana in 2017"
+    },
+    {
+      "id": 7,
+      "question": "What year was Solana mainnet launched?",
+      "options": ["2017", "2018", "2019", "2020"],
+      "correctAnswer": 3,
+      "explanation": "Solana mainnet beta was launched in March 2020"
+    },
+    {
+      "id": 8,
+      "question": "What is the smallest unit of SOL called?",
+      "options": ["Wei", "Gwei", "Lamport", "Satoshi"],
+      "correctAnswer": 2,
+      "explanation": "A Lamport is the smallest unit of SOL, named after Leslie Lamport"
+    },
+    {
+      "id": 9,
+      "question": "How many Lamports are in 1 SOL?",
+      "options": ["1 million", "1 billion", "100 million", "10 million"],
+      "correctAnswer": 1,
+      "explanation": "1 SOL equals 1 billion Lamports"
+    },
+    {
+      "id": 10,
+      "question": "What is a Seeker token (SRK)?",
+      "options": ["A Bitcoin fork", "A token in the Solana ecosystem", "An Ethereum token", "A stablecoin"],
+      "correctAnswer": 1,
+      "explanation": "Seeker (SRK) is a token built within the Solana ecosystem"
+    },
+    {
+      "id": 11,
+      "question": "What company developed the Solana blockchain?",
+      "options": ["Solana Foundation", "Solana Labs", "Binance Labs", "Ethereum Foundation"],
+      "correctAnswer": 1,
+      "explanation": "Solana Labs developed the Solana blockchain"
+    },
+    {
+      "id": 12,
+      "question": "What does PoH stand for in Solana?",
+      "options": ["Proof of Honesty", "Proof of History", "Proof of Hash", "Proof of Holding"],
+      "correctAnswer": 1,
+      "explanation": "PoH stands for Proof of History, Solana's unique clock mechanism"
+    },
+    {
+      "id": 13,
+      "question": "What is the name of Solana's smart contract framework?",
+      "options": ["EVM", "Anchor", "Truffle", "Hardhat"],
+      "correctAnswer": 1,
+      "explanation": "Anchor is the most popular framework for building Solana smart contracts"
+    },
+    {
+      "id": 14,
+      "question": "What blockchain is Seeker (SRK) built on?",
+      "options": ["Ethereum", "BNB Chain", "Solana", "Polygon"],
+      "correctAnswer": 2,
+      "explanation": "Seeker token (SRK) is built on the Solana blockchain"
+    },
+    {
+      "id": 15,
+      "question": "What is the token standard for fungible tokens on Solana?",
+      "options": ["ERC-20", "BEP-20", "SPL Token", "TRC-20"],
+      "correctAnswer": 2,
+      "explanation": "SPL (Solana Program Library) Token is the standard for fungible tokens on Solana"
+    },
+    {
+      "id": 16,
+      "question": "What is Solana's major DEX?",
+      "options": ["Uniswap", "PancakeSwap", "Raydium", "SushiSwap"],
+      "correctAnswer": 2,
+      "explanation": "Raydium is one of the major decentralized exchanges on Solana"
+    },
+    {
+      "id": 17,
+      "question": "What wallet is most commonly associated with Solana?",
+      "options": ["MetaMask", "Trust Wallet", "Phantom", "Exodus"],
+      "correctAnswer": 2,
+      "explanation": "Phantom is the most popular wallet for Solana ecosystem"
+    },
+    {
+      "id": 18,
+      "question": "What is the name of Solana's NFT marketplace?",
+      "options": ["OpenSea", "Magic Eden", "Rarible", "Foundation"],
+      "correctAnswer": 1,
+      "explanation": "Magic Eden is the leading NFT marketplace on Solana"
+    },
+    {
+      "id": 19,
+      "question": "What is the Solana cluster called where developers test applications?",
+      "options": ["Mainnet", "Testnet", "Devnet", "Stagenet"],
+      "correctAnswer": 2,
+      "explanation": "Devnet is Solana's developer test environment"
+    },
+    {
+      "id": 20,
+      "question": "What technology does Solana use to process transactions in parallel?",
+      "options": ["EVM", "Sealevel", "HyperThread", "Multichain"],
+      "correctAnswer": 1,
+      "explanation": "Sealevel is Solana's parallel smart contracts runtime"
+    },
+    {
+      "id": 21,
+      "question": "What is the name of Solana's transaction propagation protocol?",
+      "options": ["Lightning", "Turbine", "Gossip", "Fireblocks"],
+      "correctAnswer": 1,
+      "explanation": "Turbine is Solana's block propagation protocol"
+    },
+    {
+      "id": 22,
+      "question": "What is Gulf Stream in the context of Solana?",
+      "options": ["A weather event", "Solana's mempool-less transaction forwarding protocol", "A DeFi protocol", "A bridge"],
+      "correctAnswer": 1,
+      "explanation": "Gulf Stream is Solana's mempool-less transaction forwarding protocol"
+    },
+    {
+      "id": 23,
+      "question": "What is the Cloudbreak in Solana?",
+      "options": ["A network attack", "Solana's horizontally-scaled accounts database", "A consensus protocol", "A validator node"],
+      "correctAnswer": 1,
+      "explanation": "Cloudbreak is Solana's horizontally-scaled state architecture"
+    },
+    {
+      "id": 24,
+      "question": "What is the ticker symbol for Seeker token?",
+      "options": ["SEK", "SRK", "SKR", "STK"],
+      "correctAnswer": 1,
+      "explanation": "The ticker symbol for Seeker token is SRK"
+    },
+    {
+      "id": 25,
+      "question": "Which of the following is NOT a Solana innovation?",
+      "options": ["Proof of History", "Sealevel", "EVM compatibility", "Gulf Stream"],
+      "correctAnswer": 2,
+      "explanation": "EVM compatibility is an Ethereum concept, not a Solana innovation"
+    },
+    {
+      "id": 26,
+      "question": "What is the Solana Foundation's mission?",
+      "options": ["Profit generation", "Decentralization, growth and security of Solana network", "NFT trading", "Token listing"],
+      "correctAnswer": 1,
+      "explanation": "The Solana Foundation promotes decentralization, growth and security of the Solana network"
+    },
+    {
+      "id": 27,
+      "question": "What does SPL stand for in Solana?",
+      "options": ["Solana Protocol Layer", "Solana Program Library", "Simple Payment Layer", "Smart Protocol Logic"],
+      "correctAnswer": 1,
+      "explanation": "SPL stands for Solana Program Library"
+    },
+    {
+      "id": 28,
+      "question": "What is the minimum stake required to become a Solana validator?",
+      "options": ["1 SOL", "100 SOL", "There is no minimum", "1000 SOL"],
+      "correctAnswer": 2,
+      "explanation": "There is no official minimum stake requirement to run a Solana validator"
+    },
+    {
+      "id": 29,
+      "question": "What is Solana's approach to fees?",
+      "options": ["Variable high fees", "Fixed low fees", "Fee-less", "Auction-based fees"],
+      "correctAnswer": 1,
+      "explanation": "Solana maintains very low and predictable transaction fees"
+    },
+    {
+      "id": 30,
+      "question": "What is the approximate transaction fee on Solana?",
+      "options": ["$10", "$1", "$0.001 or less", "$0.01"],
+      "correctAnswer": 2,
+      "explanation": "Solana transactions typically cost $0.001 or less"
+    },
+    {
+      "id": 31,
+      "question": "What is Solana Pay?",
+      "options": ["A bank", "A payment protocol built on Solana", "A credit card", "An exchange"],
+      "correctAnswer": 1,
+      "explanation": "Solana Pay is a decentralized payment protocol built on the Solana blockchain"
+    },
+    {
+      "id": 32,
+      "question": "What consensus algorithm does Solana use alongside PoH?",
+      "options": ["Proof of Work", "Proof of Stake (Tower BFT)", "Delegated Proof of Stake", "Proof of Authority"],
+      "correctAnswer": 1,
+      "explanation": "Solana uses Tower BFT, a PoS-based consensus alongside Proof of History"
+    },
+    {
+      "id": 33,
+      "question": "What is Tower BFT in Solana?",
+      "options": ["A data structure", "Solana's PoH-optimized Byzantine Fault Tolerant consensus", "A wallet", "A DEX protocol"],
+      "correctAnswer": 1,
+      "explanation": "Tower BFT is Solana's Byzantine Fault Tolerant consensus mechanism optimized using PoH"
+    },
+    {
+      "id": 34,
+      "question": "What does BFT stand for?",
+      "options": ["Blockchain Fault Tolerance", "Byzantine Fault Tolerance", "Binary Function Transfer", "Blockchain File Transfer"],
+      "correctAnswer": 1,
+      "explanation": "BFT stands for Byzantine Fault Tolerance"
+    },
+    {
+      "id": 35,
+      "question": "What is the Seeker project primarily focused on?",
+      "options": ["DeFi lending", "Gaming and rewards", "Stablecoins", "Cross-chain bridging"],
+      "correctAnswer": 1,
+      "explanation": "Seeker (SRK) is primarily focused on gaming and reward mechanisms"
+    },
+    {
+      "id": 36,
+      "question": "What is Orca in the Solana ecosystem?",
+      "options": ["An NFT project", "A DEX on Solana", "A stablecoin", "A validator"],
+      "correctAnswer": 1,
+      "explanation": "Orca is a user-friendly decentralized exchange on Solana"
+    },
+    {
+      "id": 37,
+      "question": "What is Jupiter in the Solana ecosystem?",
+      "options": ["A planet-themed NFT", "A DEX aggregator on Solana", "A lending protocol", "A wallet"],
+      "correctAnswer": 1,
+      "explanation": "Jupiter is the leading DEX aggregator on Solana"
+    },
+    {
+      "id": 38,
+      "question": "What is Marinade Finance on Solana?",
+      "options": ["A food NFT marketplace", "A liquid staking protocol", "A DEX", "A launchpad"],
+      "correctAnswer": 1,
+      "explanation": "Marinade Finance is a liquid staking protocol on Solana"
+    },
+    {
+      "id": 39,
+      "question": "What is mSOL?",
+      "options": ["A meme token", "Marinade staked SOL token", "A Solana testnet token", "A synthetic asset"],
+      "correctAnswer": 1,
+      "explanation": "mSOL is the liquid staking token issued by Marinade Finance"
+    },
+    {
+      "id": 40,
+      "question": "What was Solana's original whitepaper title?",
+      "options": ["Solana: A New Blockchain", "Solana: A New Architecture for a High Performance Blockchain", "Proof of History: A New Clock", "Fast Blockchain for the Future"],
+      "correctAnswer": 1,
+      "explanation": "Anatoly Yakovenko published 'Solana: A New Architecture for a High Performance Blockchain'"
+    },
+    {
+      "id": 41,
+      "question": "What is the role of validators on Solana?",
+      "options": ["Only to store data", "To process transactions and secure the network", "Only to mint tokens", "To create NFTs"],
+      "correctAnswer": 1,
+      "explanation": "Validators process transactions and participate in consensus to secure the Solana network"
+    },
+    {
+      "id": 42,
+      "question": "What is a leader in Solana's network?",
+      "options": ["The CEO of Solana Labs", "The validator scheduled to process transactions", "The largest token holder", "The fastest node"],
+      "correctAnswer": 1,
+      "explanation": "A leader is the designated validator responsible for processing transactions in a given slot"
+    },
+    {
+      "id": 43,
+      "question": "How are Solana accounts different from Ethereum accounts?",
+      "options": ["They are identical", "Solana accounts store state separately from programs", "Solana has no accounts", "Solana uses ENS instead"],
+      "correctAnswer": 1,
+      "explanation": "Solana separates program logic from state, storing state in separate accounts"
+    },
+    {
+      "id": 44,
+      "question": "What is rent in Solana?",
+      "options": ["Monthly validator fees", "A fee for storing data on-chain", "Staking rewards", "Bridge fees"],
+      "correctAnswer": 1,
+      "explanation": "Rent is a fee mechanism in Solana for accounts that store data on-chain"
+    },
+    {
+      "id": 45,
+      "question": "How can a Solana account become rent-exempt?",
+      "options": ["By staking tokens", "By maintaining a minimum balance of SOL", "By running a validator", "By using a special program"],
+      "correctAnswer": 1,
+      "explanation": "Accounts are rent-exempt if they maintain a minimum balance proportional to their data size"
+    },
+    {
+      "id": 46,
+      "question": "What is the Solana CLI?",
+      "options": ["A mobile app", "Command Line Interface tool for Solana", "A browser extension", "A validator software"],
+      "correctAnswer": 1,
+      "explanation": "The Solana CLI is the command line interface for interacting with the Solana network"
+    },
+    {
+      "id": 47,
+      "question": "What is Metaplex on Solana?",
+      "options": ["A DEX", "An NFT protocol and toolset", "A stablecoin issuer", "A bridge"],
+      "correctAnswer": 1,
+      "explanation": "Metaplex is the leading NFT protocol and toolset on Solana"
+    },
+    {
+      "id": 48,
+      "question": "What are Solana Programs?",
+      "options": ["Marketing campaigns", "Smart contracts on Solana", "Validator schedules", "Token airdrops"],
+      "correctAnswer": 1,
+      "explanation": "Solana Programs are what Ethereum calls smart contracts"
+    },
+    {
+      "id": 49,
+      "question": "What does PDAs stand for in Solana development?",
+      "options": ["Public Data Addresses", "Program Derived Addresses", "Private Domain Accounts", "Protocol Data Arrays"],
+      "correctAnswer": 1,
+      "explanation": "PDAs are Program Derived Addresses, used for signing on behalf of programs"
+    },
+    {
+      "id": 50,
+      "question": "What is the Solana Explorer?",
+      "options": ["A wallet browser", "A block explorer for Solana", "A DEX", "A validator dashboard"],
+      "correctAnswer": 1,
+      "explanation": "Solana Explorer (explorer.solana.com) is the official block explorer for the Solana network"
+    },
+    {
+      "id": 51,
+      "question": "What is Serum on Solana?",
+      "options": ["A skincare brand", "A DEX with central limit order book", "An NFT project", "A stablecoin"],
+      "correctAnswer": 1,
+      "explanation": "Serum is a decentralized exchange with a central limit order book built on Solana"
+    },
+    {
+      "id": 52,
+      "question": "What is Wormhole in the Solana ecosystem?",
+      "options": ["A gaming portal", "A cross-chain bridge", "An NFT marketplace", "A DEX"],
+      "correctAnswer": 1,
+      "explanation": "Wormhole is a cross-chain bridge connecting Solana with other blockchains"
+    },
+    {
+      "id": 53,
+      "question": "What is the name of Solana's stablecoin ecosystem?",
+      "options": ["USDT only", "Multiple stablecoins including USDC and USDT", "Only algorithmic stablecoins", "No stablecoins exist on Solana"],
+      "correctAnswer": 1,
+      "explanation": "Solana hosts multiple stablecoins including USDC, USDT, and others"
+    },
+    {
+      "id": 54,
+      "question": "What does Anchor framework provide for Solana developers?",
+      "options": ["Hosting services", "A high-level framework to simplify program development", "Token creation tools only", "Validator setup tools"],
+      "correctAnswer": 1,
+      "explanation": "Anchor provides a high-level abstraction layer that simplifies Solana program development"
+    },
+    {
+      "id": 55,
+      "question": "What is the Solana Virtual Machine?",
+      "options": ["A computer game", "The runtime environment for Solana programs", "A physical server", "A mobile app"],
+      "correctAnswer": 1,
+      "explanation": "The Solana Virtual Machine (SVM) is the runtime environment that executes Solana programs"
+    },
+    {
+      "id": 56,
+      "question": "What major outage did Solana experience in September 2021?",
+      "options": ["A hack", "A 17-hour network outage due to resource exhaustion", "A consensus failure", "A validator revolt"],
+      "correctAnswer": 1,
+      "explanation": "Solana experienced a ~17-hour outage in September 2021 due to resource exhaustion from bot activity"
+    },
+    {
+      "id": 57,
+      "question": "What is the Breakpoint conference?",
+      "options": ["A coding bootcamp", "Solana's annual developer conference", "A validator meetup", "An NFT auction event"],
+      "correctAnswer": 1,
+      "explanation": "Breakpoint is Solana's annual developer and community conference"
+    },
+    {
+      "id": 58,
+      "question": "What is Candy Machine on Solana?",
+      "options": ["A DeFi protocol", "An NFT minting tool by Metaplex", "A vending machine NFT project", "A token launchpad"],
+      "correctAnswer": 1,
+      "explanation": "Candy Machine is a popular NFT minting tool provided by Metaplex on Solana"
+    },
+    {
+      "id": 59,
+      "question": "What is Solana's approach to scalability?",
+      "options": ["Layer 2 solutions", "Horizontal scaling at Layer 1", "Sharding", "State channels"],
+      "correctAnswer": 1,
+      "explanation": "Solana achieves scalability through innovative Layer 1 design rather than Layer 2 solutions"
+    },
+    {
+      "id": 60,
+      "question": "What is the Solana Hacker House?",
+      "options": ["A haunted NFT project", "A global developer event series", "Solana Labs' headquarters", "A validator datacenter"],
+      "correctAnswer": 1,
+      "explanation": "Solana Hacker House is a global series of developer events and hackathons"
+    },
+    {
+      "id": 61,
+      "question": "What is stSOL?",
+      "options": ["A test token", "Lido's liquid staking token on Solana", "A synthetic token", "A stablecoin"],
+      "correctAnswer": 1,
+      "explanation": "stSOL is the liquid staking token issued by Lido Finance on Solana"
+    },
+    {
+      "id": 62,
+      "question": "What is Solend on Solana?",
+      "options": ["A lending and borrowing protocol", "An NFT project", "A validator service", "A gaming token"],
+      "correctAnswer": 0,
+      "explanation": "Solend is a leading lending and borrowing protocol on Solana"
+    },
+    {
+      "id": 63,
+      "question": "What does TVL stand for in DeFi?",
+      "options": ["Total Value Locked", "Transaction Volume Limit", "Token Value Listed", "Transfer Volume Ledger"],
+      "correctAnswer": 0,
+      "explanation": "TVL stands for Total Value Locked, a measure of assets deposited in a protocol"
+    },
+    {
+      "id": 64,
+      "question": "What is Mango Markets on Solana?",
+      "options": ["A fruit NFT collection", "A decentralized margin trading platform", "A yield farm", "A stablecoin protocol"],
+      "correctAnswer": 1,
+      "explanation": "Mango Markets is a decentralized margin trading and lending platform on Solana"
+    },
+    {
+      "id": 65,
+      "question": "What happened to Mango Markets in October 2022?",
+      "options": ["It launched a new token", "It was exploited for ~$114 million", "It merged with Raydium", "It shut down voluntarily"],
+      "correctAnswer": 1,
+      "explanation": "Mango Markets was exploited for approximately $114 million in October 2022"
+    },
+    {
+      "id": 66,
+      "question": "What is Solana Mobile?",
+      "options": ["A mobile app", "Solana's initiative for mobile-first crypto including the Saga phone", "A mobile game", "A mobile payment service"],
+      "correctAnswer": 1,
+      "explanation": "Solana Mobile is an initiative to bring crypto to mobile, including the Saga Android phone"
+    },
+    {
+      "id": 67,
+      "question": "What is the Solana Saga?",
+      "options": ["A book about Solana", "A Web3-native Android smartphone", "An NFT series", "A DeFi protocol"],
+      "correctAnswer": 1,
+      "explanation": "Solana Saga is a Web3-native Android smartphone developed by Solana Mobile"
+    },
+    {
+      "id": 68,
+      "question": "What is the dApp Store in Solana Mobile?",
+      "options": ["Google Play alternative", "A curated store for Web3 and Solana dApps", "A centralized exchange app", "A NFT gallery"],
+      "correctAnswer": 1,
+      "explanation": "The dApp Store is Solana Mobile's curated marketplace for decentralized applications"
+    },
+    {
+      "id": 69,
+      "question": "What is Pyth Network on Solana?",
+      "options": ["A gaming network", "An oracle network providing real-world data", "A DEX", "A bridge protocol"],
+      "correctAnswer": 1,
+      "explanation": "Pyth Network is an oracle protocol providing real-time market data to Solana and other blockchains"
+    },
+    {
+      "id": 70,
+      "question": "What is Switchboard on Solana?",
+      "options": ["A validator tool", "A decentralized oracle network", "A DEX aggregator", "A staking platform"],
+      "correctAnswer": 1,
+      "explanation": "Switchboard is a decentralized oracle network operating on Solana"
+    },
+    {
+      "id": 71,
+      "question": "What are Compressed NFTs on Solana?",
+      "options": ["Small image NFTs", "NFTs using state compression for lower minting costs", "Free NFTs", "Old NFT format"],
+      "correctAnswer": 1,
+      "explanation": "Compressed NFTs use Solana's state compression technology to dramatically reduce minting costs"
+    },
+    {
+      "id": 72,
+      "question": "What is state compression on Solana?",
+      "options": ["Data zipping", "A technique to store data off-chain with on-chain merkle roots", "A consensus improvement", "A fee reduction mechanism"],
+      "correctAnswer": 1,
+      "explanation": "State compression stores data off-chain using on-chain merkle roots, reducing storage costs"
+    },
+    {
+      "id": 73,
+      "question": "What is the Solana Ecosystem Fund?",
+      "options": ["A savings account", "A fund to support Solana ecosystem development", "A government grant", "A VC firm"],
+      "correctAnswer": 1,
+      "explanation": "The Solana Ecosystem Fund supports builders and projects developing on Solana"
+    },
+    {
+      "id": 74,
+      "question": "What is Bonk (BONK) on Solana?",
+      "options": ["A game token", "A community meme token on Solana", "A stablecoin", "A validator token"],
+      "correctAnswer": 1,
+      "explanation": "Bonk is a popular community meme token on the Solana blockchain"
+    },
+    {
+      "id": 75,
+      "question": "What is WIF on Solana?",
+      "options": ["A wallet interface", "Dogwifhat, a popular meme token on Solana", "A bridge token", "A DeFi protocol"],
+      "correctAnswer": 1,
+      "explanation": "WIF (Dogwifhat) is a well-known meme token on the Solana blockchain"
+    },
+    {
+      "id": 76,
+      "question": "What is Drift Protocol on Solana?",
+      "options": ["A token launchpad", "A decentralized perpetual exchange", "An NFT marketplace", "A lending protocol"],
+      "correctAnswer": 1,
+      "explanation": "Drift Protocol is a decentralized perpetual futures exchange on Solana"
+    },
+    {
+      "id": 77,
+      "question": "What is Zeta Markets on Solana?",
+      "options": ["A grocery store theme NFT", "A decentralized options and futures exchange", "A validator marketplace", "A staking platform"],
+      "correctAnswer": 1,
+      "explanation": "Zeta Markets is a decentralized derivatives exchange on Solana"
+    },
+    {
+      "id": 78,
+      "question": "What is the Solana Summer of '21 known for?",
+      "options": ["A music festival", "Explosive growth in NFTs and DeFi on Solana", "A network upgrade", "A major hack"],
+      "correctAnswer": 1,
+      "explanation": "Summer 2021 saw explosive growth in Solana's NFT and DeFi ecosystems"
+    },
+    {
+      "id": 79,
+      "question": "What is Solana's relationship with FTX?",
+      "options": ["No relationship", "FTX and Alameda Research were major early backers of Solana", "FTX created Solana", "FTX is a Solana validator"],
+      "correctAnswer": 1,
+      "explanation": "FTX and Alameda Research were significant early investors and supporters of Solana"
+    },
+    {
+      "id": 80,
+      "question": "How did FTX's collapse in 2022 affect Solana?",
+      "options": ["No effect", "SOL price dropped significantly due to exposure", "SOL price increased", "Solana shut down"],
+      "correctAnswer": 1,
+      "explanation": "SOL's price dropped significantly following the FTX collapse due to Alameda's large SOL holdings"
+    },
+    {
+      "id": 81,
+      "question": "What is Solana's co-founder alongside Anatoly Yakovenko?",
+      "options": ["Greg Fitzgerald and Raj Gokal", "Vitalik Buterin", "Sam Bankman-Fried", "Do Kwon"],
+      "correctAnswer": 0,
+      "explanation": "Greg Fitzgerald and Raj Gokal are key co-founders alongside Anatoly Yakovenko"
+    },
+    {
+      "id": 82,
+      "question": "What is cNFT?",
+      "options": ["Cloned NFT", "Compressed NFT on Solana", "Centralized NFT", "Crypto NFT"],
+      "correctAnswer": 1,
+      "explanation": "cNFT refers to Compressed NFTs on Solana, which use state compression"
+    },
+    {
+      "id": 83,
+      "question": "What is SolScan?",
+      "options": ["A security tool", "A popular Solana block explorer", "A DEX", "An NFT minter"],
+      "correctAnswer": 1,
+      "explanation": "SolScan is a popular third-party block explorer for the Solana network"
+    },
+    {
+      "id": 84,
+      "question": "What is the Solana Foundation's role?",
+      "options": ["Running all validators", "Supporting ecosystem growth and decentralization", "Trading tokens", "Creating NFTs"],
+      "correctAnswer": 1,
+      "explanation": "The Solana Foundation supports the growth, security, and decentralization of the Solana ecosystem"
+    },
+    {
+      "id": 85,
+      "question": "What is Backpack wallet on Solana?",
+      "options": ["A hardware wallet", "A multi-chain Web3 wallet with xNFT support", "A token bridge", "A validator client"],
+      "correctAnswer": 1,
+      "explanation": "Backpack is a Web3 wallet that supports executable NFTs (xNFTs) and multiple chains including Solana"
+    },
+    {
+      "id": 86,
+      "question": "What are xNFTs?",
+      "options": ["Extra large NFTs", "Executable NFTs that run programs within wallets", "Cross-chain NFTs", "Expired NFTs"],
+      "correctAnswer": 1,
+      "explanation": "xNFTs (Executable NFTs) are NFTs that contain and can execute programs, pioneered on Solana"
+    },
+    {
+      "id": 87,
+      "question": "What is Tensor on Solana?",
+      "options": ["A math library", "An NFT trading platform with advanced features", "A DeFi protocol", "A bridge"],
+      "correctAnswer": 1,
+      "explanation": "Tensor is a leading NFT trading platform on Solana with advanced trading features"
+    },
+    {
+      "id": 88,
+      "question": "What is the Solana Grizzlython?",
+      "options": ["A bear-themed NFT", "A Solana hackathon", "A validator service", "A mobile app"],
+      "correctAnswer": 1,
+      "explanation": "Grizzlython was a major Solana hackathon event"
+    },
+    {
+      "id": 89,
+      "question": "What is DRiP on Solana?",
+      "options": ["A liquid staking token", "An NFT subscription/airdrop platform", "A DEX", "A yield protocol"],
+      "correctAnswer": 1,
+      "explanation": "DRiP is a platform on Solana for creators to distribute NFTs to subscribers"
+    },
+    {
+      "id": 90,
+      "question": "What is Solana's consensus speed advantage over Ethereum?",
+      "options": ["10x faster", "More than 100x faster block times", "Same speed", "2x faster"],
+      "correctAnswer": 1,
+      "explanation": "Solana's ~400ms block time is over 100x faster than Ethereum's ~12 second block time"
+    },
+    {
+      "id": 91,
+      "question": "What is the Seeker ecosystem designed to incentivize?",
+      "options": ["Staking only", "User engagement, quests, and community participation", "Mining", "Liquidity provision only"],
+      "correctAnswer": 1,
+      "explanation": "The Seeker ecosystem is designed to incentivize user engagement through quests and community participation"
+    },
+    {
+      "id": 92,
+      "question": "What is SRK used for within the Seeker ecosystem?",
+      "options": ["Only speculation", "Governance, rewards, and in-ecosystem transactions", "Mining fees", "Bridge fees"],
+      "correctAnswer": 1,
+      "explanation": "SRK is used for governance, rewards, and transactions within the Seeker ecosystem"
+    },
+    {
+      "id": 93,
+      "question": "What network does SRK (Seeker) primarily operate on?",
+      "options": ["Ethereum", "BNB Chain", "Solana", "Avalanche"],
+      "correctAnswer": 2,
+      "explanation": "SRK (Seeker) primarily operates on the Solana network"
+    },
+    {
+      "id": 94,
+      "question": "What does the Seeker token aim to bring to its community?",
+      "options": ["High inflation", "Community-driven value and rewards", "Centralized control", "Anonymous governance"],
+      "correctAnswer": 1,
+      "explanation": "Seeker token aims to bring community-driven value and rewards to its holders"
+    },
+    {
+      "id": 95,
+      "question": "What is Helium Network's connection to Solana?",
+      "options": ["No connection", "Helium migrated to Solana in 2023", "Helium created Solana", "Helium is a Solana DEX"],
+      "correctAnswer": 1,
+      "explanation": "Helium Network migrated its blockchain to Solana in April 2023"
+    },
+    {
+      "id": 96,
+      "question": "What is HNT on Solana?",
+      "options": ["A meme token", "Helium Network Token, a DePIN token on Solana", "A stablecoin", "An NFT"],
+      "correctAnswer": 1,
+      "explanation": "HNT is the Helium Network Token, representing DePIN infrastructure on Solana"
+    },
+    {
+      "id": 97,
+      "question": "What is DePIN?",
+      "options": ["Decentralized Protocol Interface Network", "Decentralized Physical Infrastructure Networks", "Distributed Payment Infrastructure Node", "Digital Private Infrastructure Network"],
+      "correctAnswer": 1,
+      "explanation": "DePIN stands for Decentralized Physical Infrastructure Networks"
+    },
+    {
+      "id": 98,
+      "question": "What is Render Network's connection to Solana?",
+      "options": ["No connection", "Render migrated to Solana for GPU rendering services", "Render created Solana", "Render is a Solana validator"],
+      "correctAnswer": 1,
+      "explanation": "Render Network migrated to Solana, offering decentralized GPU rendering services"
+    },
+    {
+      "id": 99,
+      "question": "What is RNDR token?",
+      "options": ["A random token generator", "Render Network's token for decentralized GPU computing", "A Solana testnet token", "A bridge token"],
+      "correctAnswer": 1,
+      "explanation": "RNDR is the Render Network token used for decentralized GPU rendering on Solana"
+    },
+    {
+      "id": 100,
+      "question": "What is Solana's carbon footprint compared to traditional blockchains?",
+      "options": ["Higher than Bitcoin", "Lower, using significantly less energy", "Same as Ethereum PoW", "Unknown"],
+      "correctAnswer": 1,
+      "explanation": "Solana has a significantly lower carbon footprint due to its efficient PoS/PoH architecture"
+    },
+    {
+      "id": 101,
+      "question": "What is a Solana epoch?",
+      "options": ["A marketing term", "A period of approximately 2-3 days used for staking rewards", "A transaction batch", "A block group"],
+      "correctAnswer": 1,
+      "explanation": "A Solana epoch is approximately 2-3 days long and is used to calculate staking rewards"
+    },
+    {
+      "id": 102,
+      "question": "What is the Solana slot?",
+      "options": ["A validator seat", "The basic unit of time in Solana (approximately 400ms)", "A staking period", "A transaction queue"],
+      "correctAnswer": 1,
+      "explanation": "A slot is the basic time unit in Solana, approximately 400 milliseconds long"
+    },
+    {
+      "id": 103,
+      "question": "What is a Solana epoch leader schedule?",
+      "options": ["A meeting agenda", "A predetermined schedule of which validators will produce blocks", "A reward distribution plan", "A token unlock schedule"],
+      "correctAnswer": 1,
+      "explanation": "The leader schedule is a predetermined list of which validators will produce blocks in each slot"
+    },
+    {
+      "id": 104,
+      "question": "What does 'vote account' mean on Solana?",
+      "options": ["A political voting account", "A special account used by validators to record votes", "A governance token", "A staking account"],
+      "correctAnswer": 1,
+      "explanation": "A vote account is a special Solana account used by validators to record their consensus votes"
+    },
+    {
+      "id": 105,
+      "question": "What is stake account on Solana?",
+      "options": ["A bank account", "An account holding delegated SOL for staking", "A validator's main wallet", "A rent-free account"],
+      "correctAnswer": 1,
+      "explanation": "A stake account holds SOL that has been delegated to a validator for staking"
+    },
+    {
+      "id": 106,
+      "question": "What is the typical APY for staking SOL?",
+      "options": ["50-100%", "5-8%", "0.1%", "25-30%"],
+      "correctAnswer": 1,
+      "explanation": "Staking SOL typically yields approximately 5-8% APY depending on network conditions"
+    },
+    {
+      "id": 107,
+      "question": "What is Solana's inflation rate?",
+      "options": ["Fixed 2% forever", "Starting at 8%, decreasing 15% per year toward 1.5% terminal rate", "No inflation", "100% annually"],
+      "correctAnswer": 1,
+      "explanation": "Solana started with 8% inflation, decreasing 15% per year toward a 1.5% long-term terminal rate"
+    },
+    {
+      "id": 108,
+      "question": "Who is Raj Gokal?",
+      "options": ["Solana's CTO", "Solana's co-founder and former COO", "The creator of Anchor", "Magic Eden's founder"],
+      "correctAnswer": 1,
+      "explanation": "Raj Gokal is a co-founder of Solana and served as its COO"
+    },
+    {
+      "id": 109,
+      "question": "What is GenesysGo on Solana?",
+      "options": ["An NFT project", "A validator and infrastructure provider for Solana", "A DEX", "A stablecoin protocol"],
+      "correctAnswer": 1,
+      "explanation": "GenesysGo provides validator services and RPC infrastructure for the Solana ecosystem"
+    },
+    {
+      "id": 110,
+      "question": "What is an RPC node on Solana?",
+      "options": ["A consensus node", "A node that handles API requests from applications", "A storage node", "A bridge node"],
+      "correctAnswer": 1,
+      "explanation": "RPC (Remote Procedure Call) nodes handle API requests from dApps and users"
+    },
+    {
+      "id": 111,
+      "question": "What is QuickNode in the Solana context?",
+      "options": ["A fast validator", "A blockchain infrastructure and RPC provider supporting Solana", "An NFT launchpad", "A DEX"],
+      "correctAnswer": 1,
+      "explanation": "QuickNode is a major blockchain infrastructure provider offering Solana RPC nodes"
+    },
+    {
+      "id": 112,
+      "question": "What is Triton One?",
+      "options": ["A hardware wallet", "A dedicated Solana RPC service provider", "A validator pool", "A token launchpad"],
+      "correctAnswer": 1,
+      "explanation": "Triton One is a dedicated RPC service provider for the Solana ecosystem"
+    },
+    {
+      "id": 113,
+      "question": "What is the Solana Beach explorer?",
+      "options": ["A beach-themed NFT project", "A Solana validator dashboard and block explorer", "A DEX", "A mobile app"],
+      "correctAnswer": 1,
+      "explanation": "Solana Beach is a validator dashboard and block explorer for the Solana network"
+    },
+    {
+      "id": 114,
+      "question": "What is Dialect on Solana?",
+      "options": ["A language learning app", "A messaging and notifications protocol for Solana dApps", "A DEX", "An NFT project"],
+      "correctAnswer": 1,
+      "explanation": "Dialect is a smart messaging and notifications protocol built for Solana applications"
+    },
+    {
+      "id": 115,
+      "question": "What is STEPN on Solana?",
+      "options": ["A Solana upgrade", "A move-to-earn fitness app", "A DEX aggregator", "A staking protocol"],
+      "correctAnswer": 1,
+      "explanation": "STEPN is a popular move-to-earn fitness application built on Solana"
+    },
+    {
+      "id": 116,
+      "question": "What is the GMT token?",
+      "options": ["Greenwich Mean Time token", "STEPN's governance token on Solana", "A meme token", "A bridge token"],
+      "correctAnswer": 1,
+      "explanation": "GMT is STEPN's governance token used within the move-to-earn ecosystem"
+    },
+    {
+      "id": 117,
+      "question": "What is GST token?",
+      "options": ["Goods and Services Token", "STEPN's in-game currency token", "A government token", "A stablecoin"],
+      "correctAnswer": 1,
+      "explanation": "GST (Green Satoshi Token) is STEPN's in-game utility token"
+    },
+    {
+      "id": 118,
+      "question": "What is Star Atlas on Solana?",
+      "options": ["A star map app", "A grand strategy space metaverse game", "An astronomy NFT project", "A DEX"],
+      "correctAnswer": 1,
+      "explanation": "Star Atlas is an ambitious grand strategy space exploration metaverse built on Solana"
+    },
+    {
+      "id": 119,
+      "question": "What is ATLAS token?",
+      "options": ["A geography token", "Star Atlas's in-game currency", "A bridge token", "A validator reward"],
+      "correctAnswer": 1,
+      "explanation": "ATLAS is the in-game currency token of the Star Atlas game on Solana"
+    },
+    {
+      "id": 120,
+      "question": "What is POLIS token?",
+      "options": ["A political token", "Star Atlas's governance token", "A stablecoin", "A DEX token"],
+      "correctAnswer": 1,
+      "explanation": "POLIS is the governance token of Star Atlas, giving holders voting rights"
+    },
+    {
+      "id": 121,
+      "question": "What is Aurory on Solana?",
+      "options": ["A golden token", "A Play-to-Earn RPG game on Solana", "A stablecoin", "A DEX"],
+      "correctAnswer": 1,
+      "explanation": "Aurory is a Play-to-Earn RPG game built on the Solana blockchain"
+    },
+    {
+      "id": 122,
+      "question": "What is Nyan Heroes on Solana?",
+      "options": ["A cat NFT project", "A hero shooter game built on Solana", "A DeFi protocol", "A DEX"],
+      "correctAnswer": 1,
+      "explanation": "Nyan Heroes is a hero shooter video game built on Solana featuring cat characters"
+    },
+    {
+      "id": 123,
+      "question": "What is DeGods NFT collection?",
+      "options": ["A religious NFT", "A prominent NFT collection that originated on Solana", "A gaming token", "A bridge protocol"],
+      "correctAnswer": 1,
+      "explanation": "DeGods is one of the most prominent NFT collections that originally launched on Solana"
+    },
+    {
+      "id": 124,
+      "question": "What is y00ts NFT collection?",
+      "options": ["A youth NFT", "A popular NFT collection by the DeGods team on Solana", "A gaming NFT", "A DeFi NFT"],
+      "correctAnswer": 1,
+      "explanation": "y00ts is a popular NFT collection created by the same team behind DeGods on Solana"
+    },
+    {
+      "id": 125,
+      "question": "What are Okay Bears?",
+      "options": ["A bear market indicator", "A popular NFT collection on Solana", "A validator mascot", "A meme token"],
+      "correctAnswer": 1,
+      "explanation": "Okay Bears is one of the most popular and community-driven NFT collections on Solana"
+    },
+    {
+      "id": 126,
+      "question": "What is the Solana Monkey Business (SMB) collection?",
+      "options": ["A comedy series", "One of the earliest and most iconic NFT collections on Solana", "A trading strategy", "A DeFi protocol"],
+      "correctAnswer": 1,
+      "explanation": "Solana Monkey Business (SMB) is one of the earliest and most prestigious NFT collections on Solana"
+    },
+    {
+      "id": 127,
+      "question": "What is the floor price in NFT context?",
+      "options": ["The cost of building an NFT platform", "The lowest asking price for an NFT in a collection", "The minimum minting fee", "The royalty percentage"],
+      "correctAnswer": 1,
+      "explanation": "Floor price is the lowest listing price for an NFT within a collection"
+    },
+    {
+      "id": 128,
+      "question": "What are royalties in Solana NFTs?",
+      "options": ["NFT owner privileges", "Percentage of secondary sales paid to creators", "Staking rewards for NFT holders", "Gas fees"],
+      "correctAnswer": 1,
+      "explanation": "Royalties are a percentage of secondary sale proceeds automatically paid to the original creator"
+    },
+    {
+      "id": 129,
+      "question": "What was the controversy around NFT royalties on Solana in 2022?",
+      "options": ["Too high royalties", "Marketplaces began making royalties optional, reducing creator revenue", "No royalties existed", "Government regulation"],
+      "correctAnswer": 1,
+      "explanation": "Major Solana NFT marketplaces made royalties optional, sparking controversy in the creator community"
+    },
+    {
+      "id": 130,
+      "question": "What is the Solana token-2022 (Token Extensions)?",
+      "options": ["The second Solana token standard", "An enhanced SPL token standard with advanced features", "A 2022 network upgrade", "A new consensus mechanism"],
+      "correctAnswer": 1,
+      "explanation": "Token Extensions (Token-2022) is an enhanced SPL token standard with advanced programmable features"
+    },
+    {
+      "id": 131,
+      "question": "What feature does Token Extensions add to Solana tokens?",
+      "options": ["Nothing new", "Transfer fees, confidential transfers, interest-bearing tokens, and more", "Only faster transfers", "Only staking capabilities"],
+      "correctAnswer": 1,
+      "explanation": "Token Extensions adds features like transfer fees, confidential transfers, interest-bearing mechanisms, and more"
+    },
+    {
+      "id": 132,
+      "question": "What is Solana's approach to parallel transaction execution?",
+      "options": ["Sequential only", "Sealevel enables parallel execution of non-overlapping transactions", "Random ordering", "Priority-based only"],
+      "correctAnswer": 1,
+      "explanation": "Sealevel enables Solana to execute thousands of transactions in parallel when they don't share state"
+    },
+    {
+      "id": 133,
+      "question": "What is the purpose of Proof of History?",
+      "options": ["To prove past transactions", "To create a historical record as a trustless clock", "To record validator history", "To timestamp NFTs"],
+      "correctAnswer": 1,
+      "explanation": "PoH creates a verifiable historical record that serves as a decentralized clock for the network"
+    },
+    {
+      "id": 134,
+      "question": "What cryptographic function does Proof of History use?",
+      "options": ["SHA-256", "SHA-512", "A sequential VDF (Verifiable Delay Function)", "Keccak-256"],
+      "correctAnswer": 2,
+      "explanation": "PoH uses a sequential hash function (VDF) to create a verifiable passage of time"
+    },
+    {
+      "id": 135,
+      "question": "What is Solana's network identity created from?",
+      "options": ["Email addresses", "Ed25519 public keys", "SHA-256 hashes", "IP addresses"],
+      "correctAnswer": 1,
+      "explanation": "Solana uses Ed25519 keypairs for network identities and wallet addresses"
+    },
+    {
+      "id": 136,
+      "question": "What hashing algorithm does Solana primarily use?",
+      "options": ["MD5", "SHA-256", "Blake3 and SHA-256", "Keccak"],
+      "correctAnswer": 2,
+      "explanation": "Solana uses Blake3 for performance-critical operations and SHA-256 in other contexts"
+    },
+    {
+      "id": 137,
+      "question": "What is a Cross Program Invocation (CPI) on Solana?",
+      "options": ["A cross-chain transaction", "When one Solana program calls another program", "A validator communication", "A multi-sig transaction"],
+      "correctAnswer": 1,
+      "explanation": "CPI allows Solana programs to invoke instructions from other programs within the same transaction"
+    },
+    {
+      "id": 138,
+      "question": "What is the System Program on Solana?",
+      "options": ["The operating system", "A native program responsible for creating accounts and transferring SOL", "The consensus mechanism", "The fee calculator"],
+      "correctAnswer": 1,
+      "explanation": "The System Program is a native Solana program that handles account creation and SOL transfers"
+    },
+    {
+      "id": 139,
+      "question": "What is the Token Program on Solana?",
+      "options": ["A programming tutorial", "The program managing SPL token creation and transfers", "A governance contract", "An NFT program"],
+      "correctAnswer": 1,
+      "explanation": "The Token Program manages the creation, minting, and transfer of SPL tokens on Solana"
+    },
+    {
+      "id": 140,
+      "question": "What is an Associated Token Account (ATA)?",
+      "options": ["A bank account", "A deterministically derived account linking a wallet to a token", "A validator account", "A staking account"],
+      "correctAnswer": 1,
+      "explanation": "An ATA is a deterministic account that links a user's wallet to a specific SPL token"
+    },
+    {
+      "id": 141,
+      "question": "What is Solana's BPF?",
+      "options": ["Block Processing Framework", "Berkeley Packet Filter VM used to run Solana programs", "Bitcoin Payment Format", "Blockchain Protocol Foundation"],
+      "correctAnswer": 1,
+      "explanation": "Solana programs are compiled to BPF (Berkeley Packet Filter) bytecode for execution"
+    },
+    {
+      "id": 142,
+      "question": "What is sBPF on Solana?",
+      "options": ["Simple BPF", "Solana's enhanced version of BPF for program execution", "Staking BPF", "A testing framework"],
+      "correctAnswer": 1,
+      "explanation": "sBPF is Solana's customized version of the BPF virtual machine for executing programs"
+    },
+    {
+      "id": 143,
+      "question": "What is the purpose of Compute Units (CU) on Solana?",
+      "options": ["Hardware measurement", "A unit measuring computational resources used by a transaction", "A staking unit", "A fee currency"],
+      "correctAnswer": 1,
+      "explanation": "Compute Units measure the computational resources consumed by a Solana transaction"
+    },
+    {
+      "id": 144,
+      "question": "What is the maximum compute units per Solana transaction?",
+      "options": ["100,000 CU", "1.4 million CU", "500,000 CU", "Unlimited"],
+      "correctAnswer": 1,
+      "explanation": "The maximum compute unit limit per Solana transaction is 1.4 million CUs"
+    },
+    {
+      "id": 145,
+      "question": "What is a priority fee on Solana?",
+      "options": ["A VIP membership fee", "An additional fee to prioritize transaction processing", "A staking fee", "A bridge fee"],
+      "correctAnswer": 1,
+      "explanation": "Priority fees are additional micro-lamports per compute unit to incentivize faster transaction processing"
+    },
+    {
+      "id": 146,
+      "question": "What is the base transaction fee on Solana?",
+      "options": ["0.001 SOL", "0.000005 SOL (5000 lamports)", "0.01 SOL", "Free"],
+      "correctAnswer": 1,
+      "explanation": "The base transaction fee on Solana is 5000 lamports (0.000005 SOL) per signature"
+    },
+    {
+      "id": 147,
+      "question": "What happens to 50% of Solana transaction fees?",
+      "options": ["Sent to validators", "Burned (destroyed)", "Sent to the Foundation", "Added to treasury"],
+      "correctAnswer": 1,
+      "explanation": "50% of Solana's transaction fees are burned, and 50% go to the block producer"
+    },
+    {
+      "id": 148,
+      "question": "What is the Solana validator client written in?",
+      "options": ["Python", "Go", "Rust", "C++"],
+      "correctAnswer": 2,
+      "explanation": "The Solana validator client (Agave) is written in Rust"
+    },
+    {
+      "id": 149,
+      "question": "What is Agave in the Solana ecosystem?",
+      "options": ["A plant-themed NFT", "The main Solana validator client (forked from original Solana Labs client)", "A DeFi protocol", "An oracle network"],
+      "correctAnswer": 1,
+      "explanation": "Agave is the main Solana validator client, maintained by Anza (formerly part of Solana Labs)"
+    },
+    {
+      "id": 150,
+      "question": "What is Firedancer?",
+      "options": ["An NFT collection", "A new high-performance Solana validator client by Jump Crypto", "A DEX", "A consensus upgrade"],
+      "correctAnswer": 1,
+      "explanation": "Firedancer is a new Solana validator client developed by Jump Crypto, aimed at extreme performance"
+    },
+    {
+      "id": 151,
+      "question": "What language is Firedancer written in?",
+      "options": ["Rust", "Python", "C", "Go"],
+      "correctAnswer": 2,
+      "explanation": "Firedancer is written primarily in C for maximum performance"
+    },
+    {
+      "id": 152,
+      "question": "What is the purpose of Firedancer?",
+      "options": ["Create NFTs faster", "Increase validator client diversity and network performance", "Replace all validators", "A backup consensus"],
+      "correctAnswer": 1,
+      "explanation": "Firedancer aims to increase client diversity, resilience, and push Solana's performance limits"
+    },
+    {
+      "id": 153,
+      "question": "What is QUIC protocol used for on Solana?",
+      "options": ["Quick NFT minting", "Transaction submission protocol replacing UDP", "A DEX routing protocol", "A staking mechanism"],
+      "correctAnswer": 1,
+      "explanation": "Solana adopted QUIC protocol for transaction submission, replacing the original UDP approach"
+    },
+    {
+      "id": 154,
+      "question": "What is localnet in Solana development?",
+      "options": ["A local network club", "A local test validator running on a developer's machine", "A regional Solana network", "A private mainnet"],
+      "correctAnswer": 1,
+      "explanation": "Localnet refers to a local test validator that developers run on their machines for testing"
+    },
+    {
+      "id": 155,
+      "question": "What is solana-test-validator?",
+      "options": ["A testing certificate", "A local single-node Solana cluster for development", "A validator evaluation tool", "A staking simulator"],
+      "correctAnswer": 1,
+      "explanation": "solana-test-validator is a command-line tool that runs a local Solana cluster for development"
+    },
+    {
+      "id": 156,
+      "question": "What are Instructions in Solana?",
+      "options": ["Developer documentation", "The smallest units of execution in a Solana transaction", "Validator guidelines", "Staking rules"],
+      "correctAnswer": 1,
+      "explanation": "Instructions are the smallest executable units in Solana, contained within transactions"
+    },
+    {
+      "id": 157,
+      "question": "How many instructions can a Solana transaction contain?",
+      "options": ["Only 1", "Multiple instructions", "Exactly 10", "Unlimited without constraint"],
+      "correctAnswer": 1,
+      "explanation": "A Solana transaction can contain multiple instructions, subject to compute unit limits"
+    },
+    {
+      "id": 158,
+      "question": "What is an account owner on Solana?",
+      "options": ["The private key holder", "The program that has write authority over an account's data", "The Solana Foundation", "The first depositor"],
+      "correctAnswer": 1,
+      "explanation": "An account's owner is the program that has permission to modify the account's data"
+    },
+    {
+      "id": 159,
+      "question": "What is SPL governance?",
+      "options": ["A political committee", "A Solana framework for DAO governance", "A token standard", "A validator protocol"],
+      "correctAnswer": 1,
+      "explanation": "SPL Governance is a Solana framework for creating and managing decentralized autonomous organizations (DAOs)"
+    },
+    {
+      "id": 160,
+      "question": "What is Realms on Solana?",
+      "options": ["A metaverse platform", "A DAO governance platform using SPL Governance", "An NFT collection", "A DEX"],
+      "correctAnswer": 1,
+      "explanation": "Realms is the main DAO creation and governance platform on Solana using SPL Governance"
+    },
+    {
+      "id": 161,
+      "question": "What is Squads Protocol on Solana?",
+      "options": ["A sports NFT", "A multi-signature wallet protocol for teams and DAOs", "A DEX", "A lending protocol"],
+      "correctAnswer": 1,
+      "explanation": "Squads Protocol is a multi-signature wallet solution for teams and DAOs on Solana"
+    },
+    {
+      "id": 162,
+      "question": "What is a multisig wallet?",
+      "options": ["A wallet with many tokens", "A wallet requiring multiple signatures to authorize transactions", "A validator wallet", "A staking wallet"],
+      "correctAnswer": 1,
+      "explanation": "A multisig wallet requires multiple authorized signers to approve transactions"
+    },
+    {
+      "id": 163,
+      "question": "What is the Solana Validator Health Report?",
+      "options": ["A medical document", "A periodic report on validator network performance and decentralization", "A staking guide", "A financial report"],
+      "correctAnswer": 1,
+      "explanation": "The Solana Validator Health Report tracks network decentralization and validator performance metrics"
+    },
+    {
+      "id": 164,
+      "question": "What is Nakamoto Coefficient in Solana context?",
+      "options": ["A math formula", "A measure of decentralization based on validator stake concentration", "The founder's share", "A fee coefficient"],
+      "correctAnswer": 1,
+      "explanation": "The Nakamoto Coefficient measures how decentralized a blockchain is based on stake distribution"
+    },
+    {
+      "id": 165,
+      "question": "What is Jito on Solana?",
+      "options": ["A Japanese food theme", "A liquid staking and MEV infrastructure protocol", "A bridge", "A gaming platform"],
+      "correctAnswer": 1,
+      "explanation": "Jito is a liquid staking and MEV (Maximal Extractable Value) infrastructure protocol on Solana"
+    },
+    {
+      "id": 166,
+      "question": "What is JitoSOL?",
+      "options": ["A spicy token", "Jito's liquid staking token that also captures MEV rewards", "A test token", "A governance token"],
+      "correctAnswer": 1,
+      "explanation": "JitoSOL is Jito's liquid staking token that captures additional MEV rewards for stakers"
+    },
+    {
+      "id": 167,
+      "question": "What is MEV in blockchain context?",
+      "options": ["Maximum Efficiency Value", "Maximal Extractable Value from transaction ordering", "Minimum Exchange Value", "Market Exchange Volume"],
+      "correctAnswer": 1,
+      "explanation": "MEV (Maximal Extractable Value) refers to profit extractable by controlling transaction ordering"
+    },
+    {
+      "id": 168,
+      "question": "What is the JTO token?",
+      "options": ["A Japanese token", "Jito's governance token", "A bridge token", "A meme token"],
+      "correctAnswer": 1,
+      "explanation": "JTO is the governance token of the Jito protocol on Solana"
+    },
+    {
+      "id": 169,
+      "question": "What is Sanctum on Solana?",
+      "options": ["A sacred NFT collection", "A liquid staking infrastructure enabling custom LSTs", "A DEX", "An oracle"],
+      "correctAnswer": 1,
+      "explanation": "Sanctum provides infrastructure for custom liquid staking tokens (LSTs) on Solana"
+    },
+    {
+      "id": 170,
+      "question": "What is LST in Solana DeFi?",
+      "options": ["Last Staking Token", "Liquid Staking Token", "Large Scale Transaction", "Long-term Staking Term"],
+      "correctAnswer": 1,
+      "explanation": "LST stands for Liquid Staking Token, representing staked SOL that can be used in DeFi"
+    },
+    {
+      "id": 171,
+      "question": "What is Kamino Finance on Solana?",
+      "options": ["A Japanese NFT project", "An automated liquidity management and lending protocol", "A DEX", "A bridge"],
+      "correctAnswer": 1,
+      "explanation": "Kamino Finance offers automated concentrated liquidity management and lending on Solana"
+    },
+    {
+      "id": 172,
+      "question": "What is Marginfi on Solana?",
+      "options": ["A margin calculator", "A decentralized lending and borrowing protocol", "An NFT platform", "A validator service"],
+      "correctAnswer": 1,
+      "explanation": "Marginfi is a decentralized lending and borrowing protocol on Solana"
+    },
+    {
+      "id": 173,
+      "question": "What is Lifinity on Solana?",
+      "options": ["A health NFT", "A proactive market maker DEX on Solana", "A staking protocol", "An oracle"],
+      "correctAnswer": 1,
+      "explanation": "Lifinity is a proactive market maker DEX designed to reduce impermanent loss on Solana"
+    },
+    {
+      "id": 174,
+      "question": "What is Meteora on Solana?",
+      "options": ["A space-themed NFT", "A dynamic liquidity and yield protocol", "A governance platform", "A validator service"],
+      "correctAnswer": 1,
+      "explanation": "Meteora is a dynamic liquidity and yield optimization protocol on Solana"
+    },
+    {
+      "id": 175,
+      "question": "What is the purpose of a liquidity pool?",
+      "options": ["To hold NFTs", "To provide trading liquidity for token pairs in DEXs", "To store validator rewards", "To mint stablecoins"],
+      "correctAnswer": 1,
+      "explanation": "Liquidity pools hold token pairs that enable decentralized trading on AMM-based DEXs"
+    },
+    {
+      "id": 176,
+      "question": "What is AMM?",
+      "options": ["Advanced Mining Module", "Automated Market Maker", "Account Management Module", "Asset Management Mechanism"],
+      "correctAnswer": 1,
+      "explanation": "AMM stands for Automated Market Maker, using algorithms instead of order books for pricing"
+    },
+    {
+      "id": 177,
+      "question": "What is impermanent loss in DeFi?",
+      "options": ["Permanent token loss", "Temporary loss from price divergence of tokens in a liquidity pool", "Gas fee losses", "Slippage loss"],
+      "correctAnswer": 1,
+      "explanation": "Impermanent loss occurs when the price ratio of tokens in a liquidity pool changes from deposit time"
+    },
+    {
+      "id": 178,
+      "question": "What is Pump.fun on Solana?",
+      "options": ["A fitness app", "A platform for launching and trading meme tokens", "A validator tool", "An NFT marketplace"],
+      "correctAnswer": 1,
+      "explanation": "Pump.fun is a popular platform on Solana for launching and trading meme tokens"
+    },
+    {
+      "id": 179,
+      "question": "What is the bonding curve used by Pump.fun?",
+      "options": ["A marketing strategy", "A mathematical pricing curve where price increases with supply", "A governance mechanism", "A staking formula"],
+      "correctAnswer": 1,
+      "explanation": "Pump.fun uses a bonding curve where token price increases as more tokens are purchased"
+    },
+    {
+      "id": 180,
+      "question": "What is Birdeye on Solana?",
+      "options": ["A bird-themed NFT", "A DeFi analytics and trading platform", "A validator explorer", "A bridge protocol"],
+      "correctAnswer": 1,
+      "explanation": "Birdeye is a comprehensive DeFi analytics and trading platform for the Solana ecosystem"
+    },
+    {
+      "id": 181,
+      "question": "What is DexScreener?",
+      "options": ["A DEX monitoring app", "A multi-chain DEX pairs tracker and analytics tool", "A hardware device", "A validator screen"],
+      "correctAnswer": 1,
+      "explanation": "DexScreener is a popular tool for tracking and analyzing DEX trading pairs across multiple blockchains including Solana"
+    },
+    {
+      "id": 182,
+      "question": "What is the Seeker token's relationship with the Solana gaming ecosystem?",
+      "options": ["No relationship", "SRK is integral to gaming and quest-based reward systems on Solana", "Only for DeFi", "Only for staking"],
+      "correctAnswer": 1,
+      "explanation": "SRK (Seeker) is integrated into gaming and quest-based reward mechanisms within the Solana ecosystem"
+    },
+    {
+      "id": 183,
+      "question": "What is the total supply concept for most tokens on Solana?",
+      "options": ["Always unlimited", "Defined at creation, can be fixed or inflationary depending on design", "Always 1 billion", "Always 21 million"],
+      "correctAnswer": 1,
+      "explanation": "Token supply on Solana is defined at creation and can be fixed or have minting capabilities"
+    },
+    {
+      "id": 184,
+      "question": "What is token burning?",
+      "options": ["Physical destruction", "Permanently removing tokens from circulation by sending to a null address", "Staking tokens", "Selling tokens"],
+      "correctAnswer": 1,
+      "explanation": "Token burning permanently removes tokens from circulation, typically by sending to an unspendable address"
+    },
+    {
+      "id": 185,
+      "question": "What is a token airdrop?",
+      "options": ["Dropping physical coins", "Free distribution of tokens to wallet addresses", "A token sale", "A staking reward"],
+      "correctAnswer": 1,
+      "explanation": "An airdrop is the free distribution of tokens to qualifying wallet addresses"
+    },
+    {
+      "id": 186,
+      "question": "What is a whitelist in crypto?",
+      "options": ["A clean blockchain", "A list of approved addresses for early access to token sales or mints", "A security protocol", "A validator list"],
+      "correctAnswer": 1,
+      "explanation": "A whitelist is a list of approved wallet addresses given early or exclusive access to mints or sales"
+    },
+    {
+      "id": 187,
+      "question": "What is FOMO in crypto trading?",
+      "options": ["First Order Market Operation", "Fear Of Missing Out, driving impulsive buying", "Fixed Order Market Opening", "Forward Order Matching Operation"],
+      "correctAnswer": 1,
+      "explanation": "FOMO (Fear Of Missing Out) describes impulsive buying driven by fear of missing price gains"
+    },
+    {
+      "id": 188,
+      "question": "What is a rug pull in crypto?",
+      "options": ["A NFT design", "When developers abandon a project and take investor funds", "A trading strategy", "A liquidity mechanism"],
+      "correctAnswer": 1,
+      "explanation": "A rug pull is a scam where developers abandon a project and abscond with investor funds"
+    },
+    {
+      "id": 189,
+      "question": "What is a honeypot in crypto?",
+      "options": ["Sweet NFTs", "A scam token where holders can buy but cannot sell", "A staking trap", "An NFT scam"],
+      "correctAnswer": 1,
+      "explanation": "A honeypot is a fraudulent token that allows buying but prevents selling, trapping investor funds"
+    },
+    {
+      "id": 190,
+      "question": "What is slippage in DEX trading?",
+      "options": ["A website error", "The difference between expected and actual execution price", "A security vulnerability", "A transaction delay"],
+      "correctAnswer": 1,
+      "explanation": "Slippage is the difference between the expected price and the price at which a trade executes"
+    },
+    {
+      "id": 191,
+      "question": "What is TVL primarily used to measure?",
+      "options": ["Network speed", "The health and size of a DeFi protocol", "Token price", "Validator count"],
+      "correctAnswer": 1,
+      "explanation": "TVL (Total Value Locked) is the primary metric for measuring a DeFi protocol's adoption and size"
+    },
+    {
+      "id": 192,
+      "question": "What is yield farming?",
+      "options": ["Agricultural NFTs", "Earning rewards by providing liquidity or staking in DeFi protocols", "Mining tokens", "Selling tokens repeatedly"],
+      "correctAnswer": 1,
+      "explanation": "Yield farming involves strategically deploying assets across DeFi protocols to maximize returns"
+    },
+    {
+      "id": 193,
+      "question": "What is liquidity mining?",
+      "options": ["Mining in a pool", "Earning token rewards for providing liquidity to a DEX or protocol", "A hardware mining method", "Staking for coins"],
+      "correctAnswer": 1,
+      "explanation": "Liquidity mining rewards users with tokens for providing liquidity to a DEX or DeFi protocol"
+    },
+    {
+      "id": 194,
+      "question": "What is a DAO?",
+      "options": ["Digital Asset Organization", "Decentralized Autonomous Organization", "Distributed Application Operation", "Delegated Account Oracle"],
+      "correctAnswer": 1,
+      "explanation": "DAO stands for Decentralized Autonomous Organization, governed by token holders through on-chain voting"
+    },
+    {
+      "id": 195,
+      "question": "What is the purpose of governance tokens?",
+      "options": ["Only as currency", "To give holders voting rights over protocol decisions", "For staking only", "For NFT purchases only"],
+      "correctAnswer": 1,
+      "explanation": "Governance tokens give holders the right to vote on proposals affecting a protocol's development"
+    },
+    {
+      "id": 196,
+      "question": "What is a smart contract?",
+      "options": ["A legal document", "Self-executing code stored on a blockchain", "A trading agreement", "A wallet feature"],
+      "correctAnswer": 1,
+      "explanation": "A smart contract is self-executing code deployed on a blockchain that automatically enforces rules"
+    },
+    {
+      "id": 197,
+      "question": "What does 'on-chain' mean?",
+      "options": ["In a physical chain store", "Data or activity recorded directly on the blockchain", "In a blockchain company", "A type of token"],
+      "correctAnswer": 1,
+      "explanation": "On-chain refers to data, transactions, or activities recorded directly on the blockchain"
+    },
+    {
+      "id": 198,
+      "question": "What does 'off-chain' mean?",
+      "options": ["Off the internet", "Activity or data that occurs outside the blockchain", "A broken blockchain", "Layer 2 only"],
+      "correctAnswer": 1,
+      "explanation": "Off-chain refers to activity or data that occurs outside the main blockchain"
+    },
+    {
+      "id": 199,
+      "question": "What is a seed phrase?",
+      "options": ["A farming term", "A 12-24 word recovery phrase for a crypto wallet", "A trading signal", "A token name"],
+      "correctAnswer": 1,
+      "explanation": "A seed phrase is a 12-24 word backup phrase that can recover a crypto wallet"
+    },
+    {
+      "id": 200,
+      "question": "What is a hardware wallet?",
+      "options": ["Computer hardware", "A physical device that securely stores private keys offline", "A wallet app", "A validator node"],
+      "correctAnswer": 1,
+      "explanation": "A hardware wallet is a physical device (like Ledger or Trezor) that stores private keys offline"
+    },
+    {
+      "id": 201,
+      "question": "What is a cold wallet?",
+      "options": ["A frozen account", "A wallet not connected to the internet", "A testnet wallet", "An empty wallet"],
+      "correctAnswer": 1,
+      "explanation": "A cold wallet stores private keys offline, disconnected from the internet for maximum security"
+    },
+    {
+      "id": 202,
+      "question": "What is a hot wallet?",
+      "options": ["A popular wallet", "A wallet connected to the internet for easy access", "A validator wallet", "A staking wallet"],
+      "correctAnswer": 1,
+      "explanation": "A hot wallet is connected to the internet, making it convenient but more vulnerable than cold storage"
+    },
+    {
+      "id": 203,
+      "question": "What is Ledger's Solana support?",
+      "options": ["No support", "Ledger hardware wallets support SOL and SPL tokens", "Limited beta support only", "Software only"],
+      "correctAnswer": 1,
+      "explanation": "Ledger hardware wallets fully support Solana's SOL and SPL tokens for cold storage"
+    },
+    {
+      "id": 204,
+      "question": "What is Solflare wallet?",
+      "options": ["A fire NFT project", "A dedicated Solana web and mobile wallet", "A DEX", "A bridge"],
+      "correctAnswer": 1,
+      "explanation": "Solflare is a dedicated wallet for Solana that supports web, mobile, and hardware wallet integration"
+    },
+    {
+      "id": 205,
+      "question": "What is the Solana token unlock schedule concern?",
+      "options": ["No concern", "Large portions of SOL with scheduled unlocks can create selling pressure", "Tokens never unlock", "Only validator tokens unlock"],
+      "correctAnswer": 1,
+      "explanation": "Token unlock schedules can create selling pressure when large amounts of locked SOL become available"
+    },
+    {
+      "id": 206,
+      "question": "What is the circulating supply of SOL relative to total supply?",
+      "options": ["100% always", "A portion of total supply, with more releasing over time", "Always fixed", "Unknown"],
+      "correctAnswer": 1,
+      "explanation": "Circulating SOL is a portion of total supply, with additional tokens entering circulation through inflation"
+    },
+    {
+      "id": 207,
+      "question": "What is market capitalization?",
+      "options": ["Maximum token price", "Price per token multiplied by circulating supply", "Total tokens created", "Daily trading volume"],
+      "correctAnswer": 1,
+      "explanation": "Market cap equals the current price multiplied by the number of tokens in circulating supply"
+    },
+    {
+      "id": 208,
+      "question": "What is fully diluted valuation (FDV)?",
+      "options": ["Current market cap", "Market cap calculated using the total maximum token supply", "Book value", "Daily volume"],
+      "correctAnswer": 1,
+      "explanation": "FDV is the hypothetical market cap if all tokens (including locked/unvested) were in circulation"
+    },
+    {
+      "id": 209,
+      "question": "What is a tokenomics?",
+      "options": ["Token mathematics", "The economic model governing a token's supply, distribution, and utility", "Token trading strategies", "Technical token analysis"],
+      "correctAnswer": 1,
+      "explanation": "Tokenomics describes the economic design including supply, distribution, inflation, and utility of a token"
+    },
+    {
+      "id": 210,
+      "question": "What does vesting mean in crypto?",
+      "options": ["Wearing a vest", "A schedule for gradually releasing locked tokens over time", "Token staking", "Mining rewards"],
+      "correctAnswer": 1,
+      "explanation": "Vesting is a schedule that gradually releases tokens to founders, investors, or team members over time"
+    },
+    {
+      "id": 211,
+      "question": "What is a cliff in token vesting?",
+      "options": ["A price drop", "An initial lock-up period before vesting begins", "A maximum price", "A staking limit"],
+      "correctAnswer": 1,
+      "explanation": "A cliff is the initial period before any tokens vest, after which vesting begins on schedule"
+    },
+    {
+      "id": 212,
+      "question": "What is Web3?",
+      "options": ["The third version of a website", "A decentralized internet built on blockchain technology", "A programming language", "A browser version"],
+      "correctAnswer": 1,
+      "explanation": "Web3 refers to the vision of a decentralized internet powered by blockchain and token economics"
+    },
+    {
+      "id": 213,
+      "question": "What is a dApp?",
+      "options": ["A simple app", "A decentralized application running on blockchain", "A developer app", "A data app"],
+      "correctAnswer": 1,
+      "explanation": "A dApp is a decentralized application that runs on blockchain instead of centralized servers"
+    },
+    {
+      "id": 214,
+      "question": "What is interoperability in blockchain?",
+      "options": ["Internal operations", "The ability for different blockchains to communicate and share data", "Fast transaction speed", "Cross-language coding"],
+      "correctAnswer": 1,
+      "explanation": "Interoperability allows different blockchain networks to communicate, share data, and transfer assets"
+    },
+    {
+      "id": 215,
+      "question": "What is a bridge in blockchain?",
+      "options": ["A network structure", "A protocol enabling asset transfers between different blockchains", "A validator connection", "A DEX tool"],
+      "correctAnswer": 1,
+      "explanation": "A bridge is a protocol that enables the transfer of assets or data between different blockchains"
+    },
+    {
+      "id": 216,
+      "question": "What is the Allbridge protocol?",
+      "options": ["A construction NFT", "A cross-chain bridge supporting Solana", "A Solana DEX", "A lending protocol"],
+      "correctAnswer": 1,
+      "explanation": "Allbridge is a cross-chain bridge that supports asset transfers to and from Solana"
+    },
+    {
+      "id": 217,
+      "question": "What is deBridge on Solana?",
+      "options": ["A debt protocol", "A cross-chain messaging and DeFi infrastructure", "An NFT bridge", "A validator bridge"],
+      "correctAnswer": 1,
+      "explanation": "deBridge is a cross-chain interoperability and messaging protocol supporting Solana"
+    },
+    {
+      "id": 218,
+      "question": "What is Neon EVM on Solana?",
+      "options": ["A lighting system", "A tool enabling Ethereum dApps to run on Solana", "A new token standard", "A gaming engine"],
+      "correctAnswer": 1,
+      "explanation": "Neon EVM allows Ethereum Virtual Machine compatible dApps to deploy and run on Solana"
+    },
+    {
+      "id": 219,
+      "question": "What does EVM stand for?",
+      "options": ["Efficient Validator Model", "Ethereum Virtual Machine", "Extended Value Mechanism", "Electronic Voting Module"],
+      "correctAnswer": 1,
+      "explanation": "EVM stands for Ethereum Virtual Machine, the runtime for Ethereum smart contracts"
+    },
+    {
+      "id": 220,
+      "question": "What makes Solana different from EVM chains?",
+      "options": ["Nothing different", "Solana uses a non-EVM architecture with its own SVM", "Solana uses Solidity", "Solana has less TPS"],
+      "correctAnswer": 1,
+      "explanation": "Solana uses its own Solana Virtual Machine (SVM), not the EVM, enabling higher performance"
+    },
+    {
+      "id": 221,
+      "question": "What is Sonic SVM?",
+      "options": ["A hedgehog NFT", "A gaming-focused Layer 2 on Solana", "A Solana DEX", "A consensus upgrade"],
+      "correctAnswer": 1,
+      "explanation": "Sonic is a gaming-focused chain built as a Layer 2 (HyperGrid) on the Solana Virtual Machine"
+    },
+    {
+      "id": 222,
+      "question": "What is HyperGrid in Solana's ecosystem?",
+      "options": ["A power grid NFT", "A framework for building SVM-compatible rollup chains", "A DEX protocol", "An oracle system"],
+      "correctAnswer": 1,
+      "explanation": "HyperGrid is a scaling framework for building SVM-compatible Layer 2 networks on Solana"
+    },
+    {
+      "id": 223,
+      "question": "What is Eclipse in the Solana ecosystem?",
+      "options": ["A solar event NFT", "An Ethereum L2 using the Solana Virtual Machine", "A DEX", "A validator client"],
+      "correctAnswer": 1,
+      "explanation": "Eclipse is an Ethereum Layer 2 that uses the Solana Virtual Machine (SVM) for transaction execution"
+    },
+    {
+      "id": 224,
+      "question": "What is the Solana Virtual Machine's key advantage?",
+      "options": ["EVM compatibility", "High parallelism and performance", "Lower security", "Simpler programming model"],
+      "correctAnswer": 1,
+      "explanation": "The SVM's key advantage is its ability to execute transactions in parallel for superior throughput"
+    },
+    {
+      "id": 225,
+      "question": "What is Solana's approach to account model?",
+      "options": ["Account-free", "Accounts store state, programs are separate stateless entities", "Single account model", "UTXO model"],
+      "correctAnswer": 1,
+      "explanation": "Solana uses an account model where state is stored in separate accounts from programs"
+    },
+    {
+      "id": 226,
+      "question": "What is the difference between executable and non-executable accounts on Solana?",
+      "options": ["No difference", "Executable accounts hold programs, non-executable hold data/tokens", "Price difference", "Speed difference"],
+      "correctAnswer": 1,
+      "explanation": "Executable accounts contain program code, while non-executable accounts store state and token data"
+    },
+    {
+      "id": 227,
+      "question": "What is the Solana Account model's main benefit?",
+      "options": ["Simplicity", "Enables parallel processing of non-overlapping transactions", "Lower memory use", "Better privacy"],
+      "correctAnswer": 1,
+      "explanation": "Solana's account model enables parallel transaction processing since account access patterns are known upfront"
+    },
+    {
+      "id": 228,
+      "question": "What is a Solana transaction version 0?",
+      "options": ["The first transaction ever", "A legacy transaction format on Solana", "A test transaction", "An invalid transaction"],
+      "correctAnswer": 1,
+      "explanation": "Version 0 is the newer transaction format on Solana that supports Address Lookup Tables"
+    },
+    {
+      "id": 229,
+      "question": "What are Address Lookup Tables (ALT) on Solana?",
+      "options": ["Address books", "Tables enabling transactions to reference more accounts than the 32-account limit", "DNS tables", "Validator directories"],
+      "correctAnswer": 1,
+      "explanation": "Address Lookup Tables allow transactions to reference more accounts by storing addresses in a table"
+    },
+    {
+      "id": 230,
+      "question": "What is Solana's transaction size limit?",
+      "options": ["1 MB", "1232 bytes", "512 bytes", "Unlimited"],
+      "correctAnswer": 1,
+      "explanation": "Solana transactions are limited to 1232 bytes in size"
+    },
+    {
+      "id": 231,
+      "question": "What is the Seeker token's utility in community building?",
+      "options": ["No utility", "Enables community rewards, voting, and ecosystem participation", "Only for trading", "Only for gaming"],
+      "correctAnswer": 1,
+      "explanation": "SRK enables community rewards, participation incentives, and governance voting"
+    },
+    {
+      "id": 232,
+      "question": "How does Seeker (SRK) token benefit early adopters?",
+      "options": ["No benefits", "Through early access, bonus rewards, and higher earning potential", "Only price appreciation", "Free NFTs"],
+      "correctAnswer": 1,
+      "explanation": "Early SRK adopters typically benefit from early access to features, bonus rewards, and higher earning potential"
+    },
+    {
+      "id": 233,
+      "question": "What is the role of Solana in the future of finance?",
+      "options": ["No role", "Enabling fast, low-cost financial services and DeFi globally", "Only for gaming", "Only for NFTs"],
+      "correctAnswer": 1,
+      "explanation": "Solana aims to enable global fast, low-cost financial services and decentralized finance (DeFi)"
+    },
+    {
+      "id": 234,
+      "question": "What is a perpetual futures contract in DeFi?",
+      "options": ["An eternal NFT", "A derivative contract with no expiry date", "A long-term staking contract", "A governance proposal"],
+      "correctAnswer": 1,
+      "explanation": "Perpetual futures are derivative contracts with no expiry date, settled via funding rates"
+    },
+    {
+      "id": 235,
+      "question": "What is funding rate in perpetual futures?",
+      "options": ["A development grant", "Periodic payments between longs and shorts to keep price near index", "Staking APY", "Bridge fees"],
+      "correctAnswer": 1,
+      "explanation": "Funding rate is a periodic payment exchanged between long and short positions to anchor the price"
+    },
+    {
+      "id": 236,
+      "question": "What is open interest in crypto derivatives?",
+      "options": ["Public curiosity", "Total value of outstanding derivative contracts", "Trading volume", "Token supply"],
+      "correctAnswer": 1,
+      "explanation": "Open interest is the total value of all open (unsettled) derivative contracts in the market"
+    },
+    {
+      "id": 237,
+      "question": "What is a flash loan in DeFi?",
+      "options": ["A fast payment app", "An uncollateralized loan borrowed and repaid in one transaction", "A short-term staking", "A validator loan"],
+      "correctAnswer": 1,
+      "explanation": "A flash loan is an uncollateralized DeFi loan that must be borrowed and repaid within a single transaction"
+    },
+    {
+      "id": 238,
+      "question": "What is the Seeker project's token distribution model?",
+      "options": ["100% to founders", "Distributed across community, development, and ecosystem growth", "Only sold on exchanges", "Only airdropped"],
+      "correctAnswer": 1,
+      "explanation": "SRK is typically distributed across community rewards, development, and ecosystem growth categories"
+    },
+    {
+      "id": 239,
+      "question": "What does DYOR mean in crypto?",
+      "options": ["Do You Own Reserves", "Do Your Own Research", "Daily Yield Optimization Ratio", "Decentralized Yield on Returns"],
+      "correctAnswer": 1,
+      "explanation": "DYOR stands for Do Your Own Research, encouraging independent investigation before investing"
+    },
+    {
+      "id": 240,
+      "question": "What is NFA in crypto communities?",
+      "options": ["No Financial Access", "Not Financial Advice", "New Financial Asset", "Non-Fungible Asset"],
+      "correctAnswer": 1,
+      "explanation": "NFA stands for Not Financial Advice, a disclaimer when discussing investments"
+    },
+    {
+      "id": 241,
+      "question": "What is the Solana ecosystem's main advantage for game developers?",
+      "options": ["Free games", "Fast transactions, low fees, and NFT infrastructure", "Centralized servers", "No competition"],
+      "correctAnswer": 1,
+      "explanation": "Solana's fast transactions, low fees, and robust NFT/token infrastructure make it ideal for gaming"
+    },
+    {
+      "id": 242,
+      "question": "What is Play-to-Earn (P2E)?",
+      "options": ["Playing for entertainment only", "A gaming model where players earn cryptocurrency or NFT rewards", "Paying to play games", "A mobile game type"],
+      "correctAnswer": 1,
+      "explanation": "P2E is a blockchain gaming model where players earn real cryptocurrency or NFT rewards"
+    },
+    {
+      "id": 243,
+      "question": "What is GameFi?",
+      "options": ["Game financing", "The intersection of gaming and decentralized finance", "Financial games only", "A game company"],
+      "correctAnswer": 1,
+      "explanation": "GameFi combines gaming with DeFi elements, enabling players to earn financial rewards"
+    },
+    {
+      "id": 244,
+      "question": "What is the metaverse in crypto context?",
+      "options": ["Facebook rebranding", "Immersive virtual worlds with blockchain-based ownership", "A metaverse token", "VR gaming"],
+      "correctAnswer": 1,
+      "explanation": "The metaverse in crypto refers to virtual worlds where blockchain enables true ownership of assets"
+    },
+    {
+      "id": 245,
+      "question": "What is SocialFi?",
+      "options": ["Social media finance", "Social media applications integrated with DeFi and token incentives", "A social token", "A DAO type"],
+      "correctAnswer": 1,
+      "explanation": "SocialFi combines social media with DeFi, allowing creators and users to earn tokens for engagement"
+    },
+    {
+      "id": 246,
+      "question": "What is Audius on Solana?",
+      "options": ["An audio NFT collection", "A decentralized music streaming platform", "A validator", "A DEX"],
+      "correctAnswer": 1,
+      "explanation": "Audius is a decentralized music streaming platform that migrated significant infrastructure to Solana"
+    },
+    {
+      "id": 247,
+      "question": "What is the AUDIO token?",
+      "options": ["An audio file token", "Audius platform governance and reward token", "A music NFT", "A bridge token"],
+      "correctAnswer": 1,
+      "explanation": "AUDIO is the native token of the Audius decentralized music platform"
+    },
+    {
+      "id": 248,
+      "question": "What is Kin on Solana?",
+      "options": ["A family token", "A cryptocurrency for digital services that migrated to Solana", "A stablecoin", "A gaming token"],
+      "correctAnswer": 1,
+      "explanation": "Kin is a cryptocurrency for digital services that moved to the Solana blockchain"
+    },
+    {
+      "id": 249,
+      "question": "What is the USDC stablecoin on Solana?",
+      "options": ["An algorithmic stablecoin", "Circle's USD Coin, a fiat-backed stablecoin on Solana", "A synthetic dollar", "Solana's native stablecoin"],
+      "correctAnswer": 1,
+      "explanation": "USDC (USD Coin) by Circle is a fiat-backed stablecoin widely used across the Solana ecosystem"
+    },
+    {
+      "id": 250,
+      "question": "What is USDT on Solana?",
+      "options": ["Solana's own stablecoin", "Tether's USD-pegged stablecoin available on Solana", "An algorithmic stablecoin", "A yield-bearing token"],
+      "correctAnswer": 1,
+      "explanation": "USDT is Tether's widely-used USD-pegged stablecoin deployed on the Solana network"
+    },
+    {
+      "id": 251,
+      "question": "What is the primary coding tool for Solana program development?",
+      "options": ["Remix IDE", "Solana Playground and Anchor CLI", "Truffle Suite", "Hardhat"],
+      "correctAnswer": 1,
+      "explanation": "Solana Playground and the Anchor CLI are primary tools for developing Solana programs"
+    },
+    {
+      "id": 252,
+      "question": "What is Solana Playground?",
+      "options": ["A children's game", "A browser-based IDE for Solana development", "A testnet faucet", "A token launcher"],
+      "correctAnswer": 1,
+      "explanation": "Solana Playground is a browser-based integrated development environment for Solana programs"
+    },
+    {
+      "id": 253,
+      "question": "What is a faucet in blockchain context?",
+      "options": ["A water faucet NFT", "A service that distributes free testnet tokens", "A liquidity source", "A token minting tool"],
+      "correctAnswer": 1,
+      "explanation": "A faucet is a service that provides free tokens on testnets for development and testing purposes"
+    },
+    {
+      "id": 254,
+      "question": "What are Solana Program IDs?",
+      "options": ["Developer IDs", "Public key addresses identifying deployed programs on Solana", "Validator IDs", "Token IDs"],
+      "correctAnswer": 1,
+      "explanation": "Program IDs are the public key addresses that uniquely identify deployed programs on Solana"
+    },
+    {
+      "id": 255,
+      "question": "What is account data in Solana?",
+      "options": ["User information", "The raw bytes stored in a Solana account", "Transaction history", "Token balance"],
+      "correctAnswer": 1,
+      "explanation": "Account data is the raw byte array stored within a Solana account, interpretable by its owner program"
+    },
+    {
+      "id": 256,
+      "question": "What is Borsh serialization on Solana?",
+      "options": ["A sorting algorithm", "Binary Object Representation Serializer for Hashing, used in Solana", "A Russian cryptographer", "A compression format"],
+      "correctAnswer": 1,
+      "explanation": "Borsh (Binary Object Representation Serializer for Hashing) is the standard serialization format for Solana"
+    },
+    {
+      "id": 257,
+      "question": "What is the purpose of the Solana Grpc API?",
+      "options": ["Gaming API", "High-performance streaming data access for validators and apps", "NFT minting API", "DEX API only"],
+      "correctAnswer": 1,
+      "explanation": "Solana's gRPC API (Yellowstone/Geyser) provides high-performance streaming of blockchain data"
+    },
+    {
+      "id": 258,
+      "question": "What is the Geyser plugin on Solana?",
+      "options": ["A hot spring theme", "A plugin interface for streaming account and transaction data", "A DEX plugin", "A staking plugin"],
+      "correctAnswer": 1,
+      "explanation": "The Geyser plugin interface allows Solana validators to stream account and transaction data to external services"
+    },
+    {
+      "id": 259,
+      "question": "What is account compression on Solana?",
+      "options": ["Compressing account files", "A method using merkle trees to reduce on-chain storage costs", "Account encryption", "Account merging"],
+      "correctAnswer": 1,
+      "explanation": "Account compression uses merkle trees to store data efficiently, dramatically reducing storage costs"
+    },
+    {
+      "id": 260,
+      "question": "What is Helius on Solana?",
+      "options": ["A sun-themed NFT", "A developer platform with enhanced RPC and APIs for Solana", "A DEX", "A validator pool"],
+      "correctAnswer": 1,
+      "explanation": "Helius is a developer platform providing enhanced RPC, webhooks, and APIs for building on Solana"
+    },
+    {
+      "id": 261,
+      "question": "What is Shyft on Solana?",
+      "options": ["A shift in consensus", "A developer API platform simplifying Solana development", "A DEX", "An NFT project"],
+      "correctAnswer": 1,
+      "explanation": "Shyft is a developer API platform that simplifies building applications on Solana"
+    },
+    {
+      "id": 262,
+      "question": "What is the significance of the number 9 in Solana token decimals?",
+      "options": ["Arbitrary choice", "SPL tokens commonly use 9 decimal places matching SOL's precision", "A lucky number", "Required by law"],
+      "correctAnswer": 1,
+      "explanation": "SPL tokens typically use 9 decimal places, consistent with SOL's own decimal precision"
+    },
+    {
+      "id": 263,
+      "question": "What is Solana's genesis block?",
+      "options": ["The first Bitcoin block", "The first block of the Solana blockchain", "The whitepaper", "The founding document"],
+      "correctAnswer": 1,
+      "explanation": "The genesis block is the first block of the Solana blockchain, marking the network's inception"
+    },
+    {
+      "id": 264,
+      "question": "What is the Solana Superteam?",
+      "options": ["A superhero NFT project", "A global network of contributors building the Solana ecosystem", "The core dev team", "A validator group"],
+      "correctAnswer": 1,
+      "explanation": "Superteam is a global network of contributors who help build and grow the Solana ecosystem"
+    },
+    {
+      "id": 265,
+      "question": "What is the Solana Grants program?",
+      "options": ["Government grants", "Funding provided by the Solana Foundation to ecosystem builders", "Airdrop program", "Validator rewards"],
+      "correctAnswer": 1,
+      "explanation": "The Solana Foundation's Grants program provides funding to teams building on Solana"
+    },
+    {
+      "id": 266,
+      "question": "What is Colosseum on Solana?",
+      "options": ["A Roman NFT collection", "A hackathon and accelerator platform for Solana", "A gaming arena", "A DEX"],
+      "correctAnswer": 1,
+      "explanation": "Colosseum is a hackathon and accelerator program for builders in the Solana ecosystem"
+    },
+    {
+      "id": 267,
+      "question": "What is the Solana Renaissance Hackathon?",
+      "options": ["An art history event", "A major Solana ecosystem hackathon", "A music NFT event", "A trading competition"],
+      "correctAnswer": 1,
+      "explanation": "The Renaissance Hackathon is one of Solana's major hackathon events for ecosystem builders"
+    },
+    {
+      "id": 268,
+      "question": "What happens during a Solana network congestion?",
+      "options": ["Network shuts down", "Transactions may fail or require higher priority fees", "All transactions free", "Automatic Layer 2 activation"],
+      "correctAnswer": 1,
+      "explanation": "During congestion, transactions may fail due to resource limits and require higher priority fees"
+    },
+    {
+      "id": 269,
+      "question": "What is SIMD on Solana?",
+      "options": ["Single Instruction Multiple Data computing", "Solana Improvement and Development proposal", "A consensus mechanism", "A token standard"],
+      "correctAnswer": 1,
+      "explanation": "SIMD stands for Solana Improvement and Development, the formal proposal process for protocol changes"
+    },
+    {
+      "id": 270,
+      "question": "What is the Solana Improvement Proposal process?",
+      "options": ["A suggestion box", "A formal governance process for proposed protocol changes via SIMDs", "Validators voting system", "Foundation decisions only"],
+      "correctAnswer": 1,
+      "explanation": "SIMDs (Solana Improvement and Development proposals) are the formal process for proposing protocol changes"
+    },
+    {
+      "id": 271,
+      "question": "What is the stake-weighted quality of service (QoS) on Solana?",
+      "options": ["A fee system", "System giving higher-staked validators priority in transaction processing", "A validator rank", "A token weighting"],
+      "correctAnswer": 1,
+      "explanation": "Stake-weighted QoS gives validators with higher stake priority in forwarding transactions to leaders"
+    },
+    {
+      "id": 272,
+      "question": "What is the Solana client gossip protocol?",
+      "options": ["Social media for validators", "A P2P protocol validators use to share network information", "A news feed", "A data storage system"],
+      "correctAnswer": 1,
+      "explanation": "Gossip is a peer-to-peer protocol used by Solana validators to share cluster information"
+    },
+    {
+      "id": 273,
+      "question": "What is the Seeker token's potential use in quest systems?",
+      "options": ["No use", "SRK can be earned and spent through completing quests and challenges", "Only earned, never spent", "Only spent, never earned"],
+      "correctAnswer": 1,
+      "explanation": "SRK can be both earned through completing quests and spent for in-ecosystem benefits"
+    },
+    {
+      "id": 274,
+      "question": "What is the importance of Solana's low fees for gaming tokens like SRK?",
+      "options": ["Fees don't matter for gaming", "Low fees enable micro-transactions and frequent reward distributions", "Low fees cause inflation", "Fees are unrelated"],
+      "correctAnswer": 1,
+      "explanation": "Solana's low fees enable frequent micro-transactions crucial for gaming reward systems like SRK"
+    },
+    {
+      "id": 275,
+      "question": "What is staking delegation on Solana?",
+      "options": ["Giving SOL away", "Assigning staked SOL to a validator to earn rewards", "A governance vote", "A token lock"],
+      "correctAnswer": 1,
+      "explanation": "Delegation is assigning your staked SOL to a validator, earning rewards while helping secure the network"
+    },
+    {
+      "id": 276,
+      "question": "What is an epoch reward on Solana?",
+      "options": ["Annual bonus", "Staking rewards distributed at the end of each epoch", "Monthly payment", "Daily interest"],
+      "correctAnswer": 1,
+      "explanation": "Epoch rewards are staking rewards distributed to validators and delegators at the end of each epoch"
+    },
+    {
+      "id": 277,
+      "question": "What is commission in Solana staking?",
+      "options": ["A sales commission", "The percentage of rewards taken by validators from delegators", "A transaction fee", "A bridge fee"],
+      "correctAnswer": 1,
+      "explanation": "Validator commission is the percentage of staking rewards that validators take before distributing to delegators"
+    },
+    {
+      "id": 278,
+      "question": "What is the Solana Foundation Delegation Program?",
+      "options": ["A hiring program", "A program providing stake to new validators to improve decentralization", "A grant program", "A scholarship"],
+      "correctAnswer": 1,
+      "explanation": "The SFDP provides SOL stake to validators meeting performance criteria, improving network decentralization"
+    },
+    {
+      "id": 279,
+      "question": "What is superminority in Solana validators?",
+      "options": ["A very small validator", "The smallest set of validators controlling 33% of stake", "A new validator", "A geographic minority"],
+      "correctAnswer": 1,
+      "explanation": "The superminority is the smallest group of validators that collectively hold 33% or more of total stake"
+    },
+    {
+      "id": 280,
+      "question": "Why is Solana's superminority important?",
+      "options": ["It's not important", "If they collude, they can halt the network (Byzantine threshold)", "They get extra rewards", "They control fees"],
+      "correctAnswer": 1,
+      "explanation": "The superminority represents validators who could theoretically halt the network if they colluded"
+    },
+    {
+      "id": 281,
+      "question": "What is Squads V4 on Solana?",
+      "options": ["A sports team NFT", "The latest version of Squads multi-signature wallet protocol", "A DEX version", "A consensus update"],
+      "correctAnswer": 1,
+      "explanation": "Squads V4 is the latest iteration of the Squads multi-signature wallet protocol on Solana"
+    },
+    {
+      "id": 282,
+      "question": "What is a program upgrade authority on Solana?",
+      "options": ["Admin rights", "The account authorized to upgrade a deployed program", "Validator permission", "Foundation authority"],
+      "correctAnswer": 1,
+      "explanation": "The upgrade authority is the account that holds permission to update/upgrade a Solana program"
+    },
+    {
+      "id": 283,
+      "question": "What does it mean to freeze a token's upgrade authority?",
+      "options": ["Stop trading", "Make a program immutable by removing upgrade authority", "Freeze token transfers", "Lock staking"],
+      "correctAnswer": 1,
+      "explanation": "Freezing or removing upgrade authority makes a program immutable, ensuring no future changes"
+    },
+    {
+      "id": 284,
+      "question": "What is Solana's approach to finality?",
+      "options": ["Probabilistic finality only", "Optimistic confirmation and full finality within seconds", "Takes 10 minutes", "No finality guarantee"],
+      "correctAnswer": 1,
+      "explanation": "Solana achieves optimistic confirmation quickly and full Byzantine finality within seconds"
+    },
+    {
+      "id": 285,
+      "question": "What is optimistic confirmation on Solana?",
+      "options": ["A positive attitude", "When 2/3+ of stake has voted on a block, it's optimistically confirmed", "A fast transaction method", "A validator signal"],
+      "correctAnswer": 1,
+      "explanation": "Optimistic confirmation occurs when over 2/3 of stake-weighted votes confirm a block"
+    },
+    {
+      "id": 286,
+      "question": "What is supermajority in Solana consensus?",
+      "options": ["Most validators", "More than 2/3 (66.7%) of stake-weighted votes", "51% of validators", "All validators"],
+      "correctAnswer": 1,
+      "explanation": "Supermajority in Solana refers to more than 2/3 (66.7%) of the total stake-weighted votes"
+    },
+    {
+      "id": 287,
+      "question": "What is Solana's approach to smart contract upgrades vs Ethereum?",
+      "options": ["Same approach", "Solana programs can be upgraded by the upgrade authority unless frozen", "Solana programs are always immutable", "Solana requires DAO vote"],
+      "correctAnswer": 1,
+      "explanation": "Unlike Ethereum where contracts are immutable by default, Solana programs can be upgraded by their authority"
+    },
+    {
+      "id": 288,
+      "question": "What is the purpose of SRK holders in the Seeker ecosystem?",
+      "options": ["Only trading", "Participating in governance, earning rewards, and accessing features", "Only paying fees", "Only staking"],
+      "correctAnswer": 1,
+      "explanation": "SRK holders participate in governance, earn rewards, and gain access to ecosystem features"
+    },
+    {
+      "id": 289,
+      "question": "What is the key benefit of building on Solana for a project like Seeker?",
+      "options": ["High fees attract quality users", "Fast finality and low costs enable real-time reward distribution", "EVM compatibility", "Unlimited TPS"],
+      "correctAnswer": 1,
+      "explanation": "Solana's fast finality and minimal fees enable real-time reward distribution ideal for gaming and quests"
+    },
+    {
+      "id": 290,
+      "question": "What is the Solana validator commission minimum?",
+      "options": ["5%", "There is no minimum, can be 0%", "1%", "10%"],
+      "correctAnswer": 1,
+      "explanation": "Validators can set any commission rate including 0%, though it may change based on governance"
+    },
+    {
+      "id": 291,
+      "question": "What is the Proof of History time source?",
+      "options": ["Atomic clocks", "A SHA-256 hash chain producing verifiable timestamps", "GPS signals", "NTP servers"],
+      "correctAnswer": 1,
+      "explanation": "PoH uses a sequential SHA-256 hash chain to create a trustless, verifiable record of time passage"
+    },
+    {
+      "id": 292,
+      "question": "What is a Solana transaction signature?",
+      "options": ["A written signature", "A cryptographic proof from a transaction's fee payer", "A validator seal", "A random identifier"],
+      "correctAnswer": 1,
+      "explanation": "A transaction signature is the cryptographic signature of the fee payer, also serving as transaction ID"
+    },
+    {
+      "id": 293,
+      "question": "What is the maximum number of signers in a Solana transaction?",
+      "options": ["1", "Up to 8 required signers", "Unlimited", "Exactly 2"],
+      "correctAnswer": 1,
+      "explanation": "A Solana transaction can have up to 8 required signatures by different accounts"
+    },
+    {
+      "id": 294,
+      "question": "What is Solana's recent history feature?",
+      "options": ["Transaction history viewing", "A blockhash used to prevent transaction replay and ensure recency", "Block explorer feature", "NFT history"],
+      "correctAnswer": 1,
+      "explanation": "Transactions include a recent blockhash that prevents replay attacks and ensures the transaction is recent"
+    },
+    {
+      "id": 295,
+      "question": "How long is a Solana blockhash valid?",
+      "options": ["Forever", "About 150 blocks (~1-2 minutes)", "24 hours", "Until used"],
+      "correctAnswer": 1,
+      "explanation": "A Solana blockhash is valid for approximately 150 blocks, roughly 1-2 minutes"
+    },
+    {
+      "id": 296,
+      "question": "What is durable nonce on Solana?",
+      "options": ["A long-lasting token", "A mechanism to extend transaction validity beyond the ~2 minute window", "A validator nonce", "A staking mechanism"],
+      "correctAnswer": 1,
+      "explanation": "Durable nonces allow transactions to remain valid beyond the standard ~2 minute blockhash window"
+    },
+    {
+      "id": 297,
+      "question": "What is the relationship between Seeker and the broader Solana DeFi ecosystem?",
+      "options": ["No relationship", "SRK can potentially be used in Solana DeFi protocols for yield", "Seeker competes with DeFi", "Seeker replaces DeFi"],
+      "correctAnswer": 1,
+      "explanation": "SRK tokens can potentially interact with Solana DeFi protocols for liquidity provision and yield"
+    },
+    {
+      "id": 298,
+      "question": "What is the Solana validator set size approximately?",
+      "options": ["Under 100", "Over 1000 active validators", "Exactly 21", "Under 500"],
+      "correctAnswer": 1,
+      "explanation": "Solana has over 1000 active validators participating in network consensus"
+    },
+    {
+      "id": 299,
+      "question": "What is the advantage of Solana's geographic distribution of validators?",
+      "options": ["No advantage", "Resilience against regional failures and improved decentralization", "Faster transactions only", "Lower fees"],
+      "correctAnswer": 1,
+      "explanation": "Geographic distribution improves network resilience and decentralization against regional failures"
+    },
+    {
+      "id": 300,
+      "question": "What is a cluster in Solana terminology?",
+      "options": ["A group of NFTs", "A set of validators maintaining a ledger together", "A token group", "A DEX pool"],
+      "correctAnswer": 1,
+      "explanation": "A cluster is a set of Solana validators working together to maintain a single ledger"
+    },
+    {
+      "id": 301,
+      "question": "What is the Solana testnet used for?",
+      "options": ["Real transactions", "Testing validator software and new features before mainnet", "NFT storage", "Governance voting"],
+      "correctAnswer": 1,
+      "explanation": "Testnet is used to test validator software, new features, and network upgrades before mainnet deployment"
+    },
+    {
+      "id": 302,
+      "question": "What is Solana's approach to program upgrades and security audits?",
+      "options": ["No audits needed", "Major protocols undergo third-party security audits before launch", "Foundation audits all programs", "Self-audits only"],
+      "correctAnswer": 1,
+      "explanation": "Major Solana protocols typically undergo third-party security audits before mainnet deployment"
+    },
+    {
+      "id": 303,
+      "question": "What is a security audit in crypto context?",
+      "options": ["Financial audit", "Code review by security experts to find vulnerabilities", "Government inspection", "Token verification"],
+      "correctAnswer": 1,
+      "explanation": "A security audit is a professional code review by security experts to identify vulnerabilities"
+    },
+    {
+      "id": 304,
+      "question": "What is Neodyme in the Solana ecosystem?",
+      "options": ["A rare element NFT", "A leading Solana security research and auditing firm", "A DEX", "A validator"],
+      "correctAnswer": 1,
+      "explanation": "Neodyme is a prominent security research firm specializing in Solana program audits"
+    },
+    {
+      "id": 305,
+      "question": "What is OtterSec in the Solana ecosystem?",
+      "options": ["An otter NFT project", "A blockchain security auditing firm for Solana and other chains", "A DEX", "A staking platform"],
+      "correctAnswer": 1,
+      "explanation": "OtterSec is a blockchain security auditing firm that audits Solana and other blockchain protocols"
+    },
+    {
+      "id": 306,
+      "question": "What is a bug bounty program?",
+      "options": ["Rewards for finding insects", "Incentive programs rewarding security researchers who find vulnerabilities", "A developer grant", "A testing award"],
+      "correctAnswer": 1,
+      "explanation": "Bug bounty programs reward security researchers who responsibly disclose vulnerabilities"
+    },
+    {
+      "id": 307,
+      "question": "What is Solana's Immunefi bug bounty program?",
+      "options": ["A health program", "A bug bounty platform where researchers earn rewards for finding Solana vulnerabilities", "An immune system NFT", "A validator health check"],
+      "correctAnswer": 1,
+      "explanation": "Solana participates in Immunefi bug bounty programs rewarding security researchers who find vulnerabilities"
+    },
+    {
+      "id": 308,
+      "question": "What is the importance of decentralization for Seeker (SRK)?",
+      "options": ["Not important", "Decentralized Solana ensures no single entity controls SRK transactions", "Only marketing benefit", "Makes it slower"],
+      "correctAnswer": 1,
+      "explanation": "Solana's decentralization ensures no single entity can censor or control SRK transactions"
+    },
+    {
+      "id": 309,
+      "question": "What is Anchor's IDL?",
+      "options": ["Interface Design Language", "Interface Definition Language describing a program's instructions and accounts", "Internal Data Log", "Index Definition List"],
+      "correctAnswer": 1,
+      "explanation": "IDL (Interface Definition Language) in Anchor describes a program's instructions, accounts, and types"
+    },
+    {
+      "id": 310,
+      "question": "What is @solana/web3.js?",
+      "options": ["A web server", "Solana's official JavaScript SDK for interacting with the network", "A browser plugin", "A wallet app"],
+      "correctAnswer": 1,
+      "explanation": "@solana/web3.js is the official JavaScript/TypeScript SDK for building Solana applications"
+    },
+    {
+      "id": 311,
+      "question": "What is @coral-xyz/anchor?",
+      "options": ["A navigation tool", "The official TypeScript library for interacting with Anchor programs", "A DEX SDK", "A wallet library"],
+      "correctAnswer": 1,
+      "explanation": "@coral-xyz/anchor is the TypeScript client library for building and interacting with Anchor programs"
+    },
+    {
+      "id": 312,
+      "question": "What is the Anza organization?",
+      "options": ["An NFT project", "The team maintaining the Agave Solana validator client", "A DEX team", "A stablecoin issuer"],
+      "correctAnswer": 1,
+      "explanation": "Anza is the independent organization that maintains the Agave Solana validator client software"
+    },
+    {
+      "id": 313,
+      "question": "What is Jump Crypto's contribution to Solana?",
+      "options": ["Trading only", "Developing the Firedancer validator client", "Running the Foundation", "Creating NFTs"],
+      "correctAnswer": 1,
+      "explanation": "Jump Crypto is developing Firedancer, a high-performance alternative Solana validator client"
+    },
+    {
+      "id": 314,
+      "question": "What is Validator client diversity and why does it matter?",
+      "options": ["Different colors", "Multiple independent implementations improving network resilience", "Different hardware types", "Multiple programming languages for smart contracts"],
+      "correctAnswer": 1,
+      "explanation": "Multiple validator clients prevent single-point failures from bugs in one implementation"
+    },
+    {
+      "id": 315,
+      "question": "What is the primary use case for Solana's speed?",
+      "options": ["File storage", "High-frequency trading, gaming, and real-time applications", "Social media", "Email services"],
+      "correctAnswer": 1,
+      "explanation": "Solana's speed enables high-frequency trading, real-time gaming, and instant payment applications"
+    },
+    {
+      "id": 316,
+      "question": "What is the Solana hackathon prize pool typically?",
+      "options": ["$1,000", "Hundreds of thousands to millions of dollars", "$100", "$10,000"],
+      "correctAnswer": 1,
+      "explanation": "Solana hackathons typically feature prize pools in the hundreds of thousands to millions of dollars"
+    },
+    {
+      "id": 317,
+      "question": "What is Token Metadata on Solana?",
+      "options": ["Token price data", "A Metaplex program storing on-chain metadata for tokens and NFTs", "Transaction metadata", "Validator metadata"],
+      "correctAnswer": 1,
+      "explanation": "Token Metadata is Metaplex's program for attaching metadata (name, symbol, URI) to SPL tokens and NFTs"
+    },
+    {
+      "id": 318,
+      "question": "What is the Master Edition in Solana NFTs?",
+      "options": ["The best NFT", "A Metaplex account proving an NFT is an original (not a print)", "A governance edition", "A staking edition"],
+      "correctAnswer": 1,
+      "explanation": "Master Edition is a Metaplex account proving an NFT is an original work with optional print supply"
+    },
+    {
+      "id": 319,
+      "question": "What is collection verification in Solana NFTs?",
+      "options": ["Identity verification", "On-chain proof that an NFT belongs to a certified collection", "Price verification", "Ownership check"],
+      "correctAnswer": 1,
+      "explanation": "Collection verification is on-chain proof that an NFT is an authenticated member of a specific collection"
+    },
+    {
+      "id": 320,
+      "question": "What is Metaplex's Core standard?",
+      "options": ["A new blockchain", "A newer, more efficient NFT standard replacing the original Metaplex standard", "A programming language", "A DEX standard"],
+      "correctAnswer": 1,
+      "explanation": "Metaplex Core is a new NFT standard designed to be more efficient and cost-effective than the original standard"
+    },
+    {
+      "id": 321,
+      "question": "What is the Solana Token Extensions program's confidential transfer feature?",
+      "options": ["Private messaging", "Encrypted token transfers hiding amounts from public view", "Anonymous accounts", "Private NFTs"],
+      "correctAnswer": 1,
+      "explanation": "Confidential transfers use zero-knowledge proofs to hide transfer amounts while maintaining verifiability"
+    },
+    {
+      "id": 322,
+      "question": "What is a zero-knowledge proof?",
+      "options": ["Proving you know nothing", "Cryptographic proof of knowledge without revealing the information itself", "Empty blockchain", "Free transaction proof"],
+      "correctAnswer": 1,
+      "explanation": "A zero-knowledge proof proves knowledge of information without revealing the information itself"
+    },
+    {
+      "id": 323,
+      "question": "What is the Seeker token's role in quest completion?",
+      "options": ["No role", "SRK is rewarded upon successful completion of ecosystem quests", "SRK is spent to begin quests", "SRK is burned in quests"],
+      "correctAnswer": 1,
+      "explanation": "SRK tokens are distributed as rewards when users successfully complete quests in the Seeker ecosystem"
+    },
+    {
+      "id": 324,
+      "question": "How does Solana's speed benefit the SRK reward distribution?",
+      "options": ["No benefit", "Instant reward settlements enable real-time engagement mechanics", "Only benefits traders", "Slows things down"],
+      "correctAnswer": 1,
+      "explanation": "Solana's sub-second finality enables instant SRK reward settlements for engaging user experiences"
+    },
+    {
+      "id": 325,
+      "question": "What is Solana's competitive position against Ethereum?",
+      "options": ["Identical", "Faster and cheaper but with different trade-offs in decentralization", "Slower but more secure", "No competition"],
+      "correctAnswer": 1,
+      "explanation": "Solana offers superior speed and lower fees but makes different trade-offs compared to Ethereum"
+    },
+    {
+      "id": 326,
+      "question": "What is the Ethereum comparison to Solana often called?",
+      "options": ["The blockchain war", "The L1 competition or 'Ethereum killer' debate", "The token battle", "The consensus war"],
+      "correctAnswer": 1,
+      "explanation": "Solana is often called an 'Ethereum killer' in the Layer 1 competition debate"
+    },
+    {
+      "id": 327,
+      "question": "What is Solana's position in terms of total market cap historically?",
+      "options": ["Always top 3", "Has ranked among top 5-10 cryptocurrencies by market cap", "Always outside top 50", "Always top 1"],
+      "correctAnswer": 1,
+      "explanation": "Solana has historically ranked among the top 5-10 cryptocurrencies by market capitalization"
+    },
+    {
+      "id": 328,
+      "question": "What is DeFi summer on Solana?",
+      "options": ["A seasonal event", "Periods of explosive DeFi growth and activity on Solana", "A marketing campaign", "A network upgrade"],
+      "correctAnswer": 1,
+      "explanation": "Solana has experienced multiple periods of explosive DeFi growth similar to Ethereum's DeFi Summer"
+    },
+    {
+      "id": 329,
+      "question": "What is the relationship between SOL price and ecosystem activity?",
+      "options": ["No relationship", "Higher SOL price generally correlates with more ecosystem activity and TVL", "Inverse relationship", "Random correlation"],
+      "correctAnswer": 1,
+      "explanation": "SOL price generally correlates positively with ecosystem activity, TVL, and developer interest"
+    },
+    {
+      "id": 330,
+      "question": "What is an IDO in crypto?",
+      "options": ["Initial Data Offering", "Initial DEX Offering, token launch on a DEX", "International Digital Offering", "Instant Deposit Option"],
+      "correctAnswer": 1,
+      "explanation": "An IDO (Initial DEX Offering) is a token launch conducted directly on a decentralized exchange"
+    },
+    {
+      "id": 331,
+      "question": "What is an IEO in crypto?",
+      "options": ["Initial Exchange Offering on a CEX", "International Exchange Organization", "Initial Ethereum Offering", "Instant Exchange Option"],
+      "correctAnswer": 0,
+      "explanation": "An IEO (Initial Exchange Offering) is a token sale conducted through a centralized exchange"
+    },
+    {
+      "id": 332,
+      "question": "What is a launchpad in crypto?",
+      "options": ["A rocket NFT", "A platform facilitating new token launches and fundraising", "An exchange type", "A validator service"],
+      "correctAnswer": 1,
+      "explanation": "A launchpad is a platform that helps new projects conduct token sales and initial distributions"
+    },
+    {
+      "id": 333,
+      "question": "What are some Solana-based launchpads?",
+      "options": ["Uniswap only", "Solanium, Decubate, and others", "Only centralized exchanges", "Only Pump.fun"],
+      "correctAnswer": 1,
+      "explanation": "Solana has several launchpads including Solanium, Decubate, and others for new project launches"
+    },
+    {
+      "id": 334,
+      "question": "What is the Seeker token contract address format on Solana?",
+      "options": ["0x format like Ethereum", "Base58 encoded public key format", "IBAN format", "ENS domain"],
+      "correctAnswer": 1,
+      "explanation": "Solana token addresses use Base58 encoding, different from Ethereum's hex 0x format"
+    },
+    {
+      "id": 335,
+      "question": "What is Base58 encoding?",
+      "options": ["A baseball-themed code", "An encoding using 58 alphanumeric characters (excluding confusing chars)", "A 58-bit system", "A hashing algorithm"],
+      "correctAnswer": 1,
+      "explanation": "Base58 is an encoding using 58 characters, excluding visually confusing ones like 0, O, I, l"
+    },
+    {
+      "id": 336,
+      "question": "What is the Solana Foundation's stance on validator decentralization?",
+      "options": ["Centralization preferred", "Actively working to improve decentralization through delegation and programs", "No opinion", "Only large validators preferred"],
+      "correctAnswer": 1,
+      "explanation": "The Solana Foundation actively works to improve decentralization through delegation programs and initiatives"
+    },
+    {
+      "id": 337,
+      "question": "What is the importance of Solana's low hardware requirements relative to other L1s?",
+      "options": ["No importance", "More accessible for validators globally, improving decentralization", "Higher hardware needed", "Hardware not needed"],
+      "correctAnswer": 1,
+      "explanation": "Lower hardware barriers make validation accessible to more participants, improving global decentralization"
+    },
+    {
+      "id": 338,
+      "question": "What are Solana's hardware requirements for running a validator?",
+      "options": ["A laptop is fine", "High-performance servers with 128GB+ RAM and fast NVMe drives", "A smartphone is enough", "Only GPU needed"],
+      "correctAnswer": 1,
+      "explanation": "Solana validators require high-performance servers with significant RAM and fast NVMe storage"
+    },
+    {
+      "id": 339,
+      "question": "What is the minimum SOL needed to vote as a validator?",
+      "options": ["No SOL needed", "Validators need SOL for vote transaction fees (~1 SOL/day)", "1000 SOL minimum stake", "10 SOL"],
+      "correctAnswer": 1,
+      "explanation": "Validators need SOL to pay for vote transactions, which cost approximately 1 SOL per day"
+    },
+    {
+      "id": 340,
+      "question": "What is Solana's vision for widespread adoption?",
+      "options": ["Niche applications only", "Internet-scale blockchain accessible to billions globally", "Enterprise only", "Developer only"],
+      "correctAnswer": 1,
+      "explanation": "Solana's vision is to become an internet-scale blockchain handling billions of users globally"
+    },
+    {
+      "id": 341,
+      "question": "What is the significance of Solana's 400ms block time for user experience?",
+      "options": ["No significance", "Transactions feel nearly instant, similar to traditional web apps", "Too fast to notice", "Causes confusion"],
+      "correctAnswer": 1,
+      "explanation": "400ms transactions feel nearly instant to users, enabling web2-comparable user experiences"
+    },
+    {
+      "id": 342,
+      "question": "What is the primary developer language advantage Solana has?",
+      "options": ["Uses Solidity like Ethereum", "Rust provides memory safety and high performance", "Python is the main language", "No language advantage"],
+      "correctAnswer": 1,
+      "explanation": "Rust's memory safety guarantees and high performance make Solana programs secure and efficient"
+    },
+    {
+      "id": 343,
+      "question": "What is the Sealevel parallel processing runtime's main innovation?",
+      "options": ["Faster CPU usage", "Identifying non-conflicting transactions and executing them simultaneously", "Better memory management", "Faster networking"],
+      "correctAnswer": 1,
+      "explanation": "Sealevel identifies transactions that don't share accounts and executes them in parallel simultaneously"
+    },
+    {
+      "id": 344,
+      "question": "What is Solana's approach to decentralized identity?",
+      "options": ["No support", "Multiple identity solutions including NFT-based and token-based systems", "Centralized KYC only", "Email-based only"],
+      "correctAnswer": 1,
+      "explanation": "Solana supports multiple decentralized identity approaches including NFT-based and credential systems"
+    },
+    {
+      "id": 345,
+      "question": "What is Civic on Solana?",
+      "options": ["A civic education NFT", "A decentralized identity and verification platform", "A DEX", "A staking protocol"],
+      "correctAnswer": 1,
+      "explanation": "Civic provides decentralized identity verification and gateway solutions on Solana"
+    },
+    {
+      "id": 346,
+      "question": "What is the Solana Name Service (SNS)?",
+      "options": ["A naming convention", "A decentralized domain naming service (.sol domains)", "A server naming service", "A token naming tool"],
+      "correctAnswer": 1,
+      "explanation": "The Solana Name Service provides .sol domains linking human-readable names to Solana addresses"
+    },
+    {
+      "id": 347,
+      "question": "What is a .sol domain?",
+      "options": ["A file extension", "A Solana Name Service domain mapping a name to a wallet address", "A smart contract type", "A validator domain"],
+      "correctAnswer": 1,
+      "explanation": "A .sol domain is a Solana Name Service domain that maps a human-readable name to a wallet address"
+    },
+    {
+      "id": 348,
+      "question": "What is AllDomains on Solana?",
+      "options": ["A web hosting service", "A platform offering multiple domain types (.sol, .abc, etc.) on Solana", "A DEX", "A validator service"],
+      "correctAnswer": 1,
+      "explanation": "AllDomains is a platform offering various domain extensions beyond .sol for Solana addresses"
+    },
+    {
+      "id": 349,
+      "question": "What is a verified creator in Solana NFT context?",
+      "options": ["A celebrity", "A wallet address listed in NFT metadata that has been cryptographically verified", "A blue-check creator", "A paid verification"],
+      "correctAnswer": 1,
+      "explanation": "A verified creator is a wallet address in NFT metadata that cryptographically confirms the NFT's authenticity"
+    },
+    {
+      "id": 350,
+      "question": "What is rarity in NFT collections?",
+      "options": ["Age of NFT", "How uncommon specific traits are within a collection", "Price of NFT", "Speed of minting"],
+      "correctAnswer": 1,
+      "explanation": "Rarity describes how uncommon specific traits or combinations are within an NFT collection"
+    },
+    {
+      "id": 351,
+      "question": "What is a generative NFT collection?",
+      "options": ["NFTs that generate income", "NFTs algorithmically created from layered traits", "AI-created art NFTs", "Renewable NFTs"],
+      "correctAnswer": 1,
+      "explanation": "Generative NFTs are created by algorithmically combining multiple trait layers to create unique pieces"
+    },
+    {
+      "id": 352,
+      "question": "What is IPFS in relation to Solana NFTs?",
+      "options": ["A Solana protocol", "Interplanetary File System used to store NFT images and metadata", "An NFT standard", "A validator storage"],
+      "correctAnswer": 1,
+      "explanation": "IPFS (InterPlanetary File System) is commonly used to store NFT images and metadata referenced by Solana NFTs"
+    },
+    {
+      "id": 353,
+      "question": "What is Arweave in relation to Solana NFTs?",
+      "options": ["A weaving NFT", "A permanent decentralized storage network used for NFT data", "A bridge protocol", "A DEX"],
+      "correctAnswer": 1,
+      "explanation": "Arweave provides permanent decentralized storage, often used for Solana NFT image and metadata storage"
+    },
+    {
+      "id": 354,
+      "question": "What is Shadow Drive on Solana?",
+      "options": ["A car NFT project", "A Solana-native decentralized storage solution by GenesysGo", "A DEX", "A validator tool"],
+      "correctAnswer": 1,
+      "explanation": "Shadow Drive is a Solana-native decentralized storage solution developed by GenesysGo"
+    },
+    {
+      "id": 355,
+      "question": "What is the Seeker token's listing status on exchanges?",
+      "options": ["Unlisted everywhere", "SRK may be listed on various DEXs and potentially CEXs", "Only on one exchange", "Only peer-to-peer"],
+      "correctAnswer": 1,
+      "explanation": "SRK can be traded on Solana DEXs and may have listings on centralized exchanges"
+    },
+    {
+      "id": 356,
+      "question": "What is a centralized exchange (CEX)?",
+      "options": ["A government exchange", "An exchange operated by a central company matching buyers and sellers", "A blockchain exchange", "A peer-to-peer service"],
+      "correctAnswer": 1,
+      "explanation": "A CEX is a company-operated exchange that matches buyers and sellers and holds custody of funds"
+    },
+    {
+      "id": 357,
+      "question": "What is a decentralized exchange (DEX)?",
+      "options": ["An illegal exchange", "A protocol enabling peer-to-peer trading without a central intermediary", "A slow exchange", "A new type of CEX"],
+      "correctAnswer": 1,
+      "explanation": "A DEX enables peer-to-peer trading directly on the blockchain without a centralized intermediary"
+    },
+    {
+      "id": 358,
+      "question": "What is Binance's support for Solana?",
+      "options": ["No support", "Binance lists SOL and many Solana ecosystem tokens", "Binance created Solana", "Binance is a Solana validator"],
+      "correctAnswer": 1,
+      "explanation": "Binance, the largest CEX, lists SOL and many Solana ecosystem tokens for trading"
+    },
+    {
+      "id": 359,
+      "question": "What is Coinbase's support for Solana?",
+      "options": ["No support", "Coinbase lists SOL and various Solana tokens", "Coinbase runs Solana", "Coinbase competes with Solana"],
+      "correctAnswer": 1,
+      "explanation": "Coinbase lists SOL and various Solana ecosystem tokens for trading"
+    },
+    {
+      "id": 360,
+      "question": "What is Kraken's relationship with Solana?",
+      "options": ["No relationship", "Kraken lists SOL and provides staking services", "Kraken built Solana", "Kraken competes with Solana"],
+      "correctAnswer": 1,
+      "explanation": "Kraken lists SOL and provides staking services for Solana holders"
+    },
+    {
+      "id": 361,
+      "question": "What is custodial staking?",
+      "options": ["Self-custody staking", "Letting an exchange or service stake SOL on your behalf", "Hardware staking", "Validator staking"],
+      "correctAnswer": 1,
+      "explanation": "Custodial staking is when a service like an exchange stakes your SOL on your behalf, holding custody"
+    },
+    {
+      "id": 362,
+      "question": "What is non-custodial staking?",
+      "options": ["Dangerous staking", "Staking while retaining control of your own private keys", "Exchange staking", "Validator staking"],
+      "correctAnswer": 1,
+      "explanation": "Non-custodial staking lets you earn staking rewards while maintaining control of your private keys"
+    },
+    {
+      "id": 363,
+      "question": "What is the difference between liquid staking and regular staking on Solana?",
+      "options": ["No difference", "Liquid staking gives tradeable receipt tokens while regular staking locks funds", "Liquid staking earns more", "Regular staking is newer"],
+      "correctAnswer": 1,
+      "explanation": "Liquid staking issues tradeable LST tokens representing stake, while regular staking locks the SOL"
+    },
+    {
+      "id": 364,
+      "question": "What is the cooldown period for unstaking on Solana?",
+      "options": ["Instant", "Approximately one epoch (~2-3 days)", "30 days", "One week"],
+      "correctAnswer": 1,
+      "explanation": "Unstaking SOL requires waiting approximately one full epoch (2-3 days) before funds are accessible"
+    },
+    {
+      "id": 365,
+      "question": "What is Solana's position on censorship resistance?",
+      "options": ["Fully censoring", "Designed to be censorship-resistant with distributed validators globally", "Partially censored", "Government controlled"],
+      "correctAnswer": 1,
+      "explanation": "Solana is designed to be censorship-resistant through its globally distributed validator set"
+    },
+    {
+      "id": 366,
+      "question": "What is OFAC compliance concern for Solana validators?",
+      "options": ["No concern", "US-based validators may be required to comply with OFAC sanctions", "All validators must comply", "Only relevant to users"],
+      "correctAnswer": 1,
+      "explanation": "US-based Solana validators may face legal requirements to comply with OFAC sanctions screening"
+    },
+    {
+      "id": 367,
+      "question": "What is the significance of Solana's fast block times for MEV?",
+      "options": ["No significance", "Faster blocks reduce the window for MEV extraction compared to Ethereum", "Faster blocks increase MEV", "No MEV on Solana"],
+      "correctAnswer": 1,
+      "explanation": "Faster block times reduce the MEV opportunity window, making front-running less profitable"
+    },
+    {
+      "id": 368,
+      "question": "What is front-running in crypto?",
+      "options": ["Running first in a race", "Inserting a transaction ahead of a known pending transaction to profit", "A DEX feature", "A staking strategy"],
+      "correctAnswer": 1,
+      "explanation": "Front-running is inserting a transaction ahead of a known pending transaction to exploit the price impact"
+    },
+    {
+      "id": 369,
+      "question": "What is sandwich attack in DeFi?",
+      "options": ["A food NFT attack", "A MEV attack placing transactions before and after a target transaction", "A bridge attack", "A liquidity attack"],
+      "correctAnswer": 1,
+      "explanation": "A sandwich attack places transactions both before and after a victim's transaction to profit from price impact"
+    },
+    {
+      "id": 370,
+      "question": "What is Solana's native staking yield derived from?",
+      "options": ["Trading fees only", "Protocol inflation and transaction fees", "Bridge fees", "NFT royalties"],
+      "correctAnswer": 1,
+      "explanation": "Solana staking yield comes from protocol inflation (new SOL minted) and a share of transaction fees"
+    },
+    {
+      "id": 371,
+      "question": "What is Solana's terminal inflation rate?",
+      "options": ["0%", "1.5%", "5%", "10%"],
+      "correctAnswer": 1,
+      "explanation": "Solana's long-term terminal inflation rate is 1.5% annually"
+    },
+    {
+      "id": 372,
+      "question": "What is the 15% disinflation rate on Solana?",
+      "options": ["A fee reduction", "The annual rate at which Solana's inflation decreases", "A validator cut", "A token burn rate"],
+      "correctAnswer": 1,
+      "explanation": "Solana's inflation decreases by 15% relative to itself each year until reaching the 1.5% terminal rate"
+    },
+    {
+      "id": 373,
+      "question": "What is SRM token?",
+      "options": ["Seeker token alternative", "Serum's governance token for the Serum DEX on Solana", "A stablecoin", "A meme token"],
+      "correctAnswer": 1,
+      "explanation": "SRM is the governance token of the Serum decentralized exchange built on Solana"
+    },
+    {
+      "id": 374,
+      "question": "What is the relationship between SRM and FTX collapse?",
+      "options": ["No relationship", "SRM's value crashed significantly after FTX's collapse due to connections", "SRM increased in value", "No change occurred"],
+      "correctAnswer": 1,
+      "explanation": "SRM crashed significantly after FTX's collapse as FTX/Alameda held large amounts of SRM"
+    },
+    {
+      "id": 375,
+      "question": "What is OpenBook on Solana?",
+      "options": ["An open source book NFT", "A community fork of the Serum DEX after FTX collapse", "A social platform", "A validator client"],
+      "correctAnswer": 1,
+      "explanation": "OpenBook is a community-maintained fork of Serum's central limit order book DEX on Solana"
+    },
+    {
+      "id": 376,
+      "question": "What is a CLOB in DEX context?",
+      "options": ["A marine creature NFT", "Central Limit Order Book, used for order-matching in trading", "A cloud storage system", "A consensus layer"],
+      "correctAnswer": 1,
+      "explanation": "A CLOB (Central Limit Order Book) matches buy and sell orders at specified prices, like traditional exchanges"
+    },
+    {
+      "id": 377,
+      "question": "What is the difference between AMM and CLOB?",
+      "options": ["No difference", "AMM uses algorithms for pricing while CLOB matches specific orders", "AMM is older", "CLOB is decentralized, AMM is not"],
+      "correctAnswer": 1,
+      "explanation": "AMMs use mathematical formulas for pricing while CLOBs match specific buy/sell orders at stated prices"
+    },
+    {
+      "id": 378,
+      "question": "What is Phoenix DEX on Solana?",
+      "options": ["A bird NFT marketplace", "A high-performance CLOB DEX on Solana", "A DeFi lending protocol", "A bridge"],
+      "correctAnswer": 1,
+      "explanation": "Phoenix is a high-performance central limit order book DEX designed for institutional trading on Solana"
+    },
+    {
+      "id": 379,
+      "question": "What is the role of market makers in Solana DEXs?",
+      "options": ["Creating NFT markets", "Providing liquidity and reducing spreads for better trading", "Running validators", "Burning tokens"],
+      "correctAnswer": 1,
+      "explanation": "Market makers provide liquidity and tighter bid-ask spreads, improving trading efficiency on DEXs"
+    },
+    {
+      "id": 380,
+      "question": "What is slippage tolerance in DeFi?",
+      "options": ["Physical tolerance", "Maximum acceptable price difference between expected and executed trade", "Transaction delay limit", "Fee limit"],
+      "correctAnswer": 1,
+      "explanation": "Slippage tolerance is the maximum price difference a trader accepts between expected and actual execution"
+    },
+    {
+      "id": 381,
+      "question": "What is price impact in DEX trading?",
+      "options": ["News impact on price", "How much a trade moves the pool price due to its size", "Daily price change", "Fee impact on returns"],
+      "correctAnswer": 1,
+      "explanation": "Price impact is the change in price caused by the size of a trade relative to pool liquidity"
+    },
+    {
+      "id": 382,
+      "question": "What is a liquidity provider (LP)?",
+      "options": ["A private lender", "Someone who deposits tokens into a DEX pool to earn fees", "A validator", "A token creator"],
+      "correctAnswer": 1,
+      "explanation": "An LP deposits tokens into a DEX liquidity pool and earns a share of trading fees in return"
+    },
+    {
+      "id": 383,
+      "question": "What are LP tokens?",
+      "options": ["Long position tokens", "Receipts representing a liquidity provider's share in a pool", "Listed project tokens", "Lending protocol tokens"],
+      "correctAnswer": 1,
+      "explanation": "LP tokens are receipts issued to liquidity providers representing their proportional share of a pool"
+    },
+    {
+      "id": 384,
+      "question": "What is concentrated liquidity?",
+      "options": ["Focused investment", "LP deposits within a specific price range for higher capital efficiency", "Concentrated token holding", "Validator liquidity"],
+      "correctAnswer": 1,
+      "explanation": "Concentrated liquidity allows LPs to deposit within specific price ranges, earning more fees with less capital"
+    },
+    {
+      "id": 385,
+      "question": "What is Seeker token's potential as a DeFi asset?",
+      "options": ["No DeFi use", "SRK can be used in DeFi protocols for liquidity, collateral, and yield", "Only for gaming", "Only for governance"],
+      "correctAnswer": 1,
+      "explanation": "As a Solana SPL token, SRK can potentially be used as collateral, for liquidity provision, and yield"
+    },
+    {
+      "id": 386,
+      "question": "What is the Solana ecosystem's approach to stablecoins?",
+      "options": ["No stablecoins", "Multiple stablecoins supported natively including USDC and USDT", "Only algorithmic stablecoins", "Creating its own stablecoin"],
+      "correctAnswer": 1,
+      "explanation": "Solana supports multiple major stablecoins including USDC, USDT, and algorithmic varieties"
+    },
+    {
+      "id": 387,
+      "question": "What is UXD Protocol on Solana?",
+      "options": ["A gaming protocol", "An algorithmic stablecoin protocol using delta-neutral positions", "A DEX", "An NFT protocol"],
+      "correctAnswer": 1,
+      "explanation": "UXD Protocol is an algorithmic stablecoin that maintains peg through delta-neutral derivatives positions"
+    },
+    {
+      "id": 388,
+      "question": "What is Parcl on Solana?",
+      "options": ["A parcel delivery NFT", "A real estate price exposure protocol", "A DEX", "A gaming token"],
+      "correctAnswer": 1,
+      "explanation": "Parcl allows users to gain exposure to real estate market prices through on-chain perpetuals"
+    },
+    {
+      "id": 389,
+      "question": "What is Hawksight on Solana?",
+      "options": ["A bird NFT", "An automated DeFi yield optimization platform", "A DEX", "A validator"],
+      "correctAnswer": 1,
+      "explanation": "Hawksight is an automated yield optimization and DeFi management platform on Solana"
+    },
+    {
+      "id": 390,
+      "question": "What is Tulip Protocol on Solana?",
+      "options": ["A flower NFT project", "A yield aggregator and lending protocol", "A DEX", "A bridge"],
+      "correctAnswer": 1,
+      "explanation": "Tulip Protocol is a yield aggregator and lending protocol on the Solana blockchain"
+    },
+    {
+      "id": 391,
+      "question": "What is Francium on Solana?",
+      "options": ["A chemistry NFT", "A leveraged yield farming protocol", "A DEX", "An oracle"],
+      "correctAnswer": 1,
+      "explanation": "Francium is a leveraged yield farming protocol on Solana enabling amplified DeFi returns"
+    },
+    {
+      "id": 392,
+      "question": "What is Hubble Protocol on Solana?",
+      "options": ["A space NFT", "A DeFi protocol for minting the USDH stablecoin using crypto collateral", "A DEX", "A bridge"],
+      "correctAnswer": 1,
+      "explanation": "Hubble Protocol allows users to mint USDH stablecoin against crypto collateral on Solana"
+    },
+    {
+      "id": 393,
+      "question": "What is USDH?",
+      "options": ["A US hospital token", "Hubble Protocol's decentralized stablecoin on Solana", "Ultra-stable dollar hedge", "A DEX token"],
+      "correctAnswer": 1,
+      "explanation": "USDH is Hubble Protocol's decentralized stablecoin minted against crypto collateral on Solana"
+    },
+    {
+      "id": 394,
+      "question": "What is the Seeker roadmap focus?",
+      "options": ["Only token price", "Ecosystem expansion, partnerships, and utility development", "Only staking", "Only NFTs"],
+      "correctAnswer": 1,
+      "explanation": "Seeker's roadmap focuses on expanding ecosystem utility, forming partnerships, and growing the community"
+    },
+    {
+      "id": 395,
+      "question": "What is a whitepaper in crypto?",
+      "options": ["A blank document", "A technical document explaining a project's technology, goals, and tokenomics", "Government documentation", "A security report"],
+      "correctAnswer": 1,
+      "explanation": "A whitepaper is a comprehensive technical document describing a project's technology, vision, and tokenomics"
+    },
+    {
+      "id": 396,
+      "question": "What is a litepaper?",
+      "options": ["A thin document", "A simplified version of a whitepaper for general audiences", "A legal document", "A tokenomics only paper"],
+      "correctAnswer": 1,
+      "explanation": "A litepaper is a simplified, accessible version of a whitepaper intended for general audiences"
+    },
+    {
+      "id": 397,
+      "question": "What is a pitch deck in crypto startups?",
+      "options": ["A card game", "A presentation for investors outlining the project, team, and opportunity", "A token distribution document", "A technical specification"],
+      "correctAnswer": 1,
+      "explanation": "A pitch deck is an investor presentation covering the project's vision, market opportunity, team, and financials"
+    },
+    {
+      "id": 398,
+      "question": "What is KYC in crypto exchanges?",
+      "options": ["Know Your Coin", "Know Your Customer, identity verification process", "Key Your Contract", "Keep Your Currency"],
+      "correctAnswer": 1,
+      "explanation": "KYC (Know Your Customer) is the identity verification process required by many exchanges for compliance"
+    },
+    {
+      "id": 399,
+      "question": "What is AML in crypto?",
+      "options": ["Automated Market Liquidity", "Anti-Money Laundering regulations and compliance", "Asset Management Ledger", "Automated Mining Logic"],
+      "correctAnswer": 1,
+      "explanation": "AML (Anti-Money Laundering) refers to regulations preventing the use of crypto for money laundering"
+    },
+    {
+      "id": 400,
+      "question": "What is the SEC's stance on crypto tokens like SOL?",
+      "options": ["Fully approved all tokens", "Complex regulatory environment with ongoing classification debates", "Banned all tokens", "No opinion on tokens"],
+      "correctAnswer": 1,
+      "explanation": "The SEC has been involved in ongoing debates about whether tokens like SOL are securities"
+    },
+    {
+      "id": 401,
+      "question": "What is the Howey Test in crypto regulation?",
+      "options": ["A cryptography test", "A legal test determining if an asset is a security", "A validator performance test", "A token launch test"],
+      "correctAnswer": 1,
+      "explanation": "The Howey Test is a US legal framework used to determine if a crypto asset qualifies as a security"
+    },
+    {
+      "id": 402,
+      "question": "What is MiCA regulation?",
+      "options": ["A microscope regulation", "EU's Markets in Crypto-Assets regulation framework", "A mining regulation", "An NFT-specific law"],
+      "correctAnswer": 1,
+      "explanation": "MiCA (Markets in Crypto-Assets) is the EU's comprehensive crypto regulatory framework"
+    },
+    {
+      "id": 403,
+      "question": "What is the importance of regulatory clarity for Solana ecosystem projects?",
+      "options": ["No importance", "Clear regulations enable institutional adoption and protect users", "Regulations harm crypto", "Regulations only help CEXs"],
+      "correctAnswer": 1,
+      "explanation": "Regulatory clarity enables institutional participation and provides legal certainty for ecosystem projects"
+    },
+    {
+      "id": 404,
+      "question": "What is a token swap?",
+      "options": ["Trading one token for another at a fixed rate", "Exchanging one token for another at market rates on a DEX", "A physical token exchange", "A cross-chain bridge"],
+      "correctAnswer": 1,
+      "explanation": "A token swap exchanges one token for another at current market rates via a DEX or aggregator"
+    },
+    {
+      "id": 405,
+      "question": "What is SPL token wrapping?",
+      "options": ["Packaging tokens physically", "Converting native tokens from other chains to SPL format for use on Solana", "Adding metadata to tokens", "Token encryption"],
+      "correctAnswer": 1,
+      "explanation": "Wrapped tokens represent assets from other blockchains in SPL format for use within Solana's ecosystem"
+    },
+    {
+      "id": 406,
+      "question": "What is wBTC on Solana?",
+      "options": ["Weird Bitcoin", "Wrapped Bitcoin, representing BTC as an SPL token on Solana", "Weak Bitcoin", "A Solana token named after Bitcoin"],
+      "correctAnswer": 1,
+      "explanation": "wBTC (Wrapped Bitcoin) is Bitcoin represented as an SPL token, enabling BTC use in Solana DeFi"
+    },
+    {
+      "id": 407,
+      "question": "What is wETH on Solana?",
+      "options": ["Wild Ethereum", "Wrapped Ethereum, representing ETH as an SPL token on Solana", "An Ethereum competitor", "A Solana meme token"],
+      "correctAnswer": 1,
+      "explanation": "wETH is Wrapped Ethereum represented as an SPL token, enabling ETH use in Solana's DeFi ecosystem"
+    },
+    {
+      "id": 408,
+      "question": "What is a portfolio tracker for Solana?",
+      "options": ["A stock portfolio", "A tool showing all token, NFT, and DeFi positions in a Solana wallet", "A validator dashboard", "A staking tracker"],
+      "correctAnswer": 1,
+      "explanation": "Portfolio trackers display all tokens, NFTs, and DeFi positions associated with a Solana wallet"
+    },
+    {
+      "id": 409,
+      "question": "What is Step Finance on Solana?",
+      "options": ["A fitness NFT", "A Solana portfolio tracking and management dashboard", "A DEX", "A staking platform"],
+      "correctAnswer": 1,
+      "explanation": "Step Finance is a portfolio management and tracking dashboard for the Solana ecosystem"
+    },
+    {
+      "id": 410,
+      "question": "What is AssetDash on Solana?",
+      "options": ["A digital asset delivery service", "A multi-chain portfolio tracker supporting Solana", "A DEX", "A validator monitor"],
+      "correctAnswer": 1,
+      "explanation": "AssetDash is a multi-chain portfolio tracker with comprehensive Solana ecosystem support"
+    },
+    {
+      "id": 411,
+      "question": "What is the total number of Solana ecosystem projects approximately?",
+      "options": ["Under 100", "Thousands of projects across DeFi, NFTs, gaming, and more", "Exactly 1000", "Under 500"],
+      "correctAnswer": 1,
+      "explanation": "The Solana ecosystem hosts thousands of projects across DeFi, NFTs, gaming, infrastructure, and more"
+    },
+    {
+      "id": 412,
+      "question": "What is the Solana ecosystem map?",
+      "options": ["A geographic map", "A visual representation of all projects in the Solana ecosystem", "A validator map", "A network topology"],
+      "correctAnswer": 1,
+      "explanation": "The Solana ecosystem map visually categorizes all major projects building on Solana"
+    },
+    {
+      "id": 413,
+      "question": "What is the primary advantage of Seeker (SRK) being on Solana vs Ethereum?",
+      "options": ["No advantage", "Lower fees enable more frequent micro-reward distributions", "Ethereum is better", "Same fees"],
+      "correctAnswer": 1,
+      "explanation": "Solana's minimal fees enable frequent micro-reward distributions, crucial for engagement-based token systems"
+    },
+    {
+      "id": 414,
+      "question": "What is token-gating?",
+      "options": ["Token security gates", "Restricting access to content or experiences to token holders", "A token transfer limit", "A staking gate"],
+      "correctAnswer": 1,
+      "explanation": "Token-gating restricts access to content, communities, or features exclusively to holders of specific tokens"
+    },
+    {
+      "id": 415,
+      "question": "What is NFT-gating?",
+      "options": ["NFT security", "Restricting access to content or events to NFT holders", "NFT minting limits", "A collection gate"],
+      "correctAnswer": 1,
+      "explanation": "NFT-gating restricts access to experiences or communities to verified NFT holders of specific collections"
+    },
+    {
+      "id": 416,
+      "question": "What is the SRK token contract's immutability on Solana?",
+      "options": ["Always mutable", "Depends on whether mint authority and freeze authority have been revoked", "Always immutable", "Controlled by Solana Foundation"],
+      "correctAnswer": 1,
+      "explanation": "SRK's immutability depends on whether the mint and freeze authorities have been revoked by the team"
+    },
+    {
+      "id": 417,
+      "question": "What is mint authority in Solana token context?",
+      "options": ["The legal right to mint coins", "The account authorized to create (mint) new tokens", "The token deployer only", "The Foundation"],
+      "correctAnswer": 1,
+      "explanation": "Mint authority is the account that holds permission to create new tokens for an SPL token"
+    },
+    {
+      "id": 418,
+      "question": "What is freeze authority in Solana token context?",
+      "options": ["Cold storage authority", "The account that can freeze token accounts preventing transfers", "A security feature", "A validator authority"],
+      "correctAnswer": 1,
+      "explanation": "Freeze authority can freeze specific token accounts, preventing transfers of that token"
+    },
+    {
+      "id": 419,
+      "question": "What happens when mint authority is revoked for a Solana token?",
+      "options": ["Token stops working", "No more new tokens can ever be minted, fixing the supply", "Tokens are burned", "Trading stops"],
+      "correctAnswer": 1,
+      "explanation": "Revoking mint authority permanently fixes the token supply with no possibility of creating more"
+    },
+    {
+      "id": 420,
+      "question": "What is the importance of revoking freeze authority for a token?",
+      "options": ["Not important", "Ensures no entity can freeze holders' tokens, increasing trust", "Makes token faster", "Increases price"],
+      "correctAnswer": 1,
+      "explanation": "Revoking freeze authority ensures no one can prevent holders from transferring their tokens, building trust"
+    },
+    {
+      "id": 421,
+      "question": "What is a token's liquidity pool depth?",
+      "options": ["Pool physical size", "The total value of assets in a trading pool affecting slippage", "Pool age", "Pool security level"],
+      "correctAnswer": 1,
+      "explanation": "Pool depth refers to the total liquidity in a trading pool; deeper pools have less price slippage"
+    },
+    {
+      "id": 422,
+      "question": "What is trading volume for a token?",
+      "options": ["Number of holders", "Total value of tokens traded in a given period", "Total token supply", "Market cap"],
+      "correctAnswer": 1,
+      "explanation": "Trading volume is the total dollar value of tokens bought and sold in a specific time period"
+    },
+    {
+      "id": 423,
+      "question": "What is price discovery?",
+      "options": ["Finding the token address", "The process by which market participants determine an asset's fair price", "Price tracking", "A DEX feature"],
+      "correctAnswer": 1,
+      "explanation": "Price discovery is the market process of determining an asset's fair value through supply and demand"
+    },
+    {
+      "id": 424,
+      "question": "What is a bull market?",
+      "options": ["A livestock market", "A period of rising prices and positive sentiment in crypto", "A stable market", "A staking period"],
+      "correctAnswer": 1,
+      "explanation": "A bull market is characterized by rising prices, optimism, and increased investor confidence"
+    },
+    {
+      "id": 425,
+      "question": "What is a bear market?",
+      "options": ["A wilderness NFT", "A period of declining prices and negative sentiment in crypto", "A flat market", "A yield period"],
+      "correctAnswer": 1,
+      "explanation": "A bear market is characterized by declining prices, pessimism, and reduced trading activity"
+    },
+    {
+      "id": 426,
+      "question": "What is 'diamond hands' in crypto culture?",
+      "options": ["Diamond NFTs", "Holding a token through volatility without selling", "A trading strategy", "A staking commitment"],
+      "correctAnswer": 1,
+      "explanation": "Diamond hands describes holding a token through significant price volatility without selling"
+    },
+    {
+      "id": 427,
+      "question": "What is 'paper hands' in crypto culture?",
+      "options": ["Paper NFTs", "Selling tokens quickly at the first sign of a price drop", "A weak token", "A DEX type"],
+      "correctAnswer": 1,
+      "explanation": "Paper hands describes selling tokens quickly when prices drop or volatility increases"
+    },
+    {
+      "id": 428,
+      "question": "What is 'to the moon' in crypto culture?",
+      "options": ["Space NFTs", "Expression meaning expecting a token's price to rise dramatically", "Leaving crypto", "Validator uptime"],
+      "correctAnswer": 1,
+      "explanation": "'To the moon' expresses belief that a token's price will increase dramatically"
+    },
+    {
+      "id": 429,
+      "question": "What is HODL in crypto?",
+      "options": ["Hold On for Dear Life", "A misspelling of 'hold' that became crypto slang for holding long-term", "A DEX command", "A staking term"],
+      "correctAnswer": 1,
+      "explanation": "HODL originated from a misspelled 'hold' and means holding crypto long-term regardless of price action"
+    },
+    {
+      "id": 430,
+      "question": "What is APY vs APR in DeFi?",
+      "options": ["Same thing", "APY includes compounding while APR is simple interest rate", "APR is higher always", "APY is simpler"],
+      "correctAnswer": 1,
+      "explanation": "APY (Annual Percentage Yield) includes compound interest while APR (Annual Percentage Rate) is simple interest"
+    },
+    {
+      "id": 431,
+      "question": "What is Solana's position in the DePIN sector?",
+      "options": ["No presence", "Leading blockchain for DePIN projects like Helium, Render, and others", "Only theoretical", "Behind all others"],
+      "correctAnswer": 1,
+      "explanation": "Solana is the leading blockchain for DePIN projects, hosting Helium, Render Network, and many others"
+    },
+    {
+      "id": 432,
+      "question": "What is the io.net project on Solana?",
+      "options": ["An internet provider", "A decentralized GPU computing network on Solana", "A DEX", "An NFT project"],
+      "correctAnswer": 1,
+      "explanation": "io.net is a decentralized GPU computing network built on Solana, providing distributed compute resources"
+    },
+    {
+      "id": 433,
+      "question": "What is Grass on Solana?",
+      "options": ["A nature NFT", "A DePIN project monetizing unused internet bandwidth", "A gaming token", "A yield protocol"],
+      "correctAnswer": 1,
+      "explanation": "Grass is a DePIN project on Solana that allows users to monetize unused internet bandwidth"
+    },
+    {
+      "id": 434,
+      "question": "What is Hivemapper on Solana?",
+      "options": ["A beehive NFT", "A decentralized mapping network using dashcam contributors", "A DEX", "A governance platform"],
+      "correctAnswer": 1,
+      "explanation": "Hivemapper is a decentralized mapping network where dashcam contributors earn tokens for mapping roads"
+    },
+    {
+      "id": 435,
+      "question": "What is HONEY token?",
+      "options": ["A sweet meme token", "Hivemapper's reward token for map contributors", "A stablecoin", "A DeFi token"],
+      "correctAnswer": 1,
+      "explanation": "HONEY is the token distributed to Hivemapper contributors who map roads with their dashcams"
+    },
+    {
+      "id": 436,
+      "question": "What is Nosana on Solana?",
+      "options": ["A nose NFT project", "A decentralized CI/CD and GPU compute network", "A bridge", "A DEX"],
+      "correctAnswer": 1,
+      "explanation": "Nosana is a decentralized continuous integration and GPU compute network built on Solana"
+    },
+    {
+      "id": 437,
+      "question": "What is Solana's AI infrastructure potential?",
+      "options": ["No potential", "High-speed transactions enable real-time AI agent interactions and micropayments", "Only for simple AI", "Requires new blockchain"],
+      "correctAnswer": 1,
+      "explanation": "Solana's speed and low costs are ideal for AI agent systems requiring real-time micropayments"
+    },
+    {
+      "id": 438,
+      "question": "What is an AI agent in crypto context?",
+      "options": ["A human AI trader", "An autonomous program that can perform on-chain actions using AI", "An AI validator", "A chatbot"],
+      "correctAnswer": 1,
+      "explanation": "AI agents are autonomous programs combining AI capabilities with on-chain actions and crypto payments"
+    },
+    {
+      "id": 439,
+      "question": "What is ELIZA framework in relation to Solana AI?",
+      "options": ["A therapy bot", "An open-source AI agent framework with Solana integration", "A Solana upgrade", "A DEX tool"],
+      "correctAnswer": 1,
+      "explanation": "ELIZA (now ai16z) is an open-source AI agent framework with strong Solana ecosystem integration"
+    },
+    {
+      "id": 440,
+      "question": "What is ai16z on Solana?",
+      "options": ["An investment firm token", "An AI agent token and framework built on Solana", "A stablecoin", "A DEX token"],
+      "correctAnswer": 1,
+      "explanation": "ai16z is an AI agent framework and associated token that gained significant traction on Solana"
+    },
+    {
+      "id": 441,
+      "question": "What is Zerebro on Solana?",
+      "options": ["A brain NFT project", "An AI agent project on Solana", "A DEX", "A lending protocol"],
+      "correctAnswer": 1,
+      "explanation": "Zerebro is an AI agent project that gained significant attention in the Solana ecosystem"
+    },
+    {
+      "id": 442,
+      "question": "What is the Seeker token's connection to the Solana AI narrative?",
+      "options": ["No connection", "SRK can benefit from Solana's growing AI and agent ecosystem infrastructure", "SRK is an AI token", "Seeker created AI on Solana"],
+      "correctAnswer": 1,
+      "explanation": "SRK benefits from the same Solana infrastructure that enables AI agents and innovative applications"
+    },
+    {
+      "id": 443,
+      "question": "What is Solana's mempool situation?",
+      "options": ["Has a large mempool", "Has no traditional mempool, uses Gulf Stream for transaction forwarding", "Same as Ethereum", "Uses Bitcoin's mempool design"],
+      "correctAnswer": 1,
+      "explanation": "Solana has no traditional mempool; Gulf Stream forwards transactions directly to expected leaders"
+    },
+    {
+      "id": 444,
+      "question": "What is the significance of Solana having no mempool?",
+      "options": ["Not significant", "Reduces MEV opportunities and transaction congestion", "Makes security worse", "Slows transactions"],
+      "correctAnswer": 1,
+      "explanation": "Solana's mempool-less design reduces certain MEV opportunities and prevents transaction queue buildup"
+    },
+    {
+      "id": 445,
+      "question": "What is the Solana network's transaction confirmation stages?",
+      "options": ["Only one stage", "Processed, Confirmed, and Finalized", "Just finalized", "Ten stages"],
+      "correctAnswer": 1,
+      "explanation": "Solana transactions go through Processed, Confirmed (2/3 stake), and Finalized (Byzantine finality) stages"
+    },
+    {
+      "id": 446,
+      "question": "What does 'processed' mean for a Solana transaction?",
+      "options": ["Transaction is complete", "Transaction received by at least one validator but not yet confirmed", "Transaction failed", "Transaction is pending"],
+      "correctAnswer": 1,
+      "explanation": "Processed means the transaction has been received and processed by at least one validator"
+    },
+    {
+      "id": 447,
+      "question": "What is a Solana validator's delinquent status?",
+      "options": ["A bad validator", "A validator that has fallen behind in voting, missing recent blocks", "An inactive staker", "A penalized validator"],
+      "correctAnswer": 1,
+      "explanation": "A delinquent validator has fallen significantly behind in voting, indicating it may be offline"
+    },
+    {
+      "id": 448,
+      "question": "What is skip rate for Solana validators?",
+      "options": ["How often validators skip meetings", "The percentage of assigned leader slots a validator missed", "Transaction skip rate", "A staking metric"],
+      "correctAnswer": 1,
+      "explanation": "Skip rate is the percentage of scheduled leader slots that a validator failed to produce blocks for"
+    },
+    {
+      "id": 449,
+      "question": "What is the ideal skip rate for a healthy Solana validator?",
+      "options": ["100%", "As low as possible, typically under 5%", "50%", "20-30%"],
+      "correctAnswer": 1,
+      "explanation": "Healthy validators have low skip rates (under 5%), indicating reliable block production"
+    },
+    {
+      "id": 450,
+      "question": "What is Solana's network health dashboard?",
+      "options": ["A medical tool", "Tools like validators.app and Solana Beach showing network statistics", "A financial dashboard", "A developer tool only"],
+      "correctAnswer": 1,
+      "explanation": "Tools like validators.app and Solana Beach provide comprehensive network health and validator statistics"
+    },
+    {
+      "id": 451,
+      "question": "What is the Solana Speedrun?",
+      "options": ["A gaming event", "A developer challenge to build and ship Solana projects quickly", "A validator race", "A token trading competition"],
+      "correctAnswer": 1,
+      "explanation": "Solana Speedrun is a developer challenge series for rapidly building and shipping projects on Solana"
+    },
+    {
+      "id": 452,
+      "question": "What is the Solana Allstars program?",
+      "options": ["A sports NFT", "A community ambassador and advocate program", "A validator pool", "A developer grant"],
+      "correctAnswer": 1,
+      "explanation": "Solana Allstars is a community ambassador program recognizing and empowering ecosystem advocates"
+    },
+    {
+      "id": 453,
+      "question": "What is the primary programming paradigm for Solana programs?",
+      "options": ["Object-oriented", "Stateless programs with external state in accounts", "Functional programming", "Declarative programming"],
+      "correctAnswer": 1,
+      "explanation": "Solana programs are stateless; all state is stored in external accounts that programs read and write"
+    },
+    {
+      "id": 454,
+      "question": "What is the constraint in Solana that programs must follow?",
+      "options": ["Must use JavaScript", "Must declare all accounts they will access upfront in a transaction", "Must be open source", "Must charge fees"],
+      "correctAnswer": 1,
+      "explanation": "All accounts a Solana transaction will access must be declared upfront, enabling parallel processing"
+    },
+    {
+      "id": 455,
+      "question": "What is the Solana Foundation's validator delegation program criteria?",
+      "options": ["Any validator", "Performance metrics, identity verification, and commission rate requirements", "Largest stakers only", "First come first served"],
+      "correctAnswer": 1,
+      "explanation": "The SFDP considers performance metrics, verified identity, commission rates, and geographic diversity"
+    },
+    {
+      "id": 456,
+      "question": "What is Seeker's community governance model?",
+      "options": ["No governance", "SRK holders can participate in governance decisions", "Centralized team decisions only", "Only early investors decide"],
+      "correctAnswer": 1,
+      "explanation": "SRK holders participate in governance, giving the community voice in ecosystem decisions"
+    },
+    {
+      "id": 457,
+      "question": "What is the Solana Summer Camp Hackathon?",
+      "options": ["A children's camp", "A global online hackathon organized by Solana", "A summer NFT drop", "A validator training"],
+      "correctAnswer": 1,
+      "explanation": "Summer Camp was a global online hackathon organized by Solana to discover and fund new projects"
+    },
+    {
+      "id": 458,
+      "question": "What is the importance of Solana's open-source nature?",
+      "options": ["Not important", "Enables community contributions, transparency, and independent verification", "Makes it less secure", "Only for developers"],
+      "correctAnswer": 1,
+      "explanation": "Open-source code allows community auditing, contributions, and independent security verification"
+    },
+    {
+      "id": 459,
+      "question": "What is the Solana GitHub repository?",
+      "options": ["solana-labs/solana on GitHub", "A private repository", "Only accessible to validators", "Foundation controlled only"],
+      "correctAnswer": 0,
+      "explanation": "The main Solana codebase is publicly available at solana-labs/solana (and anza-xyz/agave) on GitHub"
+    },
+    {
+      "id": 460,
+      "question": "What is the Anza organization's relationship to Solana Labs?",
+      "options": ["Competitors", "Anza is an independent spinout from Solana Labs maintaining Agave client", "Same company", "A Foundation subsidiary"],
+      "correctAnswer": 1,
+      "explanation": "Anza is an independent company spun out from Solana Labs to maintain the Agave validator client"
+    },
+    {
+      "id": 461,
+      "question": "What is the Seeker token's listing on Raydium?",
+      "options": ["Not possible", "SRK can be listed on Raydium pools for Solana DEX trading", "Only on Ethereum DEXs", "Foundation approval needed"],
+      "correctAnswer": 1,
+      "explanation": "SRK as an SPL token can be traded on Raydium and other Solana-based DEXs"
+    },
+    {
+      "id": 462,
+      "question": "What is concentrated liquidity management (CLM) on Solana?",
+      "options": ["Concentrated staking", "Active management of liquidity positions within specific price ranges", "A validator strategy", "A token distribution model"],
+      "correctAnswer": 1,
+      "explanation": "CLM involves actively managing liquidity positions in concentrated ranges to maximize fee earnings"
+    },
+    {
+      "id": 463,
+      "question": "What is Whirlpools on Solana?",
+      "options": ["Water NFTs", "Orca's concentrated liquidity pool protocol", "A DEX aggregator", "A staking protocol"],
+      "correctAnswer": 1,
+      "explanation": "Whirlpools is Orca DEX's concentrated liquidity AMM protocol on Solana"
+    },
+    {
+      "id": 464,
+      "question": "What is a TWAP oracle?",
+      "options": ["A faucet type", "Time-Weighted Average Price, resistant to price manipulation", "A trading strategy", "A validator metric"],
+      "correctAnswer": 1,
+      "explanation": "TWAP (Time-Weighted Average Price) oracles provide manipulation-resistant price feeds over time periods"
+    },
+    {
+      "id": 465,
+      "question": "What are Solana's on-chain analytics platforms?",
+      "options": ["Only Solscan", "Multiple including Flipside, Dune Analytics, and Nansen supporting Solana", "None exist", "Only official explorer"],
+      "correctAnswer": 1,
+      "explanation": "Multiple analytics platforms including Flipside Crypto, Dune Analytics, and Nansen support Solana data"
+    },
+    {
+      "id": 466,
+      "question": "What is Flipside Crypto's role in Solana analytics?",
+      "options": ["Trading platform", "A blockchain analytics platform providing Solana on-chain data", "A validator service", "An NFT marketplace"],
+      "correctAnswer": 1,
+      "explanation": "Flipside Crypto provides comprehensive on-chain analytics and data for the Solana ecosystem"
+    },
+    {
+      "id": 467,
+      "question": "What is the Seeker token's community size indicator?",
+      "options": ["Token price alone", "Number of holders, social media followers, and active community members", "Only Twitter followers", "Total supply"],
+      "correctAnswer": 1,
+      "explanation": "Seeker's community strength is measured by holder count, social engagement, and active participation"
+    },
+    {
+      "id": 468,
+      "question": "What is a Solana hackathon prize category typically?",
+      "options": ["Only one category", "Multiple tracks including DeFi, NFTs, Gaming, Infrastructure, and more", "Only gaming prizes", "Only infrastructure prizes"],
+      "correctAnswer": 1,
+      "explanation": "Solana hackathons feature multiple prize tracks covering DeFi, NFTs, gaming, infrastructure, and more"
+    },
+    {
+      "id": 469,
+      "question": "What is the Seeker ecosystem's connection to social platforms?",
+      "options": ["No connection", "SRK enables social engagement rewards and community interaction mechanisms", "Only Twitter integration", "No social features"],
+      "correctAnswer": 1,
+      "explanation": "SRK powers social engagement rewards and community interaction mechanics within its ecosystem"
+    },
+    {
+      "id": 470,
+      "question": "What is the significance of SPL token standard for Seeker?",
+      "options": ["Not significant", "SPL standard ensures SRK is compatible with all Solana wallets and DEXs", "Makes it harder to use", "Limits functionality"],
+      "correctAnswer": 1,
+      "explanation": "Being SPL-standard ensures SRK works seamlessly with all Solana-compatible wallets, DEXs, and dApps"
+    },
+    {
+      "id": 471,
+      "question": "What is Solana's approach to token metadata storage?",
+      "options": ["All stored on-chain", "Metadata stored via Metaplex with URI pointing to off-chain JSON", "No metadata support", "Only IPFS storage"],
+      "correctAnswer": 1,
+      "explanation": "Solana uses Metaplex for on-chain metadata with a URI pointing to off-chain JSON for full metadata"
+    },
+    {
+      "id": 472,
+      "question": "What is Solana's position in the Layer 1 landscape as of 2024-2025?",
+      "options": ["Declining rapidly", "One of the top L1 blockchains with significant activity and adoption", "Unknown position", "Only a testnet"],
+      "correctAnswer": 1,
+      "explanation": "Solana has established itself as one of the leading Layer 1 blockchains with robust ecosystem activity"
+    },
+    {
+      "id": 473,
+      "question": "What is the Seeker token's primary value proposition?",
+      "options": ["Pure speculation", "Utility within the Seeker ecosystem for rewards, governance, and features", "A stablecoin alternative", "A DeFi reserve asset"],
+      "correctAnswer": 1,
+      "explanation": "SRK's primary value comes from its utility within the Seeker ecosystem for rewards and governance"
+    },
+    {
+      "id": 474,
+      "question": "What is Solana's FIRE (Financial Infrastructure for Regulated Ecosystems) initiative?",
+      "options": ["A token burn program", "An initiative to build compliant financial infrastructure on Solana", "A validator program", "A gaming initiative"],
+      "correctAnswer": 1,
+      "explanation": "Solana's FIRE initiative focuses on building compliant financial infrastructure for institutional adoption"
+    },
+    {
+      "id": 475,
+      "question": "What is the role of the Solana Policy Institute?",
+      "options": ["Token pricing", "Engaging with policymakers to shape favorable crypto regulation", "Validator governance", "Token creation"],
+      "correctAnswer": 1,
+      "explanation": "The Solana Policy Institute engages with regulators and policymakers to promote favorable crypto policy"
+    },
+    {
+      "id": 476,
+      "question": "What is the Seeker token's long-term sustainability mechanism?",
+      "options": ["Continuous inflation", "Balanced token economics with utility burns and reward systems", "No mechanism", "Only deflation"],
+      "correctAnswer": 1,
+      "explanation": "SRK's sustainability relies on balanced tokenomics where utility creates demand while burn mechanisms reduce supply"
+    },
+    {
+      "id": 477,
+      "question": "What is the purpose of token burns for SRK?",
+      "options": ["Destroy value", "Reduce supply over time to create deflationary pressure", "Reset the token", "Pay validators"],
+      "correctAnswer": 1,
+      "explanation": "Token burns reduce SRK's circulating supply over time, creating deflationary pressure as utility grows"
+    },
+    {
+      "id": 478,
+      "question": "What is the Solana ecosystem's approach to NFT gaming assets?",
+      "options": ["No gaming NFTs", "NFT game items with true ownership that can be traded outside games", "In-game only items", "Rental NFTs only"],
+      "correctAnswer": 1,
+      "explanation": "Solana gaming NFTs represent truly owned in-game assets that can be traded freely outside the game"
+    },
+    {
+      "id": 479,
+      "question": "What is the key principle of true digital ownership in Web3?",
+      "options": ["Company owns assets", "Users hold private keys giving genuine ownership of their assets", "NFTs are rented", "Platform controls assets"],
+      "correctAnswer": 1,
+      "explanation": "Web3 true ownership means users hold private keys, giving genuine control over their digital assets"
+    },
+    {
+      "id": 480,
+      "question": "What is interoperability of gaming assets on Solana?",
+      "options": ["Games only work alone", "NFT assets potentially usable across multiple games or applications", "Assets locked in one game", "Requires permission"],
+      "correctAnswer": 1,
+      "explanation": "Solana's open NFT standards enable gaming assets to potentially be used across multiple games and apps"
+    },
+    {
+      "id": 481,
+      "question": "What is the Seeker ecosystem's approach to partnerships?",
+      "options": ["No partnerships", "Building integrations with complementary Solana projects and platforms", "Only competing", "Only CEX partnerships"],
+      "correctAnswer": 1,
+      "explanation": "Seeker builds partnerships with complementary Solana projects to expand SRK's utility and reach"
+    },
+    {
+      "id": 482,
+      "question": "What is Solana's transaction finality compared to Bitcoin?",
+      "options": ["Same speed", "Solana finalizes in seconds vs Bitcoin's ~60 minute finality", "Bitcoin is faster", "Both take 10 minutes"],
+      "correctAnswer": 1,
+      "explanation": "Solana achieves finality in seconds while Bitcoin requires ~60 minutes (6 confirmations) for practical finality"
+    },
+    {
+      "id": 483,
+      "question": "What is the Seeker token's community growth strategy?",
+      "options": ["Passive growth only", "Active community building through rewards, events, and engagement incentives", "Only marketing spending", "Only listings"],
+      "correctAnswer": 1,
+      "explanation": "Seeker grows its community through reward mechanisms, events, and engagement incentives for active participants"
+    },
+    {
+      "id": 484,
+      "question": "What is the role of Solana developers in ecosystem growth?",
+      "options": ["No role", "Build dApps and tools that attract users and capital to the ecosystem", "Only maintain validators", "Only create tokens"],
+      "correctAnswer": 1,
+      "explanation": "Developers build the dApps, tools, and protocols that attract users, capital, and further developers to Solana"
+    },
+    {
+      "id": 485,
+      "question": "What is the Solana developer resources hub?",
+      "options": ["A physical hub", "docs.solana.com and various ecosystem tools and tutorials", "A paid service", "Foundation-only access"],
+      "correctAnswer": 1,
+      "explanation": "Solana's developer resources include docs.solana.com, Solana Cookbook, and extensive ecosystem tools"
+    },
+    {
+      "id": 486,
+      "question": "What is the Solana Cookbook?",
+      "options": ["A recipe NFT collection", "A developer reference with code examples for common Solana tasks", "A food-themed game", "A staking guide"],
+      "correctAnswer": 1,
+      "explanation": "The Solana Cookbook is a community resource with code examples and best practices for Solana development"
+    },
+    {
+      "id": 487,
+      "question": "What is the maximum transaction size impact on Solana development?",
+      "options": ["No impact", "Developers must optimize to fit complex operations within 1232 bytes", "Only affects validators", "Only matters for NFTs"],
+      "correctAnswer": 1,
+      "explanation": "The 1232 byte transaction limit requires developers to optimize and use techniques like ALTs"
+    },
+    {
+      "id": 488,
+      "question": "What is the Seeker token's potential in the growing Solana gaming sector?",
+      "options": ["Limited potential", "Strong potential as Solana gaming grows with SRK as a native ecosystem token", "No potential", "Only for existing games"],
+      "correctAnswer": 1,
+      "explanation": "SRK has strong growth potential as Solana's gaming ecosystem expands and matures"
+    },
+    {
+      "id": 489,
+      "question": "What is the Solana ecosystem's TVL milestone?",
+      "options": ["Never exceeded $1B", "Has reached multi-billion dollar TVL at peak", "Always under $100M", "Exactly $1B always"],
+      "correctAnswer": 1,
+      "explanation": "Solana's DeFi ecosystem has achieved multi-billion dollar TVL during peak periods"
+    },
+    {
+      "id": 490,
+      "question": "What is the Solana Mobile Stack (SMS)?",
+      "options": ["Text messaging", "A software stack for building mobile crypto applications on Android", "A mobile DEX", "A validator mobile app"],
+      "correctAnswer": 1,
+      "explanation": "The Solana Mobile Stack provides tools and APIs for building Web3 mobile applications on Android"
+    },
+    {
+      "id": 491,
+      "question": "What is Seed Vault in Solana Mobile?",
+      "options": ["A farming game", "A secure key management system in Solana mobile devices", "A staking vault", "A token storage"],
+      "correctAnswer": 1,
+      "explanation": "Seed Vault is a secure key management system integrated into Solana Mobile devices like Saga"
+    },
+    {
+      "id": 492,
+      "question": "What is Mobile Wallet Adapter (MWA) on Solana?",
+      "options": ["A hardware adapter", "A protocol connecting mobile dApps to mobile Solana wallets", "A DEX connection", "A validator adapter"],
+      "correctAnswer": 1,
+      "explanation": "Mobile Wallet Adapter is a protocol enabling Solana dApps to connect to mobile wallets for transaction signing"
+    },
+    {
+      "id": 493,
+      "question": "What is the Solana Chapter 2 narrative?",
+      "options": ["A sequel movie", "Solana's recovery and growth period following the FTX collapse of 2022", "A new blockchain version", "A governance update"],
+      "correctAnswer": 1,
+      "explanation": "Solana's Chapter 2 refers to its remarkable recovery and resurgence following the FTX-related downturn"
+    },
+    {
+      "id": 494,
+      "question": "What milestone did Solana achieve in 2024 that demonstrated recovery?",
+      "options": ["Shutdown", "SOL reached new highs and ecosystem activity surpassed previous records", "SOL was delisted", "Solana merged with Ethereum"],
+      "correctAnswer": 1,
+      "explanation": "In 2024, Solana demonstrated strong recovery with SOL price surges and record ecosystem activity"
+    },
+    {
+      "id": 495,
+      "question": "What is the Seeker token's connection to Solana's recovery narrative?",
+      "options": ["No connection", "SRK benefits from and contributes to Solana's ecosystem growth and recovery", "Seeker caused the recovery", "Only launched before FTX"],
+      "correctAnswer": 1,
+      "explanation": "SRK is part of the expanding Solana ecosystem that has grown stronger through its recovery period"
+    },
+    {
+      "id": 496,
+      "question": "What is the Solana ETF discussion in 2024-2025?",
+      "options": ["No discussion", "Growing interest in Solana spot ETFs following Bitcoin and Ethereum ETF approvals", "Already approved in all countries", "Rejected permanently"],
+      "correctAnswer": 1,
+      "explanation": "Following Bitcoin and Ethereum ETF approvals, there has been significant discussion around potential Solana ETFs"
+    },
+    {
+      "id": 497,
+      "question": "What is the significance of institutional adoption for SOL and Solana ecosystem tokens?",
+      "options": ["No significance", "Institutional investment brings capital, legitimacy, and price stability", "Hurts decentralization", "Not relevant"],
+      "correctAnswer": 1,
+      "explanation": "Institutional adoption brings significant capital inflows, market legitimacy, and reduced volatility to Solana"
+    },
+    {
+      "id": 498,
+      "question": "What is the Seeker token's target user base?",
+      "options": ["Only developers", "Crypto enthusiasts, gamers, and community-focused users in the Solana ecosystem", "Only investors", "Only DeFi users"],
+      "correctAnswer": 1,
+      "explanation": "SRK targets crypto enthusiasts, gamers, and community-oriented users who value engagement rewards"
+    },
+    {
+      "id": 499,
+      "question": "What is the overall vision of the Seeker (SRK) project on Solana?",
+      "options": ["Quick profit scheme", "Building a sustainable reward and engagement ecosystem leveraging Solana's capabilities", "Only trading", "Only DeFi"],
+      "correctAnswer": 1,
+      "explanation": "Seeker's vision is to build a sustainable engagement and reward ecosystem powered by Solana's speed and low costs"
+    },
+    {
+      "id": 500,
+      "question": "What makes Solana the ideal blockchain for the Seeker token ecosystem?",
+      "options": ["It's not ideal", "Speed, low costs, large user base, and robust infrastructure for token utility", "Only because of fees", "Only because of NFT support"],
+      "correctAnswer": 1,
+      "explanation": "Solana's combination of speed, minimal fees, large user base, and rich ecosystem makes it ideal for SRK's utility"
+    },
+    {
+      "id": 501,
+      "question": "What is the Solana validator count's significance for security?",
+      "options": ["Fewer is better", "More validators increase decentralization and security against attacks", "Count doesn't matter", "Only 21 needed"],
+      "correctAnswer": 1,
+      "explanation": "A larger validator count improves network decentralization and makes coordinated attacks more difficult"
+    },
+    {
+      "id": 502,
+      "question": "What is Solana's network uptime after improvements post-2022 outages?",
+      "options": ["Still problematic", "Significantly improved with near 100% uptime through network upgrades", "Worse than before", "Only 90% uptime"],
+      "correctAnswer": 1,
+      "explanation": "Solana has significantly improved its network stability, achieving near 100% uptime through engineering improvements"
+    },
+    {
+      "id": 503,
+      "question": "What is the role of Solana in the global payments landscape?",
+      "options": ["Not relevant", "Enabling fast, cheap, borderless payments through Solana Pay and ecosystem", "Only domestic payments", "Only crypto-to-crypto"],
+      "correctAnswer": 1,
+      "explanation": "Solana enables fast, cheap, borderless payments through Solana Pay and various ecosystem payment solutions"
+    },
+    {
+      "id": 504,
+      "question": "What is the Seeker community's role in token value?",
+      "options": ["No role", "Active community drives utility, adoption, and organic demand for SRK", "Only passive holders", "Only traders matter"],
+      "correctAnswer": 1,
+      "explanation": "An active Seeker community drives utility adoption, creates organic demand, and builds ecosystem value"
+    },
+    {
+      "id": 505,
+      "question": "What technology stack does a typical Solana dApp use?",
+      "options": ["Only Rust", "Rust (on-chain), TypeScript/JavaScript (frontend), Anchor (framework)", "Only JavaScript", "Only Python"],
+      "correctAnswer": 1,
+      "explanation": "Typical Solana dApps use Rust for on-chain programs, Anchor for the framework, and TypeScript for frontends"
+    }
+  ]
+}
