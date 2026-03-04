@@ -1,98 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, Animated, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS, GAME_MODES } from '../constants';
 import { Match, Fighter, GameMode } from '../types';
 import { useWallet } from '../context/WalletContext';
 import { useToast } from '../context/ToastContext';
+import { useFight } from '../context/FightContext';
 import { generateStarterFighters, generateRandomFighter } from '../services/fighterService';
 import { fightService } from '../services/fightService';
-import FighterCharacter from '../components/FighterCharacter';
-import AttackEffect from '../components/AttackEffect';
-import ComboDisplay from '../components/ComboDisplay';
-import DamageNumber from '../components/DamageNumber';
-
-const HealthBar = ({ current, max, color }: { current: number; max: number; color: string }) => {
-  const percentage = (current / max) * 100;
-  
-  return (
-    <View className="w-full h-6 bg-[#2a2a3e] rounded-full overflow-hidden border-2 border-[#3a3a4e]">
-      <View 
-        className="h-full rounded-full" 
-        style={{ width: `${percentage}%`, backgroundColor: color }}
-      />
-      <Text 
-        style={{ fontFamily: 'Bangers' }} 
-        className="absolute inset-0 text-center text-white text-sm leading-6"
-      >
-        {Math.floor(current)}/{max}
-      </Text>
-    </View>
-  );
-};
-
-const EnergyBar = ({ current, max }: { current: number; max: number }) => {
-  const percentage = (current / max) * 100;
-  
-  return (
-    <View className="w-full h-4 bg-[#2a2a3e] rounded-full overflow-hidden">
-      <View 
-        className="h-full rounded-full bg-[#14F195]" 
-        style={{ width: `${percentage}%` }}
-      />
-    </View>
-  );
-};
-
-const FighterInfo = ({ 
-  fighter, 
-  health, 
-  maxHealth,
-  energy,
-  maxEnergy,
-  isOpponent = false 
-}: { 
-  fighter: Fighter;
-  health: number;
-  maxHealth: number;
-  energy: number;
-  maxEnergy: number;
-  isOpponent?: boolean;
-}) => {
-  return (
-    <View className={`items-center ${isOpponent ? 'mb-2' : 'mt-2'}`}>
-      <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl">{fighter.name}</Text>
-      <Text className="text-[#888888] text-sm">{fighter.type.toUpperCase()}</Text>
-      
-      <View className="w-full px-4 mt-2">
-        <HealthBar current={health} max={maxHealth} color="#FF4444" />
-        <View className="mt-1">
-          <EnergyBar current={energy} max={maxEnergy} />
-        </View>
-      </View>
-      
-      <View className="flex-row mt-2 space-x-4">
-        <View className="items-center">
-          <Ionicons name="flash" size={16} color="#FF6B6B" />
-          <Text style={{ fontFamily: 'Bangers' }} className="text-white text-sm">{fighter.attack}</Text>
-        </View>
-        <View className="items-center">
-          <Ionicons name="shield" size={16} color="#4ECDC4" />
-          <Text style={{ fontFamily: 'Bangers' }} className="text-white text-sm">{fighter.defense}</Text>
-        </View>
-        <View className="items-center">
-          <Ionicons name="speedometer" size={16} color="#14F195" />
-          <Text style={{ fontFamily: 'Bangers' }} className="text-white text-sm">{fighter.speed}</Text>
-        </View>
-      </View>
-    </View>
-  );
-};
+import OptimizedImage from '../components/OptimizedImage';
+import ActiveFightView from '../components/ActiveFightView';
+import BattlefieldSelector from '../components/BattlefieldSelector';
 
 export default function FightScreen() {
   const wallet = useWallet();
   const { showToast } = useToast();
-  const [gameMode, setGameMode] = useState<GameMode | null>(null);
+  const { setIsInActiveFight } = useFight();
   const [isSearching, setIsSearching] = useState(false);
   const [match, setMatch] = useState<Match | null>(null);
   const [selectedFighter, setSelectedFighter] = useState<Fighter | null>(null);
@@ -104,13 +28,22 @@ export default function FightScreen() {
   const [opponentHit, setOpponentHit] = useState(false);
   const [attackEffects, setAttackEffects] = useState<Array<{ id: string; type: 'light' | 'heavy' | 'special' | 'hit'; fromPlayer: boolean }>>([]);
   const [damageNumbers, setDamageNumbers] = useState<Array<{ id: string; damage: number; isPlayer: boolean; isCritical: boolean }>>([]);
-  const animatedValue = useRef(new Animated.Value(0)).current;
+  const [selectedBattlefield, setSelectedBattlefield] = useState<string>('Floating Sky');
 
   useEffect(() => {
     if (wallet.connected && playerFighters.length === 0) {
       setPlayerFighters(generateStarterFighters());
     }
   }, [wallet.connected]);
+
+  // Track active fight status for hiding tab bar
+  useEffect(() => {
+    if (match && match.status === 'active') {
+      setIsInActiveFight(true);
+    } else {
+      setIsInActiveFight(false);
+    }
+  }, [match, setIsInActiveFight]);
 
   useEffect(() => {
     if (match && match.status === 'active') {
@@ -132,7 +65,6 @@ export default function FightScreen() {
       return;
     }
     
-    setGameMode(mode);
     setIsSearching(true);
     setBattleLog([]);
     
@@ -179,17 +111,17 @@ export default function FightScreen() {
       addLog(result.message);
       
       if (result.damage > 0) {
-        // Trigger opponent hit animation
+        // Trigger opponent hit animation (opponent gets hit, not player)
         setOpponentHit(true);
         setTimeout(() => setOpponentHit(false), 300);
         
-        // Add hit effect
+        // Add hit effect on opponent side
         const hitId = `hit-${Date.now()}`;
-        setAttackEffects(prev => [...prev, { id: hitId, type: 'hit', fromPlayer: true }]);
+        setAttackEffects(prev => [...prev, { id: hitId, type: 'hit', fromPlayer: false }]);
         
-        // Add damage number
+        // Add damage number on opponent
         const damageId = `damage-${Date.now()}`;
-        const isCritical = result.damage > player.fighter.attack * 1.5;
+        const isCritical = result.damage > result.match.player1.fighter.attack * 1.5;
         setDamageNumbers(prev => [...prev, { id: damageId, damage: result.damage, isPlayer: false, isCritical }]);
       }
       
@@ -246,17 +178,17 @@ export default function FightScreen() {
         addLog(result.message);
         
         if (result.damage > 0) {
-          // Trigger player hit animation
+          // Trigger player hit animation (player gets hit, not opponent)
           setPlayerHit(true);
           setTimeout(() => setPlayerHit(false), 300);
           
-          // Add hit effect
+          // Add hit effect on player side
           const hitId = `hit-${Date.now()}`;
-          setAttackEffects(prev => [...prev, { id: hitId, type: 'hit', fromPlayer: false }]);
+          setAttackEffects(prev => [...prev, { id: hitId, type: 'hit', fromPlayer: true }]);
           
-          // Add damage number
+          // Add damage number on player
           const damageId = `damage-${Date.now()}`;
-          const isCritical = result.damage > opponent.fighter.attack * 1.5;
+          const isCritical = result.damage > result.match.player2.fighter.attack * 1.5;
           setDamageNumbers(prev => [...prev, { id: damageId, damage: result.damage, isPlayer: true, isCritical }]);
         }
         
@@ -275,8 +207,13 @@ export default function FightScreen() {
     
     setTimeout(() => {
       setMatch(null);
-      setGameMode(null);
     }, 3000);
+  };
+
+  const leaveMatch = () => {
+    showToast('Left the match', 'info');
+    setMatch(null);
+    setBattleLog([]);
   };
 
   if (!wallet.connected) {
@@ -291,65 +228,196 @@ export default function FightScreen() {
   }
 
   if (!match && !isSearching) {
+    const rarityColors = {
+      common: '#888888',
+      rare: '#4ECDC4',
+      epic: '#9945FF',
+      legendary: '#FFD700',
+    };
+
+    const typeIcons = {
+      warrior: 'shield',
+      mage: 'flash',
+      archer: 'arrow-forward',
+      tank: 'cube',
+      assassin: 'eye',
+    };
+
     return (
-      <View className="flex-1 bg-[#0a0a1a] p-4">
-        <Text style={{ fontFamily: 'Bangers' }} className="text-white text-3xl mb-4 text-center">
-          SELECT YOUR FIGHTER
-        </Text>
-        
-        <View className="flex-row flex-wrap justify-center mb-6">
-          {playerFighters.map((fighter) => (
+      <ScrollView className="flex-1 bg-[#0a0a1a]" showsVerticalScrollIndicator={false}>
+        <View className="p-4">
+          {/* Game Mode Selection - First */}
+          <Text style={{ fontFamily: 'Bangers' }} className="text-white text-2xl mb-3 text-center">
+            CHOOSE GAME MODE
+          </Text>
+          
+          {Object.entries(GAME_MODES).map(([key, mode]) => (
             <TouchableOpacity
-              key={fighter.id}
-              onPress={() => setSelectedFighter(fighter)}
-              className={`m-2 p-4 rounded-xl border-2 ${
-                selectedFighter?.id === fighter.id ? 'border-[#9945FF] bg-[#9945FF]/20' : 'border-[#2a2a3e] bg-[#1a1a2e]'
+              key={key}
+              onPress={() => startMatchmaking(key as GameMode)}
+              disabled={!selectedFighter}
+              className={`bg-[#1a1a2e] rounded-xl p-4 mb-3 border-2 ${
+                !selectedFighter ? 'border-[#2a2a3e] opacity-50' : 'border-[#2a2a3e]'
               }`}
-              style={{ width: 160 }}
             >
-              <View className="items-center">
-                <Ionicons 
-                  name={fighter.type === 'warrior' ? 'shield' : fighter.type === 'mage' ? 'flash' : fighter.type === 'archer' ? 'arrow-forward' : fighter.type === 'tank' ? 'cube' : 'eye'} 
-                  size={48} 
-                  color={COLORS.primary} 
-                />
-                <Text style={{ fontFamily: 'Bangers' }} className="text-white text-lg mt-2">{fighter.name}</Text>
-                <Text className="text-[#888888] text-xs">{fighter.type}</Text>
-                <View className="flex-row mt-2 space-x-2">
-                  <Text className="text-white text-xs">❤️ {fighter.maxHealth}</Text>
-                  <Text className="text-white text-xs">⚔️ {fighter.attack}</Text>
+              <View className="flex-row items-center justify-between">
+                <View className="flex-1">
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl">{mode.name}</Text>
+                  <Text className="text-[#888888] text-sm">{mode.description}</Text>
+                </View>
+                <View className="items-end">
+                  <Text className="text-[#14F195] text-lg" style={{ fontFamily: 'Bangers' }}>{mode.entryFee} SOL</Text>
+                  <Ionicons name="chevron-forward" size={24} color={COLORS.primary} />
                 </View>
               </View>
             </TouchableOpacity>
           ))}
+          
+          {/* Battlefield Selection */}
+          <BattlefieldSelector
+            selectedBattlefield={selectedBattlefield}
+            onSelect={setSelectedBattlefield}
+          />
+          
+          {/* Fighter Selection - Second */}
+          <Text style={{ fontFamily: 'Bangers' }} className="text-white text-3xl mt-4 mb-4 text-center">
+            SELECT YOUR FIGHTER
+          </Text>
+          
+          {/* Fighter Cards Grid */}
+          <View className="flex-row flex-wrap justify-center">
+            {playerFighters.map((fighter) => (
+              <TouchableOpacity
+                key={fighter.id}
+                onPress={() => setSelectedFighter(fighter)}
+                activeOpacity={0.8}
+                className="w-[48%] m-1"
+              >
+                <View 
+                  className="rounded-2xl overflow-hidden relative"
+                  style={{ 
+                    height: 240,
+                    borderWidth: selectedFighter?.id === fighter.id ? 3 : 2,
+                    borderColor: selectedFighter?.id === fighter.id ? '#14F195' : rarityColors[fighter.rarity],
+                    shadowColor: selectedFighter?.id === fighter.id ? '#14F195' : rarityColors[fighter.rarity],
+                    shadowOffset: { width: 0, height: 4 },
+                    shadowOpacity: 0.6,
+                    shadowRadius: 8,
+                    elevation: 8,
+                  }}
+                >
+                  {/* Background Image */}
+                  <View className="absolute inset-0">
+                    {fighter.imageUrl ? (
+                      <OptimizedImage 
+                        source={fighter.imageUrl}
+                        style={{ width: '100%', height: '100%' }}
+                        resizeMode="cover"
+                        fallbackIcon={
+                          <View className="w-full h-full items-center justify-center bg-[#0a0a1a]">
+                            <Ionicons 
+                              name={typeIcons[fighter.type] as any} 
+                              size={60} 
+                              color={rarityColors[fighter.rarity]} 
+                            />
+                          </View>
+                        }
+                      />
+                    ) : (
+                      <View className="w-full h-full items-center justify-center bg-[#0a0a1a]">
+                        <Ionicons 
+                          name={typeIcons[fighter.type] as any} 
+                          size={60} 
+                          color={rarityColors[fighter.rarity]} 
+                        />
+                      </View>
+                    )}
+                    
+                    {/* Gradient Overlay */}
+                    <LinearGradient
+                      colors={['transparent', 'rgba(10, 10, 26, 0.9)']}
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: 100,
+                      }}
+                    />
+                  </View>
+                  
+                  {/* Selected Indicator */}
+                  {selectedFighter?.id === fighter.id && (
+                    <View className="absolute top-2 right-2 bg-[#14F195] rounded-full p-1">
+                      <Ionicons name="checkmark" size={16} color="#0a0a1a" />
+                    </View>
+                  )}
+                  
+                  {/* Fighter Info */}
+                  <View className="absolute bottom-0 left-0 right-0 p-3">
+                    <Text 
+                      style={{ 
+                        fontFamily: 'Bangers',
+                        textShadowColor: 'rgba(0, 0, 0, 0.8)',
+                        textShadowOffset: { width: 0, height: 1 },
+                        textShadowRadius: 3,
+                      }} 
+                      className="text-white text-lg text-center"
+                      numberOfLines={1}
+                    >
+                      {fighter.name}
+                    </Text>
+                    <Text 
+                      className="text-center text-xs uppercase tracking-wider mb-2"
+                      style={{ 
+                        color: '#4ECDC4',
+                        fontFamily: 'Bangers',
+                      }}
+                    >
+                      {fighter.type}
+                    </Text>
+                    
+                    {/* Stats with Icons */}
+                    <View className="space-y-1">
+                      <View className="flex-row items-center justify-between">
+                        <View className="flex-row items-center">
+                          <Ionicons name="heart" size={14} color="#FF4444" />
+                          <Text className="text-white text-xs ml-1" style={{ fontFamily: 'Bangers' }}>Health</Text>
+                        </View>
+                        <Text className="text-white text-sm" style={{ fontFamily: 'Bangers' }}>{fighter.maxHealth}</Text>
+                      </View>
+                      
+                      <View className="flex-row items-center justify-between">
+                        <View className="flex-row items-center">
+                          <Ionicons name="flash" size={14} color="#FF6B6B" />
+                          <Text className="text-white text-xs ml-1" style={{ fontFamily: 'Bangers' }}>Attack</Text>
+                        </View>
+                        <Text className="text-white text-sm" style={{ fontFamily: 'Bangers' }}>{fighter.attack}</Text>
+                      </View>
+                      
+                      <View className="flex-row items-center justify-between">
+                        <View className="flex-row items-center">
+                          <Ionicons name="shield" size={14} color="#4ECDC4" />
+                          <Text className="text-white text-xs ml-1" style={{ fontFamily: 'Bangers' }}>Defense</Text>
+                        </View>
+                        <Text className="text-white text-sm" style={{ fontFamily: 'Bangers' }}>{fighter.defense}</Text>
+                      </View>
+                      
+                      <View className="flex-row items-center justify-between">
+                        <View className="flex-row items-center">
+                          <Ionicons name="speedometer" size={14} color="#14F195" />
+                          <Text className="text-white text-xs ml-1" style={{ fontFamily: 'Bangers' }}>Speed</Text>
+                        </View>
+                        <Text className="text-white text-sm" style={{ fontFamily: 'Bangers' }}>{fighter.speed}</Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
-        
-        <Text style={{ fontFamily: 'Bangers' }} className="text-white text-2xl mb-3 text-center">
-          CHOOSE GAME MODE
-        </Text>
-        
-        {Object.entries(GAME_MODES).map(([key, mode]) => (
-          <TouchableOpacity
-            key={key}
-            onPress={() => startMatchmaking(key as GameMode)}
-            disabled={!selectedFighter}
-            className={`bg-[#1a1a2e] rounded-xl p-4 mb-3 border-2 border-[#2a2a3e] ${
-              !selectedFighter ? 'opacity-50' : ''
-            }`}
-          >
-            <View className="flex-row items-center justify-between">
-              <View className="flex-1">
-                <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl">{mode.name}</Text>
-                <Text className="text-[#888888] text-sm">{mode.description}</Text>
-              </View>
-              <View className="items-end">
-                <Text className="text-[#14F195] text-lg font-bold">{mode.entryFee} SOL</Text>
-                <Ionicons name="chevron-forward" size={24} color={COLORS.primary} />
-              </View>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </View>
+      </ScrollView>
     );
   }
 
@@ -358,7 +426,7 @@ export default function FightScreen() {
       <View className="flex-1 bg-[#0a0a1a] items-center justify-center">
         <Ionicons name="search" size={60} color={COLORS.primary} />
         <Text style={{ fontFamily: 'Bangers' }} className="text-white text-2xl mt-4">
-          Finding Opponent...
+          Finding-Opponent...
         </Text>
       </View>
     );
@@ -366,161 +434,27 @@ export default function FightScreen() {
 
   if (!match) return null;
 
-  const player = match.player1;
-  const opponent = match.player2;
   const isPlayerTurn = match.currentTurn === wallet.publicKey?.toString();
 
   return (
-    <View className="flex-1 bg-[#0a0a1a]">
-      {/* Opponent Info */}
-      <FighterInfo
-        fighter={opponent.fighter}
-        health={opponent.health}
-        maxHealth={opponent.maxHealth}
-        energy={opponent.energy}
-        maxEnergy={opponent.maxEnergy}
-        isOpponent={true}
-      />
-      
-      {/* Fighting Arena */}
-      <View className="flex-1 justify-center items-center relative">
-        {/* Arena Background */}
-        <View className="absolute inset-0 items-center justify-center">
-          <View className="w-full h-1 bg-[#2a2a3e]" style={{ position: 'absolute', bottom: '40%' }} />
-        </View>
-        
-        {/* Opponent Character */}
-        <View style={{ position: 'absolute', top: '20%' }}>
-          <FighterCharacter
-            type={opponent.fighter.type}
-            isPlayer={false}
-            isAttacking={opponentAttacking}
-            isBlocking={opponent.isBlocking}
-            isHit={opponentHit}
-            isDead={opponent.health <= 0}
-            rarity={opponent.fighter.rarity}
-            imageUrl={opponent.fighter.imageUrl}
-          />
-          <ComboDisplay combo={opponent.combo} isPlayer={false} />
-        </View>
-        
-        {/* Player Character */}
-        <View style={{ position: 'absolute', bottom: '20%' }}>
-          <FighterCharacter
-            type={player.fighter.type}
-            isPlayer={true}
-            isAttacking={playerAttacking}
-            isBlocking={player.isBlocking}
-            isHit={playerHit}
-            isDead={player.health <= 0}
-            rarity={player.fighter.rarity}
-            imageUrl={player.fighter.imageUrl}
-          />
-          <ComboDisplay combo={player.combo} isPlayer={true} />
-        </View>
-        
-        {/* Attack Effects */}
-        {attackEffects.map((effect) => (
-          <AttackEffect
-            key={effect.id}
-            type={effect.type}
-            fromPlayer={effect.fromPlayer}
-            onComplete={() => removeAttackEffect(effect.id)}
-          />
-        ))}
-        
-        {/* Damage Numbers */}
-        {damageNumbers.map((dmg) => (
-          <DamageNumber
-            key={dmg.id}
-            damage={dmg.damage}
-            isPlayer={dmg.isPlayer}
-            isCritical={dmg.isCritical}
-            onComplete={() => removeDamageNumber(dmg.id)}
-          />
-        ))}
-        
-        {/* Battle Log */}
-        <View className="absolute bottom-4 left-4 right-4">
-          <View className="bg-[#1a1a2e]/90 rounded-xl p-3 border-2 border-[#2a2a3e]">
-            {battleLog.slice(-2).map((log, index) => (
-              <Text key={index} style={{ fontFamily: 'Bangers' }} className="text-white text-center text-sm mb-1">
-                {log}
-              </Text>
-            ))}
-          </View>
-        </View>
-      </View>
-      
-      {/* Player Info */}
-      <FighterInfo
-        fighter={player.fighter}
-        health={player.health}
-        maxHealth={player.maxHealth}
-        energy={player.energy}
-        maxEnergy={player.maxEnergy}
-      />
-      
-      {/* Action Buttons */}
-      <View className="p-4">
-        <View className="flex-row justify-between mb-3">
-          <TouchableOpacity
-            onPress={() => performAttack('light')}
-            disabled={!isPlayerTurn || player.energy < 10}
-            className={`flex-1 bg-[#14F195] rounded-xl p-4 mr-2 ${
-              !isPlayerTurn || player.energy < 10 ? 'opacity-50' : ''
-            }`}
-          >
-            <Text style={{ fontFamily: 'Bangers' }} className="text-[#0a0a1a] text-center text-lg">
-              LIGHT ATTACK
-            </Text>
-            <Text className="text-[#0a0a1a] text-center text-xs">10 Energy</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-            onPress={() => performAttack('heavy')}
-            disabled={!isPlayerTurn || player.energy < 25}
-            className={`flex-1 bg-[#FFB800] rounded-xl p-4 ml-2 ${
-              !isPlayerTurn || player.energy < 25 ? 'opacity-50' : ''
-            }`}
-          >
-            <Text style={{ fontFamily: 'Bangers' }} className="text-[#0a0a1a] text-center text-lg">
-              HEAVY ATTACK
-            </Text>
-            <Text className="text-[#0a0a1a] text-center text-xs">25 Energy</Text>
-          </TouchableOpacity>
-        </View>
-        
-        <View className="flex-row justify-between">
-          <TouchableOpacity
-            onPress={() => performAttack('special')}
-            disabled={!isPlayerTurn || player.energy < player.fighter.specialMove.energyCost || player.specialCooldown > 0}
-            className={`flex-1 bg-[#9945FF] rounded-xl p-4 mr-2 ${
-              !isPlayerTurn || player.energy < player.fighter.specialMove.energyCost || player.specialCooldown > 0 ? 'opacity-50' : ''
-            }`}
-          >
-            <Text style={{ fontFamily: 'Bangers' }} className="text-white text-center text-lg">
-              {player.fighter.specialMove.name.toUpperCase()}
-            </Text>
-            <Text className="text-white text-center text-xs">
-              {player.specialCooldown > 0 ? `Cooldown: ${player.specialCooldown}` : `${player.fighter.specialMove.energyCost} Energy`}
-            </Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-            onPress={performBlock}
-            disabled={!isPlayerTurn}
-            className={`flex-1 bg-[#4ECDC4] rounded-xl p-4 ml-2 ${
-              !isPlayerTurn ? 'opacity-50' : ''
-            }`}
-          >
-            <Text style={{ fontFamily: 'Bangers' }} className="text-[#0a0a1a] text-center text-lg">
-              BLOCK
-            </Text>
-            <Text className="text-[#0a0a1a] text-center text-xs">Reduce Damage</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+    <ActiveFightView
+      match={match}
+      isPlayerTurn={isPlayerTurn}
+      playerAttacking={playerAttacking}
+      opponentAttacking={opponentAttacking}
+      playerHit={playerHit}
+      opponentHit={opponentHit}
+      battleLog={battleLog}
+      attackEffects={attackEffects}
+      damageNumbers={damageNumbers}
+      selectedBattlefield={selectedBattlefield}
+      onLightAttack={() => performAttack('light')}
+      onHeavyAttack={() => performAttack('heavy')}
+      onSpecialAttack={() => performAttack('special')}
+      onBlock={performBlock}
+      onLeaveMatch={leaveMatch}
+      onRemoveAttackEffect={removeAttackEffect}
+      onRemoveDamageNumber={removeDamageNumber}
+    />
   );
 }

@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../constants';
 import { useWallet } from '../context/WalletContext';
+import { useFight } from '../context/FightContext';
 
 // Screens
 import HomeScreen from '../screens/HomeScreen';
@@ -18,12 +19,13 @@ const Tab = createBottomTabNavigator();
 
 function TabNavigator() {
   const wallet = useWallet();
+  const { isInActiveFight } = useFight();
 
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={{
         headerShown: false,
-        tabBarStyle: wallet.connected ? {
+        tabBarStyle: wallet.connected && !isInActiveFight ? {
           backgroundColor: COLORS.card,
           borderTopColor: COLORS.border,
           borderTopWidth: 1,
@@ -32,14 +34,14 @@ function TabNavigator() {
           height: 70,
         } : { display: 'none' },
         tabBarActiveTintColor: COLORS.primary,
-        tabBarInactiveTintColor: COLORS.textSecondary,
+        tabBarInactiveTintColor: '#FFFFFF',
         tabBarLabelStyle: {
           fontSize: 11,
           fontWeight: '600',
           fontFamily: 'Bangers',
           marginTop: 2,
         },
-      })}
+      }}
     >
         <Tab.Screen 
           name="Home" 

@@ -3,7 +3,9 @@ import { View, Text, TouchableOpacity, ScrollView, ActivityIndicator, Image, Sty
 import { Ionicons } from '@expo/vector-icons';
 import { useWallet } from '../context/WalletContext';
 import { useToast } from '../context/ToastContext';
+import { useFight } from '../context/FightContext';
 import OptimizedImage from '../components/OptimizedImage';
+import ConfirmDialog from '../components/ConfirmDialog';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import quizData from '../data/quizQuestions.json';
 
@@ -26,6 +28,7 @@ const QUIZ_IMAGES = {
 export default function QuizScreen({ navigation }: any) {
   const wallet = useWallet();
   const { showToast } = useToast();
+  const { setIsInActiveFight } = useFight();
   
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -39,6 +42,20 @@ export default function QuizScreen({ navigation }: any) {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState(QUIZ_IMAGES.bg);
   const [quizQuestions, setQuizQuestions] = useState<any[]>([]);
+  const [showQuitDialog, setShowQuitDialog] = useState(false);
+
+  // Hide tab bar when in quiz
+  useEffect(() => {
+    if (quizState === 'playing') {
+      setIsInActiveFight(true);
+    } else {
+      setIsInActiveFight(false);
+    }
+    
+    return () => {
+      setIsInActiveFight(false);
+    };
+  }, [quizState, setIsInActiveFight]);
 
   useEffect(() => {
     preloadImages();
@@ -206,6 +223,7 @@ export default function QuizScreen({ navigation }: any) {
 
   const finishQuiz = async (finalScore: number) => {
     setQuizState('result');
+    setIsInActiveFight(false); // Show tab bar again
     
     // Save used questions to avoid repeats
     await saveUsedQuestions(quizQuestions);
@@ -224,6 +242,25 @@ export default function QuizScreen({ navigation }: any) {
     } else {
       setBackgroundImage(QUIZ_IMAGES.loose);
     }
+  };
+
+  const handleBackPress = () => {
+    if (quizState === 'playing') {
+      setShowQuitDialog(true);
+    } else {
+      navigation.goBack();
+    }
+  };
+
+  const handleQuitQuiz = () => {
+    setShowQuitDialog(false);
+    setQuizState('ready');
+    setIsInActiveFight(false);
+    setCurrentQuestion(0);
+    setScore(0);
+    setSelectedAnswer(null);
+    setShowExplanation(false);
+    setBackgroundImage(QUIZ_IMAGES.bg);
   };
 
   const getAnswerStyle = (index: number) => {
@@ -255,6 +292,17 @@ export default function QuizScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
+      {/* Quit Quiz Confirmation Dialog */}
+      <ConfirmDialog
+        visible={showQuitDialog}
+        title="QUIT-QUIZT!!"
+        message="Are you sure you want to quit? Your progress will be lost!"
+        confirmText="YES, QUIT"
+        cancelText="NO, CONTINUE"
+        onConfirm={handleQuitQuiz}
+        onCancel={() => setShowQuitDialog(false)}
+      />
+      
       <OptimizedImage
         source={backgroundImage}
         style={styles.backgroundImage}
@@ -268,7 +316,7 @@ export default function QuizScreen({ navigation }: any) {
             {/* Header */}
             <View className="flex-row items-center justify-between mb-6 mt-2">
               <TouchableOpacity
-                onPress={() => navigation.goBack()}
+                onPress={handleBackPress}
                 className="w-10 h-10 bg-[#1a1a2e]/80 rounded-full items-center justify-center"
               >
                 <Ionicons name="arrow-back" size={24} color="#fff" />
@@ -365,8 +413,11 @@ export default function QuizScreen({ navigation }: any) {
                 </View>
 
                 {/* Question */}
-                <View className="bg-[#1a1a2e]/90 rounded-2xl p-6 mb-6 border border-[#2a2a3e]">
-                  <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl leading-7">
+                <View className="bg-[#14F195]/10 rounded-2xl p-6 mb-6 border-2 border-[#14F195]">
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-[#14F195] text-sm mb-2 uppercase tracking-wider">
+                    Question {currentQuestion + 1}
+                  </Text>
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-white text-2xl leading-8">
                     {quizQuestions[currentQuestion]?.question}
                   </Text>
                 </View>
@@ -378,11 +429,18 @@ export default function QuizScreen({ navigation }: any) {
                       key={index}
                       onPress={() => selectAnswer(index)}
                       disabled={selectedAnswer !== null}
-                      className={`bg-[#1a1a2e]/90 rounded-xl p-5 border-2 ${getAnswerStyle(index)}`}
+                      className={`bg-[#0a0a1a] rounded-xl p-5 border-2 ${getAnswerStyle(index)}`}
                     >
-                      <Text style={{ fontFamily: 'Bangers' }} className="text-white text-lg">
-                        {option}
-                      </Text>
+                      <View className="flex-row items-center">
+                        <View className="w-8 h-8 rounded-full bg-[#14F195]/20 border-2 border-[#14F195] items-center justify-center mr-3">
+                          <Text style={{ fontFamily: 'Bangers' }} className="text-[#14F195] text-base">
+                            {String.fromCharCode(65 + index)}
+                          </Text>
+                        </View>
+                        <Text style={{ fontFamily: 'Bangers' }} className="text-white text-lg flex-1">
+                          {option}
+                        </Text>
+                      </View>
                     </TouchableOpacity>
                   ))}
                 </View>

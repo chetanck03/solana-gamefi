@@ -24,6 +24,11 @@ export default function HomeScreen({ navigation }: any) {
       await wallet.connect();
       showToast('Wallet connected successfully!', 'success');
     } catch (error: any) {
+      // Don't show error toast if user cancelled
+      if (error.message === 'Connection cancelled') {
+        console.log('User cancelled wallet connection');
+        return;
+      }
       showToast(error.message || 'Failed to connect wallet', 'error');
     }
   };

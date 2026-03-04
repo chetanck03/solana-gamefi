@@ -50,6 +50,7 @@ export default function ComboDisplay({ combo, isPlayer }: ComboDisplayProps) {
           transform: [{ scale: scaleAnim }],
           opacity: opacityAnim,
           [isPlayer ? 'bottom' : 'top']: 20,
+          [isPlayer ? 'left' : 'right']: 20,
         },
       ]}
     >

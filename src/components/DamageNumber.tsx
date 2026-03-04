@@ -44,6 +44,7 @@ export default function DamageNumber({ damage, isPlayer, isCritical = false, onC
           transform: [{ translateY }, { scale: scaleAnim }],
           opacity: opacityAnim,
           [isPlayer ? 'bottom' : 'top']: '50%',
+          [isPlayer ? 'left' : 'right']: 30,
         },
       ]}
     >

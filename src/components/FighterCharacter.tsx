@@ -204,14 +204,14 @@ export default function FighterCharacter({
         },
       ]}
     >
-      {/* Character Body */}
+      {/* Character Card */}
       <View
         style={[
           styles.body,
           {
             backgroundColor: imageUrl ? 'transparent' : rarityColors[rarity],
             borderColor: isBlocking ? '#3B82F6' : rarityColors[rarity],
-            borderWidth: isBlocking ? 4 : 2,
+            borderWidth: isBlocking ? 4 : 3,
           },
         ]}
       >
@@ -255,16 +255,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   body: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 100,
+    height: 100,
+    borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
+    shadowOpacity: 0.5,
+    shadowRadius: 12,
+    elevation: 12,
     overflow: 'hidden',
   },
   characterImage: {
