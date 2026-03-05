@@ -14,6 +14,8 @@ import ShopScreen from '../screens/ShopScreen';
 import LeaderboardScreen from '../screens/LeaderboardScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import QuizScreen from '../screens/QuizScreen';
+import RewardsScreen from '../screens/RewardsScreen';
+import StreakScreen from '../screens/StreakScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -89,6 +91,15 @@ function TabNavigator() {
           }}
         />
         <Tab.Screen 
+          name="Rewards" 
+          component={RewardsScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="gift" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen 
           name="Leaderboard" 
           component={LeaderboardScreen}
           options={{
@@ -104,6 +115,14 @@ function TabNavigator() {
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="person" size={size} color={color} />
             ),
+          }}
+        />
+        {/* Hidden screen - accessible via navigation but not in tab bar */}
+        <Tab.Screen 
+          name="Streak" 
+          component={StreakScreen}
+          options={{
+            tabBarItemStyle: { display: 'none' },
           }}
         />
       </Tab.Navigator>

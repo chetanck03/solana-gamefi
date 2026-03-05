@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
+import { PublicKey } from '@solana/web3.js';
 import { useWallet } from '../context/WalletContext';
 import { useToast } from '../context/ToastContext';
 import { COLORS } from '../constants';
 import { PlayerProfile } from '../types';
 import { generateStarterFighters } from '../services/fighterService';
+import { StreakService, StreakState } from '../services/streakService';
 
 export default function HomeScreen({ navigation }: any) {
   const wallet = useWallet();
@@ -14,6 +16,8 @@ export default function HomeScreen({ navigation }: any) {
   const [profile, setProfile] = useState<PlayerProfile | null>(null);
   const [balance, setBalance] = useState<number | null>(null);
   const [expandedFeature, setExpandedFeature] = useState<string | null>(null);
+  const [streakState, setStreakState] = useState<StreakState | null>(null);
+  const [canCheckIn, setCanCheckIn] = useState(false);
 
   const toggleFeature = (feature: string) => {
     setExpandedFeature(expandedFeature === feature ? null : feature);
@@ -71,8 +75,46 @@ export default function HomeScreen({ navigation }: any) {
         createdAt: Date.now(),
       };
       setProfile(newProfile);
+      
+      // Load streak data
+      loadStreakData();
     }
   }, [wallet.connected]);
+
+  const loadStreakData = async () => {
+    if (!wallet.publicKey || !wallet.connection) return;
+    
+    try {
+      const programId = new PublicKey(process.env.EXPO_PUBLIC_PROGRAM_ID || 'GhESwjzEv3C3qKQJKjAfhaq5GFK5vDLaku8tPqCKGzYR');
+      const streakService = new StreakService(wallet.connection, programId);
+      const state = await streakService.getStreakState(wallet.publicKey);
+      const canCheck = await streakService.canCheckIn(wallet.publicKey);
+      
+      setStreakState(state);
+      setCanCheckIn(canCheck);
+    } catch (error) {
+      console.error('Error loading streak:', error);
+    }
+  };
+
+  const handleCheckIn = async () => {
+    if (!wallet.publicKey || !wallet.connection) return;
+    
+    try {
+      const programId = new PublicKey(process.env.EXPO_PUBLIC_PROGRAM_ID || 'GhESwjzEv3C3qKQJKjAfhaq5GFK5vDLaku8tPqCKGzYR');
+      const streakService = new StreakService(wallet.connection, programId);
+      
+      if (!streakState) {
+        await streakService.initializeStreak(wallet.publicKey, wallet.authToken);
+      }
+      
+      await streakService.checkIn(wallet.publicKey, wallet.authToken);
+      showToast('Daily check-in completed! 🔥', 'success');
+      await loadStreakData();
+    } catch (error: any) {
+      showToast(error.message || 'Failed to check in', 'error');
+    }
+  };
 
   if (!wallet.connected) {
     return (
@@ -440,6 +482,72 @@ export default function HomeScreen({ navigation }: any) {
             </View>
             <Text style={{ fontFamily: 'Bangers' }} className="text-black text-2xl ">
             START-FIGHT !!
+            </Text>
+          </View>
+        </TouchableOpacity>
+
+        {/* Daily Streak Card */}
+        <View className="bg-orange-600 rounded-2xl p-5 mb-5"
+          style={{
+            shadowColor: '#FF6B6B',
+            shadowOffset: { width: 0, height: 6 },
+            shadowOpacity: 0.5,
+            shadowRadius: 10,
+            elevation: 8,
+          }}>
+          <View className="flex-row items-center justify-between mb-3">
+            <View className="flex-row items-center">
+              <View className="w-12 h-12 bg-white/20 rounded-full items-center justify-center mr-3">
+                <Ionicons name="flame" size={28} color="#fff" />
+              </View>
+              <View>
+                <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl">Daily Streak</Text>
+                <Text style={{ fontFamily: 'Bangers' }} className="text-white/80 text-sm">
+                  {streakState?.currentStreak || 0} days
+                </Text>
+              </View>
+            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Streak')}
+              className="bg-white/20 rounded-lg px-4 py-2">
+              <Text style={{ fontFamily: 'Bangers' }} className="text-white text-sm">View</Text>
+            </TouchableOpacity>
+          </View>
+          
+          {canCheckIn ? (
+            <TouchableOpacity
+              onPress={handleCheckIn}
+              className="bg-white rounded-xl py-3">
+              <Text style={{ fontFamily: 'Bangers' }} className="text-orange-600 text-center text-lg font-bold">
+                ✓ CHECK IN NOW
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <View className="bg-white/10 rounded-xl py-3">
+              <Text style={{ fontFamily: 'Bangers' }} className="text-white text-center text-base">
+                ✓ Checked in today
+              </Text>
+            </View>
+          )}
+        </View>
+
+        {/* Rewards Button */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Rewards')}
+          className="bg-purple-600 rounded-2xl py-5 mb-5"
+          style={{
+            shadowColor: '#9945FF',
+            shadowOffset: { width: 0, height: 6 },
+            shadowOpacity: 0.5,
+            shadowRadius: 10,
+            elevation: 8,
+          }}>
+          <View className="flex-row items-center justify-center">
+            <View className="w-12 h-12 bg-white/20 rounded-full items-center justify-center mr-3">
+              <Ionicons name="gift" size={24} color="#fff" />
+            </View>
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white text-2xl">
+              CLAIM REWARDS
             </Text>
           </View>
         </TouchableOpacity>

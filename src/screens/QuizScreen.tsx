@@ -8,6 +8,8 @@ import OptimizedImage from '../components/OptimizedImage';
 import ConfirmDialog from '../components/ConfirmDialog';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import quizData from '../data/quizQuestions.json';
+import { QuizService } from '../services/quizService';
+import { PublicKey } from '@solana/web3.js';
 
 const ALL_QUESTIONS = quizData.questions;
 const QUESTIONS_PER_QUIZ = 6;
@@ -131,20 +133,25 @@ export default function QuizScreen({ navigation }: any) {
 
   const checkQuizAvailability = async () => {
     try {
-      // Commented out for testing - uncomment later for production
-      /*
-      const lastCompletion = await AsyncStorage.getItem(STORAGE_KEY);
-      if (lastCompletion) {
-        const timeSinceLastQuiz = Date.now() - parseInt(lastCompletion);
-        if (timeSinceLastQuiz < QUIZ_COOLDOWN) {
-          setCanPlayQuiz(false);
-          setQuizState('cooldown');
-          updateCooldownTime(QUIZ_COOLDOWN - timeSinceLastQuiz);
-        }
+      if (!wallet.publicKey || !wallet.connection) {
+        setIsLoading(false);
+        return;
       }
-      */
+
+      const programId = new PublicKey(process.env.EXPO_PUBLIC_PROGRAM_ID || 'GhESwjzEv3C3qKQJKjAfhaq5GFK5vDLaku8tPqCKGzYR');
+      const quizService = new QuizService(wallet.connection, programId);
+      const canTake = await quizService.canTakeQuiz(wallet.publicKey);
+      
+      if (!canTake) {
+        const timeRemaining = await quizService.getTimeUntilNextQuiz(wallet.publicKey);
+        setCanPlayQuiz(false);
+        setQuizState('cooldown');
+        updateCooldownTime(timeRemaining * 1000); // Convert to milliseconds
+      }
     } catch (error) {
       console.error('Error checking quiz availability:', error);
+      // Don't block quiz if check fails - let user try
+      setCanPlayQuiz(true);
     } finally {
       setIsLoading(false);
     }
@@ -228,19 +235,67 @@ export default function QuizScreen({ navigation }: any) {
     // Save used questions to avoid repeats
     await saveUsedQuestions(quizQuestions);
     
-    if (finalScore === quizQuestions.length) {
+    const allCorrect = finalScore === quizQuestions.length;
+    
+    if (allCorrect) {
       setBackgroundImage(QUIZ_IMAGES.victory);
-      try {
-        // Commented out for testing - uncomment later for production
-        // await AsyncStorage.setItem(STORAGE_KEY, Date.now().toString());
-        showToast(`Perfect! You earned ${QUIZ_REWARD} SOL!`, 'success');
-        // setCanPlayQuiz(false);
-        // updateCooldownTime(QUIZ_COOLDOWN);
-      } catch (error) {
-        console.error('Error saving quiz completion:', error);
+      
+      // Try to submit to blockchain
+      if (wallet.publicKey && wallet.connection && wallet.connected) {
+        try {
+          const programId = new PublicKey(process.env.EXPO_PUBLIC_PROGRAM_ID || 'GhESwjzEv3C3qKQJKjAfhaq5GFK5vDLaku8tPqCKGzYR');
+          const quizService = new QuizService(wallet.connection, programId);
+          
+          // Initialize quiz state if needed
+          const quizState = await quizService.getQuizState(wallet.publicKey);
+          if (!quizState) {
+            console.log('Initializing quiz state...');
+            await quizService.initializeQuiz(wallet.publicKey, wallet.authToken);
+          }
+          
+          // Submit quiz result to blockchain
+          console.log('Submitting quiz to blockchain...');
+          await quizService.submitQuiz(wallet.publicKey, true, wallet.authToken);
+          showToast(`Perfect! You earned ${QUIZ_REWARD} SOL! Go to Rewards to claim.`, 'success');
+          
+          setCanPlayQuiz(false);
+          updateCooldownTime(QUIZ_COOLDOWN);
+        } catch (error: any) {
+          console.error('Blockchain submission error:', error);
+          
+          // Show user-friendly error message
+          if (error.message?.includes('Network request failed')) {
+            showToast('Network error. Check your connection and try claiming reward later.', 'error');
+          } else if (error.message?.includes('CooldownNotExpired')) {
+            showToast('You already completed quiz today. Come back in 24 hours!', 'error');
+          } else if (error.message?.includes('cancelled')) {
+            showToast('Transaction cancelled. You can claim reward later.', 'info');
+          } else {
+            showToast(`Perfect score! ${error.message || 'Blockchain error - try claiming later'}`, 'info');
+          }
+        }
+      } else {
+        showToast(`Perfect score! Connect wallet to earn ${QUIZ_REWARD} SOL rewards.`, 'success');
       }
     } else {
       setBackgroundImage(QUIZ_IMAGES.loose);
+      
+      // Still try to submit to blockchain even if not perfect (for stats)
+      if (wallet.publicKey && wallet.connection && wallet.connected) {
+        try {
+          const programId = new PublicKey(process.env.EXPO_PUBLIC_PROGRAM_ID || 'GhESwjzEv3C3qKQJKjAfhaq5GFK5vDLaku8tPqCKGzYR');
+          const quizService = new QuizService(wallet.connection, programId);
+          const quizState = await quizService.getQuizState(wallet.publicKey);
+          if (!quizState) {
+            await quizService.initializeQuiz(wallet.publicKey, wallet.authToken);
+          }
+          await quizService.submitQuiz(wallet.publicKey, false, wallet.authToken);
+          console.log('Quiz stats submitted to blockchain');
+        } catch (error) {
+          console.error('Error submitting quiz stats:', error);
+          // Don't show error to user for failed attempts
+        }
+      }
     }
   };
 
@@ -469,6 +524,18 @@ export default function QuizScreen({ navigation }: any) {
                     </Text>
                   </View>
                 )}
+
+                {/* DEBUG: Show correct answer for testing */}
+                {!showExplanation && (
+                  <View className="bg-yellow-500/20 border-2 border-yellow-500 rounded-xl p-4 mt-4">
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-yellow-500 text-sm mb-1">
+                      🔍 TEST MODE - Correct Answer:
+                    </Text>
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-white text-lg">
+                      {String.fromCharCode(65 + quizQuestions[currentQuestion]?.correctAnswer)} - {quizQuestions[currentQuestion]?.options[quizQuestions[currentQuestion]?.correctAnswer]}
+                    </Text>
+                  </View>
+                )}
               </View>
             )}
 
@@ -484,16 +551,36 @@ export default function QuizScreen({ navigation }: any) {
                 </Text>
 
                 {score === quizQuestions.length ? (
-                  <View className="bg-[#14F195]/20 border-2 border-[#14F195] rounded-2xl p-6 mb-8 w-full">
+                  <View className="bg-[#14F195]/20 border-2 border-[#14F195] rounded-2xl p-6 mb-6 w-full">
                     <View className="flex-row items-center justify-center mb-2">
                       <Ionicons name="trophy" size={32} color="#FFD700" />
                       <Text style={{ fontFamily: 'Bangers' }} className="text-[#14F195] text-2xl ml-3">
                         Reward Earned!
                       </Text>
                     </View>
-                    <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl text-center">
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl text-center mb-4">
                       +{QUIZ_REWARD} SOL
                     </Text>
+                    
+                    {/* Claim Reward Button */}
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate('Rewards')}
+                      className="bg-[#14F195] rounded-xl py-4 mt-2"
+                      style={{
+                        shadowColor: '#14F195',
+                        shadowOffset: { width: 0, height: 4 },
+                        shadowOpacity: 0.5,
+                        shadowRadius: 8,
+                        elevation: 5,
+                      }}
+                    >
+                      <View className="flex-row items-center justify-center">
+                        <Ionicons name="gift" size={24} color="#000" />
+                        <Text style={{ fontFamily: 'Bangers' }} className="text-black text-xl ml-2">
+                          CLAIM REWARD NOW!
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
                   </View>
                 ) : (
                   <View className="bg-[#FF6B6B]/20 border-2 border-[#FF6B6B] rounded-2xl p-6 mb-8 w-full">
@@ -504,7 +591,7 @@ export default function QuizScreen({ navigation }: any) {
                 )}
 
                 <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-base text-center mb-6">
-                  Come back in 24 hours for another chance
+                  {score === quizQuestions.length ? 'Reward added to your account!' : 'Come back in 24 hours for another chance'}
                 </Text>
 
                 <TouchableOpacity

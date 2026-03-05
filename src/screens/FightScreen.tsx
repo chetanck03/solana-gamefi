@@ -10,6 +10,7 @@ import { useFight } from '../context/FightContext';
 import { generateStarterFighters, generateRandomFighter } from '../services/fighterService';
 import { fightService } from '../services/fightService';
 import { AnchorService } from '../services/anchorService';
+import { ENV } from '../config/env';
 import OptimizedImage from '../components/OptimizedImage';
 import ActiveFightView from '../components/ActiveFightView';
 import BattlefieldSelector from '../components/BattlefieldSelector';
@@ -32,7 +33,7 @@ export default function FightScreen() {
   const [selectedBattlefield, setSelectedBattlefield] = useState<string>('Floating Sky');
   const [matchKeypair, setMatchKeypair] = useState<any>(null);
 
-  const anchorService = new AnchorService('https://api.devnet.solana.com');
+  const anchorService = new AnchorService(ENV.SOLANA_RPC_URL);
 
   useEffect(() => {
     if (wallet.connected && playerFighters.length === 0) {

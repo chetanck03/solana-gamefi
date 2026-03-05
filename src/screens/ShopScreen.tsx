@@ -8,6 +8,7 @@ import { useToast } from '../context/ToastContext';
 import { getAllShopFighters } from '../services/fighterService';
 import { ALL_FIGHTERS } from '../data/fighters';
 import { AnchorService } from '../services/anchorService';
+import { ENV } from '../config/env';
 import { Fighter, FighterType } from '../types';
 import OptimizedImage from '../components/OptimizedImage';
 
@@ -284,7 +285,7 @@ export default function ShopScreen() {
   const [activeTab, setActiveTab] = useState<'packs' | 'cards'>('packs');
   const [showPackPreview, setShowPackPreview] = useState<string | null>(null);
 
-  const anchorService = new AnchorService('https://api.devnet.solana.com');
+  const anchorService = new AnchorService(ENV.SOLANA_RPC_URL);
 
   useEffect(() => {
     // Load all fighters from centralized data

@@ -1,4 +1,11 @@
 use anchor_lang::prelude::*;
+use anchor_lang::system_program;
+
+pub mod quiz;
+pub mod streak;
+
+use quiz::*;
+use streak::*;
 
 declare_id!("GhESwjzEv3C3qKQJKjAfhaq5GFK5vDLaku8tPqCKGzYR");
 
@@ -191,6 +198,47 @@ pub mod battle_cards_game {
         }
         
         Ok(())
+    }
+
+    // Quiz functions
+    pub fn initialize_quiz(ctx: Context<InitializeQuiz>) -> Result<()> {
+        quiz::initialize_quiz(ctx)
+    }
+
+    pub fn initialize_quiz_config(
+        ctx: Context<InitializeQuizConfig>,
+        reward_wallet: Pubkey,
+        reward_amount: u64,
+    ) -> Result<()> {
+        quiz::initialize_quiz_config(ctx, reward_wallet, reward_amount)
+    }
+
+    pub fn submit_quiz(ctx: Context<SubmitQuiz>, all_correct: bool) -> Result<()> {
+        quiz::submit_quiz(ctx, all_correct)
+    }
+
+    pub fn claim_quiz_reward(ctx: Context<ClaimQuizReward>) -> Result<()> {
+        quiz::claim_quiz_reward(ctx)
+    }
+
+    // Streak functions
+    pub fn initialize_streak(ctx: Context<InitializeStreak>) -> Result<()> {
+        streak::initialize_streak(ctx)
+    }
+
+    pub fn initialize_streak_config(
+        ctx: Context<InitializeStreakConfig>,
+        reward_wallet: Pubkey,
+    ) -> Result<()> {
+        streak::initialize_streak_config(ctx, reward_wallet)
+    }
+
+    pub fn check_in(ctx: Context<CheckIn>) -> Result<()> {
+        streak::check_in(ctx)
+    }
+
+    pub fn claim_streak_reward(ctx: Context<ClaimStreakReward>) -> Result<()> {
+        streak::claim_streak_reward(ctx)
     }
 }
 

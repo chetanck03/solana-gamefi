@@ -6,10 +6,10 @@ import {
 import {
   Connection,
   PublicKey,
-  clusterApiUrl,
   LAMPORTS_PER_SOL,
 } from '@solana/web3.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createSolanaConnection, testConnection } from '../utils/solanaConnection';
 
 const APP_IDENTITY = {
   name: 'ClashGo',
@@ -40,11 +40,20 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   const cluster = 'devnet';
-  const connection = new Connection(clusterApiUrl(cluster), 'confirmed');
+  // Use custom connection utility with fallback support
+  const connection = createSolanaConnection();
 
   // Load saved wallet on mount
   useEffect(() => {
     loadSavedWallet();
+    // Test connection on mount
+    testConnection(connection).then(success => {
+      if (success) {
+        console.log('✅ Solana connection established');
+      } else {
+        console.warn('⚠️ Solana connection test failed');
+      }
+    });
   }, []);
 
   const loadSavedWallet = async () => {
