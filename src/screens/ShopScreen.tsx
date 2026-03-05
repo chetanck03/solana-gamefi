@@ -5,7 +5,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS } from '../constants';
 import { useWallet } from '../context/WalletContext';
 import { useToast } from '../context/ToastContext';
-import { generateFighter } from '../services/fighterService';
+import { getAllShopFighters } from '../services/fighterService';
+import { ALL_FIGHTERS } from '../data/fighters';
+import { AnchorService } from '../services/anchorService';
 import { Fighter, FighterType } from '../types';
 import OptimizedImage from '../components/OptimizedImage';
 
@@ -282,43 +284,53 @@ export default function ShopScreen() {
   const [activeTab, setActiveTab] = useState<'packs' | 'cards'>('packs');
   const [showPackPreview, setShowPackPreview] = useState<string | null>(null);
 
+  const anchorService = new AnchorService('https://api.devnet.solana.com');
+
   useEffect(() => {
-    // Generate shop fighters - all available fighters
+    // Load all fighters from centralized data
     const allFighters: ShopFighter[] = [];
-    const types: FighterType[] = ['warrior', 'mage', 'archer', 'tank', 'assassin'];
-    const rarities: ('common' | 'rare' | 'epic' | 'legendary')[] = ['common', 'rare', 'epic', 'legendary'];
+    const allFighterTemplates = getAllShopFighters();
     
-    types.forEach(type => {
-      rarities.forEach(rarity => {
-        const fighter = generateFighter(type, rarity);
-        const basePrice = {
-          common: 0.01,
-          rare: 0.03,
-          epic: 0.08,
-          legendary: 0.2,
-        };
+    allFighterTemplates.forEach(fighter => {
+      const template = ALL_FIGHTERS.find(f => f.name === fighter.name);
+      if (template) {
         allFighters.push({
           fighter,
-          price: basePrice[rarity],
-          owned: false,
+          price: template.price,
+          owned: template.isFree, // Free fighters are automatically owned
         });
-      });
+      }
     });
     
     setShopFighters(allFighters);
     
-    // TODO: Load owned fighters from blockchain/storage
-    // For now, simulate some owned fighters
-    const owned = new Set<string>();
-    if (wallet.connected) {
-      // Simulate 2-3 owned fighters
-      allFighters.slice(0, 3).forEach(sf => owned.add(sf.fighter.name));
-    }
-    setOwnedFighters(owned);
-  }, [wallet.connected]);
+    // Load owned fighters from blockchain
+    const loadOwnedFighters = async () => {
+      if (wallet.connected && wallet.publicKey) {
+        try {
+          const owned = await anchorService.getOwnedFighters(wallet.publicKey);
+          const ownedSet = new Set<string>(owned);
+          
+          // Add free fighters
+          allFighters.filter(sf => sf.price === 0).forEach(sf => ownedSet.add(sf.fighter.name));
+          
+          setOwnedFighters(ownedSet);
+          console.log('Owned fighters loaded from blockchain:', Array.from(ownedSet));
+        } catch (error) {
+          console.error('Error loading owned fighters:', error);
+          // Fallback: just mark free fighters as owned
+          const owned = new Set<string>();
+          allFighters.filter(sf => sf.price === 0).forEach(sf => owned.add(sf.fighter.name));
+          setOwnedFighters(owned);
+        }
+      }
+    };
+    
+    loadOwnedFighters();
+  }, [wallet.connected, wallet.publicKey]);
 
   const handlePurchaseFighter = async (shopFighter: ShopFighter) => {
-    if (!wallet.connected) {
+    if (!wallet.connected || !wallet.publicKey) {
       showToast('Please connect your wallet first', 'error');
       return;
     }
@@ -331,18 +343,28 @@ export default function ShopScreen() {
     setPurchasing(true);
     
     try {
-      // TODO: Implement actual Solana transaction
-      // const transaction = await createPurchaseTransaction(shopFighter);
-      // const signature = await wallet.sendTransaction(transaction);
+      // Purchase fighter through Anchor service
+      const signature = await anchorService.purchaseFighter(
+        wallet.publicKey,
+        shopFighter.fighter.name,
+        shopFighter.price,
+        wallet.authToken
+      );
       
-      // Simulate purchase
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      if (signature !== 'free-fighter') {
+        showToast(`Transaction confirmed: ${signature.slice(0, 8)}...`, 'success');
+      }
       
       // Mark as owned
       setOwnedFighters(prev => new Set(prev).add(shopFighter.fighter.name));
       showToast(`${shopFighter.fighter.name} added to your collection!`, 'success');
-    } catch (error) {
-      showToast('Purchase failed. Please try again', 'error');
+    } catch (error: any) {
+      console.error('Purchase error:', error);
+      if (error.message?.includes('User rejected') || error.message?.includes('cancelled')) {
+        showToast('Purchase cancelled', 'info');
+      } else {
+        showToast(error.message || 'Purchase failed. Please try again', 'error');
+      }
     } finally {
       setPurchasing(false);
     }

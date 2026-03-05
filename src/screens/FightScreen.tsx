@@ -9,6 +9,7 @@ import { useToast } from '../context/ToastContext';
 import { useFight } from '../context/FightContext';
 import { generateStarterFighters, generateRandomFighter } from '../services/fighterService';
 import { fightService } from '../services/fightService';
+import { AnchorService } from '../services/anchorService';
 import OptimizedImage from '../components/OptimizedImage';
 import ActiveFightView from '../components/ActiveFightView';
 import BattlefieldSelector from '../components/BattlefieldSelector';
@@ -29,6 +30,9 @@ export default function FightScreen() {
   const [attackEffects, setAttackEffects] = useState<Array<{ id: string; type: 'light' | 'heavy' | 'special' | 'hit'; fromPlayer: boolean }>>([]);
   const [damageNumbers, setDamageNumbers] = useState<Array<{ id: string; damage: number; isPlayer: boolean; isCritical: boolean }>>([]);
   const [selectedBattlefield, setSelectedBattlefield] = useState<string>('Floating Sky');
+  const [matchKeypair, setMatchKeypair] = useState<any>(null);
+
+  const anchorService = new AnchorService('https://api.devnet.solana.com');
 
   useEffect(() => {
     if (wallet.connected && playerFighters.length === 0) {
@@ -65,29 +69,51 @@ export default function FightScreen() {
       return;
     }
     
+    const entryFee = GAME_MODES[mode].entryFee;
+    
     setIsSearching(true);
     setBattleLog([]);
     
-    const newMatch = fightService.createFightMatch(
-      wallet.publicKey.toString(),
-      'Player',
-      selectedFighter,
-      mode,
-      GAME_MODES[mode].entryFee
-    );
-    
-    setTimeout(() => {
-      const opponentFighter = generateRandomFighter();
-      const joinedMatch = fightService.joinFightMatch(
-        newMatch,
-        'opponent-ai',
-        'AI Opponent',
-        opponentFighter
+    try {
+      // Create match on-chain if there's an entry fee
+      if (entryFee > 0) {
+        addLog(`Creating match with ${entryFee} SOL entry fee...`);
+        const { matchKeypair: newMatchKeypair } = await anchorService.createMatch(
+          wallet.publicKey,
+          entryFee,
+          mode,
+          wallet.authToken
+        );
+        setMatchKeypair(newMatchKeypair);
+        addLog('Match created on-chain!');
+      }
+      
+      const newMatch = fightService.createFightMatch(
+        wallet.publicKey.toString(),
+        'Player',
+        selectedFighter,
+        mode,
+        entryFee
       );
-      setMatch(joinedMatch);
+      
+      // Simulate finding opponent
+      setTimeout(() => {
+        const opponentFighter = generateRandomFighter();
+        const joinedMatch = fightService.joinFightMatch(
+          newMatch,
+          'opponent-ai',
+          'AI Opponent',
+          opponentFighter
+        );
+        setMatch(joinedMatch);
+        setIsSearching(false);
+        addLog('Fight started! Choose your move!');
+      }, 2000);
+    } catch (error: any) {
+      console.error('Error starting match:', error);
+      showToast(error.message || 'Failed to start match', 'error');
       setIsSearching(false);
-      addLog('Fight started! Choose your move!');
-    }, 2000);
+    }
   };
 
   const addLog = (message: string) => {
@@ -200,19 +226,22 @@ export default function FightScreen() {
     }
   };
 
-  const endMatch = (winnerKey: string) => {
+  const endMatch = async (winnerKey: string) => {
     const isPlayerWinner = winnerKey === wallet.publicKey?.toString();
     addLog(isPlayerWinner ? '🎉 VICTORY!' : '💀 DEFEAT!');
+    
     showToast(isPlayerWinner ? 'You won!' : 'You lost!', isPlayerWinner ? 'success' : 'error');
     
     setTimeout(() => {
       setMatch(null);
+      setMatchKeypair(null);
     }, 3000);
   };
 
   const leaveMatch = () => {
     showToast('Left the match', 'info');
     setMatch(null);
+    setMatchKeypair(null);
     setBattleLog([]);
   };
 

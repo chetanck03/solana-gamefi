@@ -1,0 +1,19 @@
+# Anchor
+.anchor
+target/
+node_modules/
+
+# IDL
+!target/idl/
+!target/types/
+
+# Build artifacts
+**/*.rs.bk
+*.pdb
+
+# Test ledger
+test-ledger/
+
+# Local env
+.env
+.env.local

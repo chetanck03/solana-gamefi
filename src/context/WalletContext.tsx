@@ -18,6 +18,7 @@ const APP_IDENTITY = {
 };
 
 const WALLET_STORAGE_KEY = 'wallet_public_key';
+const AUTH_TOKEN_STORAGE_KEY = 'wallet_auth_token';
 
 interface WalletContextType {
   publicKey: PublicKey | null;
@@ -27,12 +28,14 @@ interface WalletContextType {
   disconnect: () => void;
   getBalance: () => Promise<number>;
   connection: Connection;
+  authToken: string | null;
 }
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
 
 export function WalletProvider({ children }: { children: ReactNode }) {
   const [publicKey, setPublicKey] = useState<PublicKey | null>(null);
+  const [authToken, setAuthToken] = useState<string | null>(null);
   const [connecting, setConnecting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -47,9 +50,11 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const loadSavedWallet = async () => {
     try {
       const savedKey = await AsyncStorage.getItem(WALLET_STORAGE_KEY);
+      const savedToken = await AsyncStorage.getItem(AUTH_TOKEN_STORAGE_KEY);
       if (savedKey) {
         const pubkey = new PublicKey(savedKey);
         setPublicKey(pubkey);
+        setAuthToken(savedToken);
         console.log('Restored wallet connection:', savedKey);
       }
     } catch (error) {
@@ -59,9 +64,10 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const saveWallet = async (pubkey: PublicKey) => {
+  const saveWallet = async (pubkey: PublicKey, token: string) => {
     try {
       await AsyncStorage.setItem(WALLET_STORAGE_KEY, pubkey.toBase58());
+      await AsyncStorage.setItem(AUTH_TOKEN_STORAGE_KEY, token);
     } catch (error) {
       console.error('Error saving wallet:', error);
     }
@@ -70,6 +76,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const clearWallet = async () => {
     try {
       await AsyncStorage.removeItem(WALLET_STORAGE_KEY);
+      await AsyncStorage.removeItem(AUTH_TOKEN_STORAGE_KEY);
     } catch (error) {
       console.error('Error clearing wallet:', error);
     }
@@ -91,8 +98,10 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       const pubkey = new PublicKey(
         Buffer.from(authResult.accounts[0].address, 'base64')
       );
+      const token = authResult.auth_token || '';
       setPublicKey(pubkey);
-      await saveWallet(pubkey); // Save to AsyncStorage
+      setAuthToken(token);
+      await saveWallet(pubkey, token); // Save to AsyncStorage
       console.log('Wallet connected and saved:', pubkey.toBase58());
       return pubkey;
     } catch (error: any) {
@@ -113,6 +122,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 
   const disconnect = useCallback(async () => {
     setPublicKey(null);
+    setAuthToken(null);
     await clearWallet(); // Clear from AsyncStorage
     console.log('Wallet disconnected and cleared');
   }, []);
@@ -133,6 +143,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         disconnect,
         getBalance,
         connection,
+        authToken,
       }}
     >
       {children}
