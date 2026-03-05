@@ -54,3 +54,5 @@ treasury-keypair.json
 !tsconfig.json
 !app.json
 !babel.config.json
+
+.env
