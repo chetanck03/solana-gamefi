@@ -42,7 +42,7 @@ export const getAllShopFighters = (): Fighter[] => {
   return ALL_FIGHTERS.map(template => createFighterFromTemplate(template));
 };
 
-// Get only the 2 free starter fighters
+// Get the 6 free starter fighters
 export const generateStarterFighters = (): Fighter[] => {
   const freeTemplates = getFreeFighters();
   return freeTemplates.map(template => createFighterFromTemplate(template));

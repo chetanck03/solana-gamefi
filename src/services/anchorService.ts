@@ -9,7 +9,7 @@ const TREASURY_PUBKEY = new PublicKey('FwBi3MnpHzu2y4Hk78zn47YtBwhmi92onvLPuV6Jn
 const APP_IDENTITY = {
   name: 'ClashGo',
   uri: 'https://clashgo.app',
-  icon: 'favicon.ico',
+  icon: 'clashgo.png',
 };
 
 export class AnchorService {
@@ -93,23 +93,34 @@ export class AnchorService {
         // Use helper to handle authorization with fallback
         await this.authorizeWallet(wallet, authToken);
 
-        const { blockhash, lastValidBlockHeight } = await this.connection.getLatestBlockhash();
-        console.log('Got blockhash:', blockhash);
+        // Get latest blockhash with retry
+        let blockhash, lastValidBlockHeight;
+        let retries = 3;
+        while (retries > 0) {
+          try {
+            const result = await this.connection.getLatestBlockhash('finalized');
+            blockhash = result.blockhash;
+            lastValidBlockHeight = result.lastValidBlockHeight;
+            console.log('Got blockhash:', blockhash);
+            break;
+          } catch (error) {
+            retries--;
+            if (retries === 0) throw new Error('Failed to get blockhash. Network issue.');
+            console.log(`Retrying blockhash... (${retries} left)`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+        }
 
         // Encode instruction data using Uint8Array (more compatible with React Native)
         const discriminator = new Uint8Array([43, 24, 67, 140, 76, 176, 253, 44]);
-        console.log('discriminator:', discriminator);
         
         const fighterNameBytes = new TextEncoder().encode(fighterName);
-        console.log('fighterNameBytes:', fighterNameBytes);
         
         const nameLength = new Uint8Array(4);
         new DataView(nameLength.buffer).setUint32(0, fighterNameBytes.length, true); // little-endian
-        console.log('nameLength:', nameLength);
         
         const priceBytes = new Uint8Array(8);
         new DataView(priceBytes.buffer).setBigUint64(0, BigInt(Math.floor(price * LAMPORTS_PER_SOL)), true); // little-endian
-        console.log('priceBytes:', priceBytes);
         
         // Combine all arrays
         const totalLength = discriminator.length + nameLength.length + fighterNameBytes.length + priceBytes.length;
@@ -127,7 +138,7 @@ export class AnchorService {
         
         data.set(priceBytes, offset);
         
-        console.log('Final data:', data);
+        console.log('Instruction data prepared');
 
         // Create instruction
         const instruction = {
@@ -160,26 +171,61 @@ export class AnchorService {
         });
         console.log('Transaction signed by wallet');
 
-        // Serialize and send the signed transaction
+        // Serialize and send the signed transaction with retry
         console.log('Sending signed transaction to network...');
         const serializedTransaction = Buffer.from(signedTransactions[0].serialize());
-        const signature = await this.connection.sendRawTransaction(serializedTransaction, {
-          skipPreflight: false,
-          preflightCommitment: 'confirmed',
-        });
-        console.log('Transaction sent:', signature);
+        
+        let signature;
+        retries = 3;
+        while (retries > 0) {
+          try {
+            signature = await this.connection.sendRawTransaction(serializedTransaction, {
+              skipPreflight: false,
+              preflightCommitment: 'confirmed',
+              maxRetries: 3,
+            });
+            console.log('Transaction sent:', signature);
+            break;
+          } catch (error: any) {
+            retries--;
+            if (retries === 0) {
+              throw new Error(`Failed to send transaction: ${error.message || 'Network error'}`);
+            }
+            console.log(`Retrying send... (${retries} left)`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+        }
         
         return signature;
       });
 
       console.log('Confirming transaction...');
-      await this.connection.confirmTransaction(signature);
+      
+      // Confirm with timeout and retry
+      const confirmPromise = this.connection.confirmTransaction(signature, 'confirmed');
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Transaction confirmation timeout')), 30000)
+      );
+      
+      await Promise.race([confirmPromise, timeoutPromise]);
+      
       console.log(`✅ Purchased ${fighterName} for ${price} SOL:`, signature);
       return signature;
-    } catch (error) {
+    } catch (error: any) {
       console.error('❌ Error purchasing fighter:', error);
-      console.error('Error details:', JSON.stringify(error, null, 2));
-      throw error;
+      
+      // Provide user-friendly error messages
+      if (error.message?.includes('timeout') || error.message?.includes('Network')) {
+        throw new Error('Network connection issue. Please check your internet and try again.');
+      } else if (error.message?.includes('insufficient funds')) {
+        throw new Error('Insufficient SOL balance for this purchase.');
+      } else if (error.message?.includes('User rejected') || error.message?.includes('cancelled')) {
+        throw new Error('Transaction cancelled by user.');
+      } else if (error.message?.includes('blockhash')) {
+        throw new Error('Network is slow. Please try again.');
+      } else {
+        throw new Error(error.message || 'Purchase failed. Please try again.');
+      }
     }
   }
 
@@ -247,20 +293,49 @@ export class AnchorService {
     authToken?: string | null
   ): Promise<{ signature: string; matchKeypair: Keypair }> {
     try {
+      console.log('=== Create Match Started ===');
+      console.log('Wallet:', walletPublicKey.toBase58());
+      console.log('Entry Fee:', entryFee, 'SOL');
+      console.log('Game Mode:', gameMode);
+
       const matchKeypair = Keypair.generate();
+      console.log('Match Account:', matchKeypair.publicKey.toBase58());
 
       const signature = await transact(async (wallet: Web3MobileWallet) => {
+        console.log('Inside transact...');
+        
         // Use helper to handle authorization with fallback
         await this.authorizeWallet(wallet, authToken);
 
-        const { blockhash } = await this.connection.getLatestBlockhash();
+        // Get latest blockhash with retry
+        let blockhash: string = '';
+        let retries = 3;
+        while (retries > 0) {
+          try {
+            const result = await this.connection.getLatestBlockhash('finalized');
+            blockhash = result.blockhash;
+            console.log('Got blockhash:', blockhash);
+            break;
+          } catch (error) {
+            retries--;
+            if (retries === 0) throw new Error('Failed to get blockhash. Network issue.');
+            console.log(`Retrying blockhash... (${retries} left)`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+        }
+
+        if (!blockhash) {
+          throw new Error('Failed to get blockhash after retries');
+        }
 
         // Encode instruction data using Uint8Array
         const discriminator = new Uint8Array([107, 2, 184, 145, 70, 142, 17, 165]);
         
+        // Entry fee in lamports
         const entryFeeBytes = new Uint8Array(8);
         new DataView(entryFeeBytes.buffer).setBigUint64(0, BigInt(Math.floor(entryFee * LAMPORTS_PER_SOL)), true);
         
+        // Game mode enum: Quick = 0, Ranked = 1, Tournament = 2
         const gameModeIndex = gameMode === 'quick' ? 0 : gameMode === 'ranked' ? 1 : 2;
         const gameModeBytes = new Uint8Array([gameModeIndex]);
         
@@ -277,7 +352,9 @@ export class AnchorService {
         
         data.set(gameModeBytes, offset);
 
-        // Create instruction
+        console.log('Instruction data prepared');
+
+        // Create instruction according to IDL
         const instruction = {
           programId: this.programId,
           keys: [
@@ -287,6 +364,7 @@ export class AnchorService {
           ],
           data,
         };
+        console.log('Instruction created');
 
         // Create versioned transaction message
         const messageV0 = new TransactionMessage({
@@ -294,34 +372,85 @@ export class AnchorService {
           recentBlockhash: blockhash,
           instructions: [instruction],
         }).compileToV0Message();
+        console.log('Message compiled');
 
         const transaction = new VersionedTransaction(messageV0);
+        console.log('Transaction created');
         
-        // Sign with match keypair first
+        // Sign with match keypair first (this is a local keypair, not from wallet)
         transaction.sign([matchKeypair]);
+        console.log('Transaction signed with match keypair');
 
-        // Sign with wallet and send
+        // Sign with wallet (shows confirmation UI)
+        console.log('Requesting wallet to sign transaction...');
         const signedTransactions = await wallet.signTransactions({
           transactions: [transaction],
         });
+        console.log('Transaction signed by wallet');
 
-        // Serialize the signed transaction before sending
+        // Serialize and send the signed transaction with retry
+        console.log('Sending signed transaction to network...');
         const serializedTransaction = Buffer.from(signedTransactions[0].serialize());
-        return await this.connection.sendRawTransaction(serializedTransaction, {
-          skipPreflight: false,
-        });
+        
+        let txSignature: string = '';
+        retries = 3;
+        while (retries > 0) {
+          try {
+            txSignature = await this.connection.sendRawTransaction(serializedTransaction, {
+              skipPreflight: false,
+              preflightCommitment: 'confirmed',
+              maxRetries: 3,
+            });
+            console.log('Transaction sent:', txSignature);
+            break;
+          } catch (error: any) {
+            retries--;
+            if (retries === 0) {
+              throw new Error(`Failed to send transaction: ${error.message || 'Network error'}`);
+            }
+            console.log(`Retrying send... (${retries} left)`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+        }
+
+        if (!txSignature) {
+          throw new Error('Failed to send transaction after retries');
+        }
+        
+        return txSignature;
       });
 
-      await this.connection.confirmTransaction(signature);
-      console.log('Match created:', signature);
+      console.log('Confirming transaction...');
+      
+      // Confirm with timeout
+      const confirmPromise = this.connection.confirmTransaction(signature, 'confirmed');
+      const timeoutPromise = new Promise<never>((_, reject) => 
+        setTimeout(() => reject(new Error('Transaction confirmation timeout')), 30000)
+      );
+      
+      await Promise.race([confirmPromise, timeoutPromise]);
+      
+      console.log('✅ Match created:', signature);
 
       return {
         signature,
         matchKeypair,
       };
-    } catch (error) {
-      console.error('Error creating match:', error);
-      throw error;
+    } catch (error: any) {
+      console.error('❌ Error creating match:', error);
+      
+      // Provide user-friendly error messages
+      if (error.message?.includes('timeout') || error.message?.includes('Network')) {
+        throw new Error('Network connection issue. Please check your internet and try again.');
+      } else if (error.message?.includes('insufficient funds')) {
+        throw new Error('Insufficient SOL balance to create match.');
+      } else if (error.message?.includes('User rejected') || error.message?.includes('cancelled')) {
+        throw new Error('Transaction cancelled by user.');
+      } else if (error.message?.includes('blockhash')) {
+        throw new Error('Network is slow. Please try again.');
+      } else {
+        throw new Error(error.message || 'Failed to create match. Please try again.');
+      }
     }
   }
 
@@ -331,7 +460,12 @@ export class AnchorService {
     authToken?: string | null
   ): Promise<string> {
     try {
+      console.log('=== Initialize Player Started ===');
+      console.log('Wallet:', walletPublicKey.toBase58());
+      console.log('Username:', username);
+
       const [playerPDA] = await this.getPlayerPDA(walletPublicKey);
+      console.log('Player PDA:', playerPDA.toBase58());
 
       // Check if player already exists
       try {
@@ -345,10 +479,31 @@ export class AnchorService {
       }
 
       const signature = await transact(async (wallet: Web3MobileWallet) => {
+        console.log('Inside transact...');
+        
         // Use helper to handle authorization with fallback
         await this.authorizeWallet(wallet, authToken);
 
-        const { blockhash } = await this.connection.getLatestBlockhash();
+        // Get latest blockhash with retry
+        let blockhash: string = '';
+        let retries = 3;
+        while (retries > 0) {
+          try {
+            const result = await this.connection.getLatestBlockhash('finalized');
+            blockhash = result.blockhash;
+            console.log('Got blockhash:', blockhash);
+            break;
+          } catch (error) {
+            retries--;
+            if (retries === 0) throw new Error('Failed to get blockhash. Network issue.');
+            console.log(`Retrying blockhash... (${retries} left)`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+        }
+
+        if (!blockhash) {
+          throw new Error('Failed to get blockhash after retries');
+        }
 
         // Encode instruction data using Uint8Array
         const discriminator = new Uint8Array([79, 249, 88, 177, 220, 62, 56, 128]);
@@ -371,6 +526,8 @@ export class AnchorService {
         
         data.set(usernameBytes, offset);
 
+        console.log('Instruction data prepared');
+
         // Create instruction
         const instruction = {
           programId: this.programId,
@@ -381,6 +538,7 @@ export class AnchorService {
           ],
           data,
         };
+        console.log('Instruction created');
 
         // Create versioned transaction message
         const messageV0 = new TransactionMessage({
@@ -388,27 +546,77 @@ export class AnchorService {
           recentBlockhash: blockhash,
           instructions: [instruction],
         }).compileToV0Message();
+        console.log('Message compiled');
 
         const transaction = new VersionedTransaction(messageV0);
+        console.log('Transaction created');
 
         // Sign with wallet
+        console.log('Requesting wallet to sign transaction...');
         const signedTransactions = await wallet.signTransactions({
           transactions: [transaction],
         });
+        console.log('Transaction signed by wallet');
 
-        // Serialize the signed transaction before sending
+        // Serialize and send the signed transaction with retry
+        console.log('Sending signed transaction to network...');
         const serializedTransaction = Buffer.from(signedTransactions[0].serialize());
-        return await this.connection.sendRawTransaction(serializedTransaction, {
-          skipPreflight: false,
-        });
+        
+        let txSignature: string = '';
+        retries = 3;
+        while (retries > 0) {
+          try {
+            txSignature = await this.connection.sendRawTransaction(serializedTransaction, {
+              skipPreflight: false,
+              preflightCommitment: 'confirmed',
+              maxRetries: 3,
+            });
+            console.log('Transaction sent:', txSignature);
+            break;
+          } catch (error: any) {
+            retries--;
+            if (retries === 0) {
+              throw new Error(`Failed to send transaction: ${error.message || 'Network error'}`);
+            }
+            console.log(`Retrying send... (${retries} left)`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+        }
+
+        if (!txSignature) {
+          throw new Error('Failed to send transaction after retries');
+        }
+        
+        return txSignature;
       });
 
-      await this.connection.confirmTransaction(signature);
-      console.log('Player initialized:', signature);
+      console.log('Confirming transaction...');
+      
+      // Confirm with timeout
+      const confirmPromise = this.connection.confirmTransaction(signature, 'confirmed');
+      const timeoutPromise = new Promise<never>((_, reject) => 
+        setTimeout(() => reject(new Error('Transaction confirmation timeout')), 30000)
+      );
+      
+      await Promise.race([confirmPromise, timeoutPromise]);
+      
+      console.log('✅ Player initialized:', signature);
       return signature;
-    } catch (error) {
-      console.error('Error initializing player:', error);
-      throw error;
+    } catch (error: any) {
+      console.error('❌ Error initializing player:', error);
+      
+      // Provide user-friendly error messages
+      if (error.message?.includes('timeout') || error.message?.includes('Network')) {
+        throw new Error('Network connection issue. Please check your internet and try again.');
+      } else if (error.message?.includes('insufficient funds')) {
+        throw new Error('Insufficient SOL balance.');
+      } else if (error.message?.includes('User rejected') || error.message?.includes('cancelled')) {
+        throw new Error('Transaction cancelled by user.');
+      } else if (error.message?.includes('blockhash')) {
+        throw new Error('Network is slow. Please try again.');
+      } else {
+        throw new Error(error.message || 'Failed to initialize player. Please try again.');
+      }
     }
   }
 

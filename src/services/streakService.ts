@@ -66,10 +66,40 @@ export class StreakService {
     try {
       const [streakStatePDA] = await this.getStreakStatePDA(walletPublicKey);
 
+      // Check if already initialized
+      try {
+        const existing = await this.connection.getAccountInfo(streakStatePDA);
+        if (existing) {
+          console.log('Streak already initialized');
+          return 'streak-exists';
+        }
+      } catch (e) {
+        // Continue with initialization
+      }
+
       const signature = await transact(async (wallet: Web3MobileWallet) => {
         await this.authorizeWallet(wallet, authToken);
 
-        const { blockhash } = await this.connection.getLatestBlockhash();
+        // Get blockhash with retry
+        let blockhash: string = '';
+        let retries = 3;
+        while (retries > 0) {
+          try {
+            const result = await this.connection.getLatestBlockhash('finalized');
+            blockhash = result.blockhash;
+            console.log('Got blockhash for streak init');
+            break;
+          } catch (error) {
+            retries--;
+            if (retries === 0) throw new Error('Failed to get blockhash. Network issue.');
+            console.log(`Retrying blockhash... (${retries} left)`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+        }
+
+        if (!blockhash) {
+          throw new Error('Failed to get blockhash after retries');
+        }
 
         // Discriminator for initialize_streak
         const discriminator = new Uint8Array([95, 135, 192, 196, 242, 129, 230, 68]);
@@ -97,17 +127,61 @@ export class StreakService {
         });
 
         const serializedTransaction = Buffer.from(signedTransactions[0].serialize());
-        return await this.connection.sendRawTransaction(serializedTransaction, {
-          skipPreflight: false,
-        });
+        
+        // Send with retry
+        let txSignature: string = '';
+        retries = 3;
+        while (retries > 0) {
+          try {
+            txSignature = await this.connection.sendRawTransaction(serializedTransaction, {
+              skipPreflight: false,
+              preflightCommitment: 'confirmed',
+              maxRetries: 3,
+            });
+            console.log('Streak init transaction sent:', txSignature);
+            break;
+          } catch (error: any) {
+            retries--;
+            if (retries === 0) {
+              throw new Error(`Failed to send transaction: ${error.message || 'Network error'}`);
+            }
+            console.log(`Retrying send... (${retries} left)`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+        }
+
+        if (!txSignature) {
+          throw new Error('Failed to send transaction after retries');
+        }
+        
+        return txSignature;
       });
 
-      await this.connection.confirmTransaction(signature);
+      // Confirm with timeout
+      const confirmPromise = this.connection.confirmTransaction(signature, 'confirmed');
+      const timeoutPromise = new Promise<never>((_, reject) => 
+        setTimeout(() => reject(new Error('Transaction confirmation timeout')), 30000)
+      );
+      
+      await Promise.race([confirmPromise, timeoutPromise]);
+      
       console.log('Streak initialized:', signature);
       return signature;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error initializing streak:', error);
-      throw error;
+      
+      // Provide user-friendly error messages
+      if (error.message?.includes('timeout') || error.message?.includes('Network')) {
+        throw new Error('Network connection issue. Please check your internet and try again.');
+      } else if (error.message?.includes('insufficient funds')) {
+        throw new Error('Insufficient SOL balance.');
+      } else if (error.message?.includes('User rejected') || error.message?.includes('cancelled')) {
+        throw new Error('Transaction cancelled by user.');
+      } else if (error.message?.includes('blockhash')) {
+        throw new Error('Network is slow. Please try again.');
+      } else {
+        throw new Error(error.message || 'Failed to initialize streak. Please try again.');
+      }
     }
   }
 
@@ -122,7 +196,26 @@ export class StreakService {
       const signature = await transact(async (wallet: Web3MobileWallet) => {
         await this.authorizeWallet(wallet, authToken);
 
-        const { blockhash } = await this.connection.getLatestBlockhash();
+        // Get blockhash with retry
+        let blockhash: string = '';
+        let retries = 3;
+        while (retries > 0) {
+          try {
+            const result = await this.connection.getLatestBlockhash('finalized');
+            blockhash = result.blockhash;
+            console.log('Got blockhash for check-in');
+            break;
+          } catch (error) {
+            retries--;
+            if (retries === 0) throw new Error('Failed to get blockhash. Network issue.');
+            console.log(`Retrying blockhash... (${retries} left)`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+        }
+
+        if (!blockhash) {
+          throw new Error('Failed to get blockhash after retries');
+        }
 
         // Discriminator for check_in
         const discriminator = new Uint8Array([184, 249, 133, 178, 91, 169, 85, 147]);
@@ -150,18 +243,60 @@ export class StreakService {
         });
 
         const serializedTransaction = Buffer.from(signedTransactions[0].serialize());
-        return await this.connection.sendRawTransaction(serializedTransaction, {
-          skipPreflight: false,
-        });
+        
+        // Send with retry
+        let txSignature: string = '';
+        retries = 3;
+        while (retries > 0) {
+          try {
+            txSignature = await this.connection.sendRawTransaction(serializedTransaction, {
+              skipPreflight: false,
+              preflightCommitment: 'confirmed',
+              maxRetries: 3,
+            });
+            console.log('Check-in transaction sent:', txSignature);
+            break;
+          } catch (error: any) {
+            retries--;
+            if (retries === 0) {
+              throw new Error(`Failed to send transaction: ${error.message || 'Network error'}`);
+            }
+            console.log(`Retrying send... (${retries} left)`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+        }
+
+        if (!txSignature) {
+          throw new Error('Failed to send transaction after retries');
+        }
+        
+        return txSignature;
       });
 
-      await this.connection.confirmTransaction(signature);
+      // Confirm with timeout
+      const confirmPromise = this.connection.confirmTransaction(signature, 'confirmed');
+      const timeoutPromise = new Promise<never>((_, reject) => 
+        setTimeout(() => reject(new Error('Transaction confirmation timeout')), 30000)
+      );
+      
+      await Promise.race([confirmPromise, timeoutPromise]);
+      
       console.log('Check-in successful:', signature);
       return signature;
     } catch (error: any) {
       if (error.message?.includes('CheckInTooSoon')) {
         throw new Error('You have already checked in today. Come back tomorrow!');
       }
+      
+      // Provide user-friendly error messages
+      if (error.message?.includes('timeout') || error.message?.includes('Network')) {
+        throw new Error('Network connection issue. Please check your internet and try again.');
+      } else if (error.message?.includes('User rejected') || error.message?.includes('cancelled')) {
+        throw new Error('Check-in cancelled by user.');
+      } else if (error.message?.includes('blockhash')) {
+        throw new Error('Network is slow. Please try again.');
+      }
+      
       console.error('Error checking in:', error);
       throw error;
     }

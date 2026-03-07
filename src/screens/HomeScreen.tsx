@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { PublicKey } from '@solana/web3.js';
@@ -9,6 +9,9 @@ import { COLORS } from '../constants';
 import { PlayerProfile } from '../types';
 import { generateStarterFighters } from '../services/fighterService';
 import { StreakService, StreakState } from '../services/streakService';
+import { LocalStreakService, LocalStreakData } from '../services/localStreakService';
+import { LocalStatsService, PlayerStats } from '../services/localStatsService';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function HomeScreen({ navigation }: any) {
   const wallet = useWallet();
@@ -18,6 +21,8 @@ export default function HomeScreen({ navigation }: any) {
   const [expandedFeature, setExpandedFeature] = useState<string | null>(null);
   const [streakState, setStreakState] = useState<StreakState | null>(null);
   const [canCheckIn, setCanCheckIn] = useState(false);
+  const [localStreak, setLocalStreak] = useState<LocalStreakData | null>(null);
+  const [localStats, setLocalStats] = useState<PlayerStats | null>(null);
 
   const toggleFeature = (feature: string) => {
     setExpandedFeature(expandedFeature === feature ? null : feature);
@@ -55,26 +60,80 @@ export default function HomeScreen({ navigation }: any) {
     return `${address.slice(0, 4)}...${address.slice(-4)}`;
   };
 
+  // Reload stats when screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      const loadStats = async () => {
+        const stats = await LocalStatsService.getPlayerStats();
+        setLocalStats(stats);
+        
+        // Update profile with latest stats
+        if (wallet.connected && wallet.publicKey) {
+          const streak = await LocalStreakService.getStreak();
+          const newProfile: PlayerProfile = {
+            publicKey: wallet.publicKey.toBase58(),
+            username: `Player_${wallet.publicKey.toBase58().slice(0, 4)}`,
+            xp: 0,
+            level: 1,
+            currentStreak: streak.currentStreak,
+            longestStreak: streak.longestStreak,
+            totalMatches: stats.totalMatches,
+            wins: stats.wins,
+            losses: stats.losses,
+            draws: stats.draws,
+            badges: [],
+            deck: generateStarterFighters(),
+            createdAt: Date.now(),
+          };
+          setProfile(newProfile);
+        }
+      };
+      
+      loadStats();
+    }, [wallet.connected, wallet.publicKey])
+  );
+
   useEffect(() => {
+    // Auto-update local streak when app opens
+    const initLocalStreak = async () => {
+      const streak = await LocalStreakService.checkAndUpdateStreak();
+      setLocalStreak(streak);
+    };
+    
+    // Load local stats
+    const initLocalStats = async () => {
+      const stats = await LocalStatsService.getPlayerStats();
+      setLocalStats(stats);
+    };
+    
+    initLocalStreak();
+    initLocalStats();
+    
     if (wallet.connected && wallet.publicKey) {
       wallet.getBalance().then(setBalance);
       
-      const newProfile: PlayerProfile = {
-        publicKey: wallet.publicKey.toBase58(),
-        username: `Player_${wallet.publicKey.toBase58().slice(0, 4)}`,
-        xp: 0,
-        level: 1,
-        currentStreak: 0,
-        longestStreak: 0,
-        totalMatches: 0,
-        wins: 0,
-        losses: 0,
-        draws: 0,
-        badges: [],
-        deck: generateStarterFighters(),
-        createdAt: Date.now(),
-      };
-      setProfile(newProfile);
+      // Load local streak and stats first
+      Promise.all([
+        LocalStreakService.getStreak(),
+        LocalStatsService.getPlayerStats()
+      ]).then(([streak, stats]) => {
+        const newProfile: PlayerProfile = {
+          publicKey: wallet.publicKey!.toBase58(),
+          username: `Player_${wallet.publicKey!.toBase58().slice(0, 4)}`,
+          xp: 0,
+          level: 1,
+          currentStreak: streak.currentStreak,
+          longestStreak: streak.longestStreak,
+          totalMatches: stats.totalMatches,
+          wins: stats.wins,
+          losses: stats.losses,
+          draws: stats.draws,
+          badges: [],
+          deck: generateStarterFighters(),
+          createdAt: Date.now(),
+        };
+        setProfile(newProfile);
+      });
       
       // Load streak data
       loadStreakData();
@@ -98,19 +157,10 @@ export default function HomeScreen({ navigation }: any) {
   };
 
   const handleCheckIn = async () => {
-    if (!wallet.publicKey || !wallet.connection) return;
-    
     try {
-      const programId = new PublicKey(process.env.EXPO_PUBLIC_PROGRAM_ID || 'GhESwjzEv3C3qKQJKjAfhaq5GFK5vDLaku8tPqCKGzYR');
-      const streakService = new StreakService(wallet.connection, programId);
-      
-      if (!streakState) {
-        await streakService.initializeStreak(wallet.publicKey, wallet.authToken);
-      }
-      
-      await streakService.checkIn(wallet.publicKey, wallet.authToken);
-      showToast('Daily check-in completed! 🔥', 'success');
-      await loadStreakData();
+      const streak = await LocalStreakService.checkAndUpdateStreak();
+      setLocalStreak(streak);
+      showToast(`Daily check-in completed! 🔥 ${streak.currentStreak} day streak!`, 'success');
     } catch (error: any) {
       showToast(error.message || 'Failed to check in', 'error');
     }
@@ -131,15 +181,12 @@ export default function HomeScreen({ navigation }: any) {
           
           {/* Logo - Centered */}
           <View className="items-center mb-12">
-            <View className="w-32 h-32 bg-[#9945FF] border-4 border-[#9945FF] rounded-3xl items-center justify-center mb-6" 
-              style={{ 
-                shadowColor: '#9945FF',
-                shadowOffset: { width: 0, height: 0 },
-                shadowOpacity: 0.8,
-                shadowRadius: 20,
-                elevation: 10,
-              }}>
-              <Ionicons name="game-controller-outline" size={64} color="#fff" />
+            <View className="mb-6">
+              <Image 
+                source={require('../../assets/clashgo.png')} 
+                style={{ width: 128, height: 128 }}
+                resizeMode="contain"
+              />
             </View>
             
             <View className="flex-row items-center justify-center mb-3">
@@ -449,7 +496,7 @@ export default function HomeScreen({ navigation }: any) {
                 <Text style={{ fontFamily: 'Bangers' }} className="text-white text-lg font-semibold mb-1">Streak</Text>
                 <View className="flex-row items-center">
                   <Text style={{ fontFamily: 'Bangers' }} className="text-[#FF6B6B] text-xl font-black mr-1">
-                    {profile?.currentStreak || 0}
+                    {localStreak?.currentStreak || 0}
                   </Text>
                   <Ionicons name="flame" size={18} color="#FF6B6B" />
                 </View>
@@ -503,36 +550,26 @@ export default function HomeScreen({ navigation }: any) {
               <View>
                 <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl">Daily Streak</Text>
                 <Text style={{ fontFamily: 'Bangers' }} className="text-white/80 text-sm">
-                  {streakState?.currentStreak || 0} days
+                  {localStreak?.currentStreak || 0} days
                 </Text>
               </View>
             </View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Streak')}
-              className="bg-white/20 rounded-lg px-4 py-2">
-              <Text style={{ fontFamily: 'Bangers' }} className="text-white text-sm">View</Text>
-            </TouchableOpacity>
+            {localStreak && localStreak.longestStreak > 0 && (
+              <View className="bg-white/20 rounded-lg px-4 py-2">
+                <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xs">Best: {localStreak.longestStreak}</Text>
+              </View>
+            )}
           </View>
           
-          {canCheckIn ? (
-            <TouchableOpacity
-              onPress={handleCheckIn}
-              className="bg-white rounded-xl py-3">
-              <Text style={{ fontFamily: 'Bangers' }} className="text-orange-600 text-center text-lg font-bold">
-                ✓ CHECK IN NOW
-              </Text>
-            </TouchableOpacity>
-          ) : (
-            <View className="bg-white/10 rounded-xl py-3">
-              <Text style={{ fontFamily: 'Bangers' }} className="text-white text-center text-base">
-                ✓ Checked in today
-              </Text>
-            </View>
-          )}
+          <View className="bg-white/10 rounded-xl py-3">
+            <Text style={{ fontFamily: 'Bangers' }} className="text-white text-center text-base">
+              ✓ Auto-updated daily
+            </Text>
+          </View>
         </View>
 
         {/* Rewards Button */}
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => navigation.navigate('Rewards')}
           className="bg-purple-600 rounded-2xl py-5 mb-5"
           style={{
@@ -550,7 +587,7 @@ export default function HomeScreen({ navigation }: any) {
               CLAIM REWARDS
             </Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         {/* Quiz Action */}
         <TouchableOpacity
@@ -636,36 +673,65 @@ export default function HomeScreen({ navigation }: any) {
             shadowRadius: 4,
             elevation: 3,
           }}>
-          <Text style={{ fontFamily: 'Bangers' }} className="text-white  text-xl mb-5">Your Stats</Text>
+          <Text style={{ fontFamily: 'Bangers' }} className="text-white text-2xl mb-5">Your Stats</Text>
           
-          {profile && profile.totalMatches > 0 ? (
-            <View className="flex-row justify-between">
-              <View className="items-center flex-1">
-                <View className="w-16 h-16 bg-[#14F195]/20 rounded-2xl items-center justify-center mb-2">
-                  <Text style={{ fontFamily: 'Bangers' }} className="text-[#14F195] text-2xl font-black">{profile.wins}</Text>
+          {localStats && localStats.totalMatches > 0 ? (
+            <View>
+              {/* Win Rate Circle */}
+              <View className="items-center mb-6">
+                <View className="relative items-center justify-center mb-3">
+                  <View 
+                    className="w-32 h-32 rounded-full items-center justify-center"
+                    style={{
+                      backgroundColor: 'rgba(20, 241, 149, 0.1)',
+                      borderWidth: 6,
+                      borderColor: '#14F195',
+                    }}
+                  >
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-[#14F195] text-4xl">
+                      {LocalStatsService.calculateWinRate(localStats)}%
+                    </Text>
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-white text-sm">Win Rate</Text>
+                  </View>
                 </View>
-                <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-xs">Wins</Text>
               </View>
-              <View className="items-center flex-1">
-                <View className="w-16 h-16 bg-[#FF6B6B]/20 rounded-2xl items-center justify-center mb-2">
-                  <Text style={{ fontFamily: 'Bangers' }} className="text-[#FF6B6B] text-2xl font-black">{profile.losses}</Text>
+
+              {/* Stats Grid */}
+              <View className="flex-row justify-between mb-4">
+                <View className="flex-1 items-center bg-[#0a0a1a] rounded-xl p-4 mr-2">
+                  <Ionicons name="trophy" size={24} color="#14F195" />
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-[#14F195] text-3xl mt-2">{localStats.wins}</Text>
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-sm">Wins</Text>
                 </View>
-                <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-xs">Losses</Text>
+                
+                <View className="flex-1 items-center bg-[#0a0a1a] rounded-xl p-4 ml-2">
+                  <Ionicons name="close-circle" size={24} color="#FF6B6B" />
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-[#FF6B6B] text-3xl mt-2">{localStats.losses}</Text>
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-sm">Losses</Text>
+                </View>
               </View>
-              <View className="items-center flex-1">
-                <View className="w-16 h-16 bg-gray-500/20 rounded-2xl items-center justify-center mb-2">
-                  <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-2xl font-black">{profile.draws}</Text>
+
+              <View className="flex-row justify-between">
+                <View className="flex-1 items-center bg-[#0a0a1a] rounded-xl p-4 mr-2">
+                  <Ionicons name="flame" size={24} color="#FF6B6B" />
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-white text-3xl mt-2">{localStats.currentStreak}</Text>
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-sm">Streak</Text>
                 </View>
-                <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-xs">Draws</Text>
+                
+                <View className="flex-1 items-center bg-[#0a0a1a] rounded-xl p-4 ml-2">
+                  <Ionicons name="game-controller" size={24} color="#9945FF" />
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-white text-3xl mt-2">{localStats.totalMatches}</Text>
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-sm">Battles</Text>
+                </View>
               </View>
             </View>
           ) : (
             <View className="items-center py-8">
-              <View className="w-20 h-20 bg-[#2a2a3e] rounded-full items-center justify-center mb-4">
-                <Ionicons name="game-controller-outline" size={40} color="#555" />
+              <View className="w-24 h-24 bg-[#2a2a3e] rounded-full items-center justify-center mb-4">
+                <Ionicons name="game-controller-outline" size={48} color="#555" />
               </View>
-              <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-center text-lg font-semibold">No matches yet</Text>
-              {/* <Text style={{ fontFamily: 'Bangers' }} className="text-gray-500 text-xs mt-2">Start your first battle</Text> */}
+              <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-center text-xl">No matches yet</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-gray-500 text-sm mt-2">Start your first battle!</Text>
             </View>
           )}
         </View>

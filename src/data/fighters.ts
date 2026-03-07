@@ -17,12 +17,12 @@ export interface FighterTemplate {
     energyCost: number;
   };
   price: number; // SOL price
-  isFree: boolean; // Only 2 fighters are free
+  isFree: boolean; // 6 fighters are free (4 common, 2 rare)
 }
 
 // All fighters with differentiated power levels
 export const ALL_FIGHTERS: FighterTemplate[] = [
-  // FREE FIGHTERS (Only 2)
+  // FREE FIGHTERS (6 total - 2 common, 2 rare, 2 more common)
   {
     name: 'Crystal Blade',
     type: 'warrior',
@@ -59,8 +59,6 @@ export const ALL_FIGHTERS: FighterTemplate[] = [
     price: 0,
     isFree: true,
   },
-
-  // COMMON FIGHTERS (Purchasable)
   {
     name: 'Wind Striker',
     type: 'archer',
@@ -76,8 +74,8 @@ export const ALL_FIGHTERS: FighterTemplate[] = [
       cooldown: 4,
       energyCost: 30,
     },
-    price: 0.01,
-    isFree: false,
+    price: 0,
+    isFree: true,
   },
   {
     name: 'Shadow Phantom',
@@ -94,11 +92,9 @@ export const ALL_FIGHTERS: FighterTemplate[] = [
       cooldown: 6,
       energyCost: 35,
     },
-    price: 0.01,
-    isFree: false,
+    price: 0,
+    isFree: true,
   },
-
-  // RARE FIGHTERS
   {
     name: 'Frost Valkyrie',
     type: 'mage',
@@ -114,8 +110,8 @@ export const ALL_FIGHTERS: FighterTemplate[] = [
       cooldown: 5,
       energyCost: 35,
     },
-    price: 0.03,
-    isFree: false,
+    price: 0,
+    isFree: true,
   },
   {
     name: 'Blood Rune Berserker',
@@ -132,9 +128,11 @@ export const ALL_FIGHTERS: FighterTemplate[] = [
       cooldown: 6,
       energyCost: 40,
     },
-    price: 0.03,
-    isFree: false,
+    price: 0,
+    isFree: true,
   },
+
+  // COMMON FIGHTERS (Purchasable) - Removed Wind Striker and Shadow Phantom (now free)
   {
     name: 'Solar Guardian',
     type: 'warrior',

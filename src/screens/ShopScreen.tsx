@@ -282,7 +282,7 @@ export default function ShopScreen() {
   const [purchasing, setPurchasing] = useState(false);
   const [shopFighters, setShopFighters] = useState<ShopFighter[]>([]);
   const [ownedFighters, setOwnedFighters] = useState<Set<string>>(new Set());
-  const [activeTab, setActiveTab] = useState<'packs' | 'cards'>('packs');
+  const [activeTab, setActiveTab] = useState<'packs' | 'cards'>('cards');
   const [showPackPreview, setShowPackPreview] = useState<string | null>(null);
 
   const anchorService = new AnchorService(ENV.SOLANA_RPC_URL);
@@ -398,41 +398,8 @@ export default function ShopScreen() {
   return (
     <View className="flex-1 bg-[#0a0a1a]">
       <View className="p-6 pb-4">
-        <Text style={{ fontFamily: 'Bangers' }} className="text-3xl  text-white mb-2">Fighter Shop</Text>
-        <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] mb-6">Purchase fighter cards to expand your roster</Text>
-
-        {/* Tab Selector */}
-        <View className="flex-row mb-6 bg-[#1a1a2e] rounded-xl p-1">
-          <TouchableOpacity
-            className="flex-1 py-3 rounded-lg"
-            style={{
-              backgroundColor: activeTab === 'packs' ? '#9945FF' : 'transparent',
-            }}
-            onPress={() => setActiveTab('packs')}
-          >
-            <Text 
-              style={{ fontFamily: 'Bangers' }}
-              className={`text-center text-lg ${activeTab === 'packs' ? 'text-white' : 'text-[#888]'}`}
-            >
-              FIGHTER PACKS
-            </Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-            className="flex-1 py-3 rounded-lg"
-            style={{
-              backgroundColor: activeTab === 'cards' ? '#9945FF' : 'transparent',
-            }}
-            onPress={() => setActiveTab('cards')}
-          >
-            <Text 
-              style={{ fontFamily: 'Bangers' }}
-              className={`text-center text-lg ${activeTab === 'cards' ? 'text-white' : 'text-[#888]'}`}
-            >
-              INDIVIDUAL CARDS
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <Text style={{ fontFamily: 'Bangers' }} className="text-3xl text-white mb-2">Fighter Collection</Text>
+        <Text style={{ fontFamily: 'Bangers' }} className="text-[#14F195] text-lg">Build your ultimate roster</Text>
       </View>
 
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>

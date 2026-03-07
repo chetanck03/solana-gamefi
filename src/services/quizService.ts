@@ -255,4 +255,63 @@ export class QuizService {
 
     return timeRemaining > 0 ? timeRemaining : 0;
   }
+
+  async claimReward(
+    walletPublicKey: PublicKey,
+    authToken?: string | null
+  ): Promise<string> {
+    return retryWithBackoff(async () => {
+      try {
+        const [quizStatePDA] = await this.getQuizStatePDA(walletPublicKey);
+        const [quizConfigPDA] = await this.getQuizConfigPDA();
+
+        const signature = await transact(async (wallet: Web3MobileWallet) => {
+          await this.authorizeWallet(wallet, authToken);
+
+          const { blockhash } = await this.connection.getLatestBlockhash();
+
+          // Discriminator for claim_reward
+          const discriminator = new Uint8Array([149, 95, 181, 242, 94, 90, 158, 162]);
+
+          const instruction = {
+            programId: this.programId,
+            keys: [
+              { pubkey: quizStatePDA, isSigner: false, isWritable: true },
+              { pubkey: quizConfigPDA, isSigner: false, isWritable: true },
+              { pubkey: walletPublicKey, isSigner: true, isWritable: true },
+              { pubkey: SystemProgram.programId, isSigner: false, isWritable: false },
+            ],
+            data: Buffer.from(discriminator),
+          };
+
+          const messageV0 = new TransactionMessage({
+            payerKey: walletPublicKey,
+            recentBlockhash: blockhash,
+            instructions: [instruction],
+          }).compileToV0Message();
+
+          const transaction = new VersionedTransaction(messageV0);
+
+          const signedTransactions = await wallet.signTransactions({
+            transactions: [transaction],
+          });
+
+          const serializedTransaction = Buffer.from(signedTransactions[0].serialize());
+          return await this.connection.sendRawTransaction(serializedTransaction, {
+            skipPreflight: false,
+          });
+        });
+
+        await this.connection.confirmTransaction(signature);
+        console.log('Reward claimed:', signature);
+        return signature;
+      } catch (error: any) {
+        if (error.message?.includes('NoRewardAvailable')) {
+          throw new Error('No reward available to claim');
+        }
+        console.error('Error claiming reward:', error);
+        throw error;
+      }
+    }, 3, 2000);
+  }
 }

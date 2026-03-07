@@ -14,6 +14,7 @@ import { ENV } from '../config/env';
 import OptimizedImage from '../components/OptimizedImage';
 import ActiveFightView from '../components/ActiveFightView';
 import BattlefieldSelector from '../components/BattlefieldSelector';
+import { LocalStatsService } from '../services/localStatsService';
 
 export default function FightScreen() {
   const wallet = useWallet();
@@ -229,9 +230,27 @@ export default function FightScreen() {
 
   const endMatch = async (winnerKey: string) => {
     const isPlayerWinner = winnerKey === wallet.publicKey?.toString();
-    addLog(isPlayerWinner ? '🎉 VICTORY!' : '💀 DEFEAT!');
+    const isDraw = winnerKey === 'draw';
     
-    showToast(isPlayerWinner ? 'You won!' : 'You lost!', isPlayerWinner ? 'success' : 'error');
+    // Record match result in local storage
+    try {
+      if (isDraw) {
+        await LocalStatsService.recordMatchResult('draw');
+      } else if (isPlayerWinner) {
+        await LocalStatsService.recordMatchResult('win');
+      } else {
+        await LocalStatsService.recordMatchResult('loss');
+      }
+    } catch (error) {
+      console.error('Error recording match result:', error);
+    }
+    
+    addLog(isDraw ? '🤝 DRAW!' : isPlayerWinner ? '🎉 VICTORY!' : '💀 DEFEAT!');
+    
+    showToast(
+      isDraw ? 'Match ended in a draw!' : isPlayerWinner ? 'You won!' : 'You lost!', 
+      isDraw ? 'info' : isPlayerWinner ? 'success' : 'error'
+    );
     
     setTimeout(() => {
       setMatch(null);
@@ -281,7 +300,9 @@ export default function FightScreen() {
             CHOOSE GAME MODE
           </Text>
           
-          {Object.entries(GAME_MODES).map(([key, mode]) => (
+          {Object.entries(GAME_MODES)
+            .filter(([key]) => key !== 'tournament') // Hide tournament mode
+            .map(([key, mode]) => (
             <TouchableOpacity
               key={key}
               onPress={() => startMatchmaking(key as GameMode)}

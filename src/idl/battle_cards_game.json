@@ -8,91 +8,831 @@
   },
   "instructions": [
     {
-      "name": "complete_match",
-      "discriminator": [85, 206, 230, 159, 116, 39, 25, 115],
-      "accounts": [
-        {"name": "match_account", "writable": true},
-        {"name": "player1", "writable": true},
-        {"name": "player2", "writable": true}
+      "name": "check_in",
+      "discriminator": [
+        209,
+        253,
+        4,
+        217,
+        250,
+        241,
+        207,
+        50
       ],
-      "args": [{"name": "winner_key", "type": "pubkey"}]
+      "accounts": [
+        {
+          "name": "streak_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  114,
+                  101,
+                  97,
+                  107
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "streak_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  114,
+                  101,
+                  97,
+                  107,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "claim_quiz_reward",
+      "discriminator": [
+        255,
+        197,
+        71,
+        95,
+        134,
+        166,
+        209,
+        132
+      ],
+      "accounts": [
+        {
+          "name": "quiz_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  113,
+                  117,
+                  105,
+                  122
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "quiz_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  113,
+                  117,
+                  105,
+                  122,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "reward_wallet",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "claim_streak_reward",
+      "discriminator": [
+        7,
+        146,
+        10,
+        250,
+        22,
+        241,
+        4,
+        37
+      ],
+      "accounts": [
+        {
+          "name": "streak_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  114,
+                  101,
+                  97,
+                  107
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "streak_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  114,
+                  101,
+                  97,
+                  107,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "reward_wallet",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "complete_match",
+      "discriminator": [
+        85,
+        206,
+        230,
+        159,
+        116,
+        39,
+        25,
+        115
+      ],
+      "accounts": [
+        {
+          "name": "match_account",
+          "writable": true
+        },
+        {
+          "name": "player1",
+          "writable": true
+        },
+        {
+          "name": "player2",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "winner_key",
+          "type": "pubkey"
+        }
+      ]
     },
     {
       "name": "create_match",
-      "discriminator": [107, 2, 184, 145, 70, 142, 17, 165],
+      "discriminator": [
+        107,
+        2,
+        184,
+        145,
+        70,
+        142,
+        17,
+        165
+      ],
       "accounts": [
-        {"name": "match_account", "writable": true, "signer": true},
-        {"name": "player1", "writable": true, "signer": true},
-        {"name": "system_program", "address": "11111111111111111111111111111111"}
+        {
+          "name": "match_account",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "player1",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
       ],
       "args": [
-        {"name": "entry_fee", "type": "u64"},
-        {"name": "game_mode", "type": {"defined": {"name": "GameMode"}}}
+        {
+          "name": "entry_fee",
+          "type": "u64"
+        },
+        {
+          "name": "game_mode",
+          "type": {
+            "defined": {
+              "name": "GameMode"
+            }
+          }
+        }
       ]
     },
     {
       "name": "initialize_player",
-      "discriminator": [79, 249, 88, 177, 220, 62, 56, 128],
+      "discriminator": [
+        79,
+        249,
+        88,
+        177,
+        220,
+        62,
+        56,
+        128
+      ],
       "accounts": [
         {
           "name": "player",
           "writable": true,
           "pda": {
             "seeds": [
-              {"kind": "const", "value": [112, 108, 97, 121, 101, 114]},
-              {"kind": "account", "path": "authority"}
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
             ]
           }
         },
-        {"name": "authority", "writable": true, "signer": true},
-        {"name": "system_program", "address": "11111111111111111111111111111111"}
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
       ],
-      "args": [{"name": "username", "type": "string"}]
+      "args": [
+        {
+          "name": "username",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "initialize_quiz",
+      "discriminator": [
+        119,
+        91,
+        73,
+        7,
+        108,
+        157,
+        18,
+        42
+      ],
+      "accounts": [
+        {
+          "name": "quiz_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  113,
+                  117,
+                  105,
+                  122
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize_quiz_config",
+      "discriminator": [
+        71,
+        114,
+        204,
+        234,
+        165,
+        95,
+        54,
+        157
+      ],
+      "accounts": [
+        {
+          "name": "quiz_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  113,
+                  117,
+                  105,
+                  122,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "reward_wallet",
+          "type": "pubkey"
+        },
+        {
+          "name": "reward_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_streak",
+      "discriminator": [
+        226,
+        73,
+        242,
+        141,
+        49,
+        217,
+        120,
+        41
+      ],
+      "accounts": [
+        {
+          "name": "streak_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  114,
+                  101,
+                  97,
+                  107
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize_streak_config",
+      "discriminator": [
+        193,
+        65,
+        121,
+        124,
+        169,
+        148,
+        152,
+        79
+      ],
+      "accounts": [
+        {
+          "name": "streak_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  114,
+                  101,
+                  97,
+                  107,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "reward_wallet",
+          "type": "pubkey"
+        }
+      ]
     },
     {
       "name": "join_match",
-      "discriminator": [244, 8, 47, 130, 192, 59, 179, 44],
+      "discriminator": [
+        244,
+        8,
+        47,
+        130,
+        192,
+        59,
+        179,
+        44
+      ],
       "accounts": [
-        {"name": "match_account", "writable": true},
-        {"name": "player2", "writable": true, "signer": true},
-        {"name": "system_program", "address": "11111111111111111111111111111111"}
+        {
+          "name": "match_account",
+          "writable": true
+        },
+        {
+          "name": "player2",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
       ],
       "args": []
     },
     {
       "name": "purchase_fighter",
-      "discriminator": [43, 24, 67, 140, 76, 176, 253, 44],
+      "discriminator": [
+        43,
+        24,
+        67,
+        140,
+        76,
+        176,
+        253,
+        44
+      ],
       "accounts": [
         {
           "name": "fighter_ownership",
           "writable": true,
           "pda": {
             "seeds": [
-              {"kind": "const", "value": [102, 105, 103, 104, 116, 101, 114]},
-              {"kind": "account", "path": "buyer"},
-              {"kind": "arg", "path": "fighter_name"}
+              {
+                "kind": "const",
+                "value": [
+                  102,
+                  105,
+                  103,
+                  104,
+                  116,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "buyer"
+              },
+              {
+                "kind": "arg",
+                "path": "fighter_name"
+              }
             ]
           }
         },
-        {"name": "buyer", "writable": true, "signer": true},
-        {"name": "treasury", "writable": true},
-        {"name": "system_program", "address": "11111111111111111111111111111111"}
+        {
+          "name": "buyer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "treasury",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
       ],
       "args": [
-        {"name": "fighter_name", "type": "string"},
-        {"name": "price", "type": "u64"}
+        {
+          "name": "fighter_name",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "submit_quiz",
+      "discriminator": [
+        48,
+        92,
+        172,
+        142,
+        251,
+        196,
+        14,
+        217
+      ],
+      "accounts": [
+        {
+          "name": "quiz_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  113,
+                  117,
+                  105,
+                  122
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "quiz_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  113,
+                  117,
+                  105,
+                  122,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "all_correct",
+          "type": "bool"
+        }
       ]
     }
   ],
   "accounts": [
-    {"name": "FighterOwnership", "discriminator": [170, 159, 199, 137, 190, 184, 210, 55]},
-    {"name": "Match", "discriminator": [236, 63, 169, 38, 15, 56, 196, 162]},
-    {"name": "Player", "discriminator": [205, 222, 112, 7, 165, 155, 206, 218]}
+    {
+      "name": "FighterOwnership",
+      "discriminator": [
+        170,
+        159,
+        199,
+        137,
+        190,
+        184,
+        210,
+        55
+      ]
+    },
+    {
+      "name": "Match",
+      "discriminator": [
+        236,
+        63,
+        169,
+        38,
+        15,
+        56,
+        196,
+        162
+      ]
+    },
+    {
+      "name": "Player",
+      "discriminator": [
+        205,
+        222,
+        112,
+        7,
+        165,
+        155,
+        206,
+        218
+      ]
+    },
+    {
+      "name": "QuizConfig",
+      "discriminator": [
+        250,
+        219,
+        202,
+        113,
+        218,
+        145,
+        175,
+        236
+      ]
+    },
+    {
+      "name": "QuizState",
+      "discriminator": [
+        222,
+        255,
+        111,
+        89,
+        226,
+        46,
+        27,
+        9
+      ]
+    },
+    {
+      "name": "StreakConfig",
+      "discriminator": [
+        184,
+        88,
+        148,
+        96,
+        159,
+        126,
+        136,
+        25
+      ]
+    },
+    {
+      "name": "StreakState",
+      "discriminator": [
+        10,
+        61,
+        147,
+        54,
+        26,
+        140,
+        226,
+        139
+      ]
+    }
   ],
   "errors": [
-    {"code": 6000, "name": "MatchNotWaiting", "msg": "Match is not in waiting status"},
-    {"code": 6001, "name": "MatchNotActive", "msg": "Match is not active"},
-    {"code": 6002, "name": "InvalidWinner", "msg": "Invalid winner"}
+    {
+      "code": 6000,
+      "name": "CooldownNotExpired",
+      "msg": "Cooldown period has not expired. Try again in 24 hours"
+    },
+    {
+      "code": 6001,
+      "name": "NoRewardToClaim",
+      "msg": "No reward available to claim"
+    }
   ],
   "types": [
     {
@@ -100,10 +840,22 @@
       "type": {
         "kind": "struct",
         "fields": [
-          {"name": "owner", "type": "pubkey"},
-          {"name": "fighter_name", "type": "string"},
-          {"name": "purchased_at", "type": "i64"},
-          {"name": "price_paid", "type": "u64"}
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "fighter_name",
+            "type": "string"
+          },
+          {
+            "name": "purchased_at",
+            "type": "i64"
+          },
+          {
+            "name": "price_paid",
+            "type": "u64"
+          }
         ]
       }
     },
@@ -111,7 +863,17 @@
       "name": "GameMode",
       "type": {
         "kind": "enum",
-        "variants": [{"name": "Quick"}, {"name": "Ranked"}, {"name": "Tournament"}]
+        "variants": [
+          {
+            "name": "Quick"
+          },
+          {
+            "name": "Ranked"
+          },
+          {
+            "name": "Tournament"
+          }
+        ]
       }
     },
     {
@@ -119,13 +881,42 @@
       "type": {
         "kind": "struct",
         "fields": [
-          {"name": "player1", "type": "pubkey"},
-          {"name": "player2", "type": "pubkey"},
-          {"name": "entry_fee", "type": "u64"},
-          {"name": "game_mode", "type": {"defined": {"name": "GameMode"}}},
-          {"name": "status", "type": {"defined": {"name": "MatchStatus"}}},
-          {"name": "winner", "type": "pubkey"},
-          {"name": "created_at", "type": "i64"}
+          {
+            "name": "player1",
+            "type": "pubkey"
+          },
+          {
+            "name": "player2",
+            "type": "pubkey"
+          },
+          {
+            "name": "entry_fee",
+            "type": "u64"
+          },
+          {
+            "name": "game_mode",
+            "type": {
+              "defined": {
+                "name": "GameMode"
+              }
+            }
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "MatchStatus"
+              }
+            }
+          },
+          {
+            "name": "winner",
+            "type": "pubkey"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
         ]
       }
     },
@@ -133,7 +924,20 @@
       "name": "MatchStatus",
       "type": {
         "kind": "enum",
-        "variants": [{"name": "Waiting"}, {"name": "Active"}, {"name": "Completed"}, {"name": "Cancelled"}]
+        "variants": [
+          {
+            "name": "Waiting"
+          },
+          {
+            "name": "Active"
+          },
+          {
+            "name": "Completed"
+          },
+          {
+            "name": "Cancelled"
+          }
+        ]
       }
     },
     {
@@ -141,17 +945,190 @@
       "type": {
         "kind": "struct",
         "fields": [
-          {"name": "authority", "type": "pubkey"},
-          {"name": "username", "type": "string"},
-          {"name": "xp", "type": "u64"},
-          {"name": "level", "type": "u8"},
-          {"name": "wins", "type": "u32"},
-          {"name": "losses", "type": "u32"},
-          {"name": "draws", "type": "u32"},
-          {"name": "current_streak", "type": "u32"},
-          {"name": "longest_streak", "type": "u32"},
-          {"name": "total_matches", "type": "u32"},
-          {"name": "created_at", "type": "i64"}
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "username",
+            "type": "string"
+          },
+          {
+            "name": "xp",
+            "type": "u64"
+          },
+          {
+            "name": "level",
+            "type": "u8"
+          },
+          {
+            "name": "wins",
+            "type": "u32"
+          },
+          {
+            "name": "losses",
+            "type": "u32"
+          },
+          {
+            "name": "draws",
+            "type": "u32"
+          },
+          {
+            "name": "current_streak",
+            "type": "u32"
+          },
+          {
+            "name": "longest_streak",
+            "type": "u32"
+          },
+          {
+            "name": "total_matches",
+            "type": "u32"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "QuizConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_amount",
+            "type": "u64"
+          },
+          {
+            "name": "cooldown_period",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "QuizState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "last_attempt",
+            "type": "i64"
+          },
+          {
+            "name": "total_attempts",
+            "type": "u32"
+          },
+          {
+            "name": "correct_attempts",
+            "type": "u32"
+          },
+          {
+            "name": "last_reward_claimed",
+            "type": "i64"
+          },
+          {
+            "name": "pending_reward",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StreakConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "streak_5_reward",
+            "type": "u64"
+          },
+          {
+            "name": "streak_10_reward",
+            "type": "u64"
+          },
+          {
+            "name": "streak_20_reward",
+            "type": "u64"
+          },
+          {
+            "name": "check_in_window",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StreakState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "current_streak",
+            "type": "u32"
+          },
+          {
+            "name": "longest_streak",
+            "type": "u32"
+          },
+          {
+            "name": "last_check_in",
+            "type": "i64"
+          },
+          {
+            "name": "total_check_ins",
+            "type": "u32"
+          },
+          {
+            "name": "pending_rewards",
+            "type": "u64"
+          },
+          {
+            "name": "last_reward_claimed",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
         ]
       }
     }

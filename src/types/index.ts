@@ -113,4 +113,5 @@ export interface LeaderboardEntry {
   losses: number;
   winRate: number;
   streak: number;
+  level: number;
 }

@@ -240,7 +240,10 @@ export default function QuizScreen({ navigation }: any) {
     if (allCorrect) {
       setBackgroundImage(QUIZ_IMAGES.victory);
       
-      // Try to submit to blockchain
+      // Store locally that reward is pending claim (always store, regardless of blockchain)
+      await AsyncStorage.setItem('pending_quiz_reward', QUIZ_REWARD.toString());
+      
+      // Try to submit to blockchain when all answers are correct
       if (wallet.publicKey && wallet.connection && wallet.connected) {
         try {
           const programId = new PublicKey(process.env.EXPO_PUBLIC_PROGRAM_ID || 'GhESwjzEv3C3qKQJKjAfhaq5GFK5vDLaku8tPqCKGzYR');
@@ -256,46 +259,45 @@ export default function QuizScreen({ navigation }: any) {
           // Submit quiz result to blockchain
           console.log('Submitting quiz to blockchain...');
           await quizService.submitQuiz(wallet.publicKey, true, wallet.authToken);
-          showToast(`Perfect! You earned ${QUIZ_REWARD} SOL! Go to Rewards to claim.`, 'success');
           
-          setCanPlayQuiz(false);
-          updateCooldownTime(QUIZ_COOLDOWN);
+          showToast(`Perfect! You earned ${QUIZ_REWARD} SOL! Go to Rewards to claim.`, 'success');
         } catch (error: any) {
           console.error('Blockchain submission error:', error);
           
-          // Show user-friendly error message
+          // Show user-friendly error message but still keep local reward
           if (error.message?.includes('Network request failed')) {
-            showToast('Network error. Check your connection and try claiming reward later.', 'error');
+            showToast(`Perfect! Reward saved. Network error - claim later.`, 'success');
           } else if (error.message?.includes('CooldownNotExpired')) {
             showToast('You already completed quiz today. Come back in 24 hours!', 'error');
+            // Remove local reward if cooldown not expired
+            await AsyncStorage.removeItem('pending_quiz_reward');
           } else if (error.message?.includes('cancelled')) {
-            showToast('Transaction cancelled. You can claim reward later.', 'info');
+            showToast(`Perfect! You earned ${QUIZ_REWARD} SOL! Go to Rewards to claim.`, 'success');
           } else {
-            showToast(`Perfect score! ${error.message || 'Blockchain error - try claiming later'}`, 'info');
+            showToast(`Perfect! You earned ${QUIZ_REWARD} SOL! Go to Rewards to claim.`, 'success');
           }
         }
       } else {
-        showToast(`Perfect score! Connect wallet to earn ${QUIZ_REWARD} SOL rewards.`, 'success');
+        showToast(`Perfect! You earned ${QUIZ_REWARD} SOL! Go to Rewards to claim.`, 'success');
       }
+      
+      setCanPlayQuiz(false);
+      updateCooldownTime(QUIZ_COOLDOWN);
     } else {
+      // Store incomplete quiz locally, don't submit to blockchain
       setBackgroundImage(QUIZ_IMAGES.loose);
       
-      // Still try to submit to blockchain even if not perfect (for stats)
-      if (wallet.publicKey && wallet.connection && wallet.connected) {
-        try {
-          const programId = new PublicKey(process.env.EXPO_PUBLIC_PROGRAM_ID || 'GhESwjzEv3C3qKQJKjAfhaq5GFK5vDLaku8tPqCKGzYR');
-          const quizService = new QuizService(wallet.connection, programId);
-          const quizState = await quizService.getQuizState(wallet.publicKey);
-          if (!quizState) {
-            await quizService.initializeQuiz(wallet.publicKey, wallet.authToken);
-          }
-          await quizService.submitQuiz(wallet.publicKey, false, wallet.authToken);
-          console.log('Quiz stats submitted to blockchain');
-        } catch (error) {
-          console.error('Error submitting quiz stats:', error);
-          // Don't show error to user for failed attempts
-        }
-      }
+      // Store locally only - no blockchain submission for incomplete quiz
+      await AsyncStorage.setItem('last_quiz_attempt', JSON.stringify({
+        score: finalScore,
+        total: quizQuestions.length,
+        timestamp: Date.now()
+      }));
+      
+      showToast(`You got ${finalScore}/${quizQuestions.length}. Get all correct to earn rewards!`, 'info');
+      
+      setCanPlayQuiz(false);
+      updateCooldownTime(QUIZ_COOLDOWN);
     }
   };
 
@@ -525,17 +527,7 @@ export default function QuizScreen({ navigation }: any) {
                   </View>
                 )}
 
-                {/* DEBUG: Show correct answer for testing */}
-                {!showExplanation && (
-                  <View className="bg-yellow-500/20 border-2 border-yellow-500 rounded-xl p-4 mt-4">
-                    <Text style={{ fontFamily: 'Bangers' }} className="text-yellow-500 text-sm mb-1">
-                      🔍 TEST MODE - Correct Answer:
-                    </Text>
-                    <Text style={{ fontFamily: 'Bangers' }} className="text-white text-lg">
-                      {String.fromCharCode(65 + quizQuestions[currentQuestion]?.correctAnswer)} - {quizQuestions[currentQuestion]?.options[quizQuestions[currentQuestion]?.correctAnswer]}
-                    </Text>
-                  </View>
-                )}
+
               </View>
             )}
 

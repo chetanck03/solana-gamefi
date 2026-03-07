@@ -5,33 +5,79 @@ import { useWallet } from '../context/WalletContext';
 import { COLORS } from '../constants';
 import { PlayerProfile, Badge } from '../types';
 import { generateStarterFighters } from '../services/fighterService';
+import { LocalStatsService, PlayerStats } from '../services/localStatsService';
+import { LocalStreakService } from '../services/localStreakService';
+import { useFocusEffect } from '@react-navigation/native';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ navigation }: any) {
   const wallet = useWallet();
   const [profile, setProfile] = useState<PlayerProfile | null>(null);
+  const [localStats, setLocalStats] = useState<PlayerStats | null>(null);
+
+  // Reload stats when screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      const loadData = async () => {
+        if (wallet.connected && wallet.publicKey) {
+          const stats = await LocalStatsService.getPlayerStats();
+          const streak = await LocalStreakService.getStreak();
+          
+          setLocalStats(stats);
+          
+          const newProfile: PlayerProfile = {
+            publicKey: wallet.publicKey.toBase58(),
+            username: `Player_${wallet.publicKey.toBase58().slice(0, 4)}`,
+            xp: 0,
+            level: 1,
+            currentStreak: stats.currentStreak,
+            longestStreak: stats.longestStreak,
+            totalMatches: stats.totalMatches,
+            wins: stats.wins,
+            losses: stats.losses,
+            draws: stats.draws,
+            badges: [],
+            deck: generateStarterFighters(),
+            createdAt: Date.now(),
+          };
+          setProfile(newProfile);
+        }
+      };
+      
+      loadData();
+    }, [wallet.connected, wallet.publicKey])
+  );
 
   useEffect(() => {
     if (wallet.connected && wallet.publicKey) {
-      const newProfile: PlayerProfile = {
-        publicKey: wallet.publicKey.toBase58(),
-        username: `Player_${wallet.publicKey.toBase58().slice(0, 4)}`,
-        xp: 0,
-        level: 1,
-        currentStreak: 0,
-        longestStreak: 0,
-        totalMatches: 0,
-        wins: 0,
-        losses: 0,
-        draws: 0,
-        badges: [],
-        deck: generateStarterFighters(),
-        createdAt: Date.now(),
+      const loadData = async () => {
+        const stats = await LocalStatsService.getPlayerStats();
+        const streak = await LocalStreakService.getStreak();
+        
+        setLocalStats(stats);
+        
+        const newProfile: PlayerProfile = {
+          publicKey: wallet.publicKey!.toBase58(),
+          username: `Player_${wallet.publicKey!.toBase58().slice(0, 4)}`,
+          xp: 0,
+          level: 1,
+          currentStreak: stats.currentStreak,
+          longestStreak: stats.longestStreak,
+          totalMatches: stats.totalMatches,
+          wins: stats.wins,
+          losses: stats.losses,
+          draws: stats.draws,
+          badges: [],
+          deck: generateStarterFighters(),
+          createdAt: Date.now(),
+        };
+        setProfile(newProfile);
       };
-      setProfile(newProfile);
+      
+      loadData();
     }
   }, [wallet.connected]);
 
-  if (!wallet.connected || !profile) {
+  if (!wallet.connected || !profile || !localStats) {
     return (
       <View className="flex-1 bg-[#0a0a1a] items-center justify-center p-6">
         <Ionicons name="person-circle" size={80} color="#888" />
@@ -40,9 +86,7 @@ export default function ProfileScreen() {
     );
   }
 
-  const winRate = profile.totalMatches > 0 
-    ? Math.round((profile.wins / profile.totalMatches) * 100) 
-    : 0;
+  const winRate = LocalStatsService.calculateWinRate(localStats);
   const xpToNextLevel = 1000 - (profile.xp % 1000);
 
   return (
@@ -113,27 +157,67 @@ export default function ProfileScreen() {
 
         {/* Match Stats */}
         <View className="bg-[#1a1a2e] rounded-xl p-6 mb-6 border border-[#2a2a3e]">
-          <Text style={{ fontFamily: 'Bangers' }} className="text-white text-xl font-bold mb-4">Match Statistics</Text>
+          <Text style={{ fontFamily: 'Bangers' }} className="text-white text-2xl mb-5">Match Statistics</Text>
           
-          <View className="flex-row justify-around">
-            <View className="items-center">
-              <Ionicons name="trophy" size={32} color="#14F195" />
-              <Text style={{ fontFamily: 'Bangers' }} className="text-[#14F195] text-2xl font-bold mt-2">{profile.wins}</Text>
-              <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] text-xs">Wins</Text>
+          {localStats.totalMatches > 0 ? (
+            <View>
+              {/* Win Rate Circle */}
+              <View className="items-center mb-6">
+                <View className="relative items-center justify-center mb-3">
+                  <View 
+                    className="w-32 h-32 rounded-full items-center justify-center"
+                    style={{
+                      backgroundColor: 'rgba(20, 241, 149, 0.1)',
+                      borderWidth: 6,
+                      borderColor: '#14F195',
+                    }}
+                  >
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-[#14F195] text-4xl">
+                      {winRate}%
+                    </Text>
+                    <Text style={{ fontFamily: 'Bangers' }} className="text-white text-sm">Win Rate</Text>
+                  </View>
+                </View>
+              </View>
+
+              {/* Stats Grid */}
+              <View className="flex-row justify-between mb-4">
+                <View className="flex-1 items-center bg-[#0a0a1a] rounded-xl p-4 mr-2">
+                  <Ionicons name="trophy" size={28} color="#14F195" />
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-[#14F195] text-3xl mt-2">{localStats.wins}</Text>
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-sm">Wins</Text>
+                </View>
+                
+                <View className="flex-1 items-center bg-[#0a0a1a] rounded-xl p-4 ml-2">
+                  <Ionicons name="close-circle" size={28} color="#FF6B6B" />
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-[#FF6B6B] text-3xl mt-2">{localStats.losses}</Text>
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-sm">Losses</Text>
+                </View>
+              </View>
+
+              <View className="flex-row justify-between">
+                <View className="flex-1 items-center bg-[#0a0a1a] rounded-xl p-4 mr-2">
+                  <Ionicons name="remove-circle" size={28} color="#888" />
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-white text-3xl mt-2">{localStats.draws}</Text>
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-sm">Draws</Text>
+                </View>
+                
+                <View className="flex-1 items-center bg-[#0a0a1a] rounded-xl p-4 ml-2">
+                  <Ionicons name="game-controller" size={28} color="#9945FF" />
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-white text-3xl mt-2">{localStats.totalMatches}</Text>
+                  <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-sm">Total</Text>
+                </View>
+              </View>
             </View>
-            
-            <View className="items-center">
-              <Ionicons name="close-circle" size={32} color="#FF4444" />
-              <Text style={{ fontFamily: 'Bangers' }} className="text-[#FF4444] text-2xl font-bold mt-2">{profile.losses}</Text>
-              <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] text-xs">Losses</Text>
+          ) : (
+            <View className="items-center py-8">
+              <View className="w-24 h-24 bg-[#2a2a3e] rounded-full items-center justify-center mb-4">
+                <Ionicons name="game-controller-outline" size={48} color="#555" />
+              </View>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-gray-400 text-center text-xl">No matches yet</Text>
+              <Text style={{ fontFamily: 'Bangers' }} className="text-gray-500 text-sm mt-2">Start your first battle!</Text>
             </View>
-            
-            <View className="items-center">
-              <Ionicons name="remove-circle" size={32} color="#888" />
-              <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] text-2xl font-bold mt-2">{profile.draws}</Text>
-              <Text style={{ fontFamily: 'Bangers' }} className="text-[#888] text-xs">Draws</Text>
-            </View>
-          </View>
+          )}
         </View>
 
         {/* Card Collection */}
@@ -185,7 +269,10 @@ export default function ProfileScreen() {
         {/* Disconnect Button */}
         <TouchableOpacity
           className="bg-[#FF4444] rounded-xl p-4 flex-row items-center justify-center"
-          onPress={() => wallet.disconnect()}
+          onPress={() => {
+            wallet.disconnect();
+            navigation.navigate('Home');
+          }}
         >
           <Ionicons name="log-out" size={20} color="white" />
           <Text style={{ fontFamily: 'Bangers' }} className="text-white font-bold ml-2">Disconnect Wallet</Text>

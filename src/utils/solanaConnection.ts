@@ -3,7 +3,6 @@ import { Connection, ConnectionConfig } from '@solana/web3.js';
 const RPC_ENDPOINTS = [
   process.env.EXPO_PUBLIC_SOLANA_RPC_URL || 'https://api.devnet.solana.com',
   'https://rpc.ankr.com/solana_devnet',
-  'https://devnet.helius-rpc.com',
 ];
 
 const CONNECTION_CONFIG: ConnectionConfig = {
@@ -51,8 +50,9 @@ export function createSolanaConnection(): Connection {
  */
 export async function testConnection(connection: Connection): Promise<boolean> {
   try {
-    const version = await connection.getVersion();
-    console.log('Solana RPC connected. Version:', version);
+    // Use getSlot instead of getVersion - more reliable across RPC providers
+    const slot = await connection.getSlot();
+    console.log('Solana RPC connected. Current slot:', slot);
     return true;
   } catch (error) {
     console.error('Failed to connect to Solana RPC:', error);
